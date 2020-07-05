@@ -1,0 +1,16 @@
+name: build
+
+on:
+  repository_dispatch:
+    types: ["trigger-event"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run build
+        run: |
+          echo "github sha is ${github.sha}"
+          echo "id is ${github.event.client_payload.id}"
+          echo "integration is ${github.event.client_payload.integration}"
