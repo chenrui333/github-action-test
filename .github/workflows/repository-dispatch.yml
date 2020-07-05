@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: run build
         run: |
-          echo "github sha is ${github.sha}"
-          echo "id is ${github.event.client_payload.id}"
-          echo "integration is ${github.event.client_payload.integration}"
+          echo "github sha is ${{ github.sha }}"
+          echo "id is ${{ github.event.client_payload.id }}"
+          echo "integration is ${{ github.event.client_payload.integration }}"
