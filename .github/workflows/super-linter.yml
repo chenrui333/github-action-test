@@ -1,0 +1,12 @@
+# https://github.com/github/super-linter
+name: super-linter
+
+on: [ push, pull_request ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Code Base
+        uses: docker://github/super-linter:v3
