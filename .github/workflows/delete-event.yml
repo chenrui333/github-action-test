@@ -1,0 +1,15 @@
+name: test delete event
+
+# Runs your workflow anytime someone deletes a `branch` or `tag`, which triggers the `delete` event.
+on:
+  delete
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run build
+        run: |
+          echo "GITHUB_SHA is ${{ github.sha }}"
+          echo "GITHUB_REF is ${{ github.ref }}"
