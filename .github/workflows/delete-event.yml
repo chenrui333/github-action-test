@@ -1,4 +1,4 @@
-name: test delete event
+name: delete-event
 
 # Runs your workflow anytime someone deletes a `branch` or `tag`, which triggers the `delete` event.
 on:
