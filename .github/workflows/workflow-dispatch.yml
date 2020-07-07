@@ -1,0 +1,21 @@
+name: workflow-dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      time_window:
+        description: 'Job Time Range'
+        required: true
+        default: '--twoDayWindow'
+      manual:
+        description: 'Set this if you are running the job manually.'
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "Job time range arg: ${{ github.event.inputs.time_window }}"
+          echo "Job run manually?: ${{ github.event.inputs.manual }}"
