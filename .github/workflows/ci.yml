@@ -7,9 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: populate environment
+        run: |
+          echo "::set-env name=CI::\"github\""
+          echo "::set-env name=BUILD_NUMBER::${{ github.run_id }}"
       - name: run build
         run: |
           echo "::set-env name=GITHUB_REF::${{ github.ref }}"
           echo "old GITHUB_REF is $GITHUB_REF"
           GITHUB_REF=$(echo $GITHUB_REF | sed -e "s#refs/heads/##g")
           echo "new GITHUB_REF is $GITHUB_REF"
+      - name: display environment
+        run: |
+          echo "CI is $CI"
+          echo "Build number is $BUILD_NUMBER"
