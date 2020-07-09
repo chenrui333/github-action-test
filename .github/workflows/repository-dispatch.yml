@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: run build
+        if: github.event_name == 'trigger-event'
         run: |
           echo "github sha is ${{ github.sha }}"
           echo "id is ${{ github.event.client_payload.id }}"
