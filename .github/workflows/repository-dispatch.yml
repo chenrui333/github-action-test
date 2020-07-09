@@ -36,4 +36,6 @@ jobs:
       - name: show id
         run: |
           echo "test environment ID used cross jobs"
+          # `::set-env` would be only effective for variable within the job, not across the jobs
+          # this would output `id is `
           echo "id is $ID"
