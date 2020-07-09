@@ -28,3 +28,12 @@ jobs:
         run: |
           echo "id is $ID"
           echo "integration is ${{ github.event.client_payload.integration }}"
+  show-id:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+      - name: show id
+        run: |
+          echo "test environment ID used cross jobs"
+          echo "id is $ID"
