@@ -19,9 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: show context
+        run: |
+          echo "github sha is ${{ github.sha }}"
+          echo "github.event is ${{ github.event }}"
+          echo "github.event_name is ${{ github.event_name }}"
       - name: run build
         if: github.event_name == 'trigger-event'
         run: |
-          echo "github sha is ${{ github.sha }}"
           echo "id is ${{ github.event.client_payload.id }}"
           echo "integration is ${{ github.event.client_payload.integration }}"
