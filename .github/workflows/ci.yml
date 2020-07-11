@@ -12,6 +12,9 @@ jobs:
         timeout-minutes: 5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          # add sleep for wait check
+          sleep 90
       - name: populate environment
         run: |
           echo "::set-env name=CI::\"github\""
