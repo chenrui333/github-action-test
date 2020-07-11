@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Wait for Previous Deployment
+        uses: softprops/turnstyle@v1
+        timeout-minutes: 5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: populate environment
         run: |
           echo "::set-env name=CI::\"github\""
