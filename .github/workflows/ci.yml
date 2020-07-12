@@ -28,7 +28,8 @@ jobs:
           then
             echo "linux operations"
             echo "::set-env name=OS_VAR::linux"
-          elif ${{ runner.OS }} == "macOS "
+          elif ${{ runner.OS }} == "macOS"
+          then
             echo "macOS operations"
             echo "::set-env name=OS_VAR::macOS"
           fi
