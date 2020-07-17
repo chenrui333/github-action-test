@@ -1,0 +1,23 @@
+name: zap-scan google.com
+on:
+  push:
+    paths:
+      - .github/workflows/zap-lp-pro.yml
+      - .github/workflows/zap-rules/rules.tsv
+  workflow_dispatch:
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan ZAP website
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: 'https://www.google.com'
+          rules_file_name: '.github/workflows/zap-rules/rules.tsv'
