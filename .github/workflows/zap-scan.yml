@@ -1,4 +1,4 @@
-name: zap-scan
+name: zap-scan meetup blog
 
 on:
   push:
