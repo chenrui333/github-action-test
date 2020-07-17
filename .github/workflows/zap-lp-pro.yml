@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/zap-lp-pro.yml
+      - .github/workflows/zap-rules/rules.tsv
   workflow_dispatch:
 
 jobs:
