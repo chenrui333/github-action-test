@@ -9,7 +9,10 @@ on:
 
 jobs:
   zap_scan:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+    runs-on: ${{ matrix.os }}
     name: Scan ZAP website
     steps:
       - name: Checkout
