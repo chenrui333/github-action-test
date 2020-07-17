@@ -2,7 +2,7 @@ name: zap-scan google.com
 on:
   push:
     paths:
-      - .github/workflows/zap-lp-pro.yml
+      - .github/workflows/zap-scan-google.yml
       - .github/workflows/zap-rules/rules.tsv
   workflow_dispatch:
 
