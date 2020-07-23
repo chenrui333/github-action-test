@@ -1,8 +1,8 @@
-name: zap-scan google.com
+name: zap-scan facebook.com
 on:
   push:
     paths:
-      - .github/workflows/zap-scan-google.yml
+      - .github/workflows/zap-scan-facebook.yml
       - .github/workflows/zap-rules/rules.tsv
   workflow_dispatch:
 
