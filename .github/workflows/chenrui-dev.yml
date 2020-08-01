@@ -1,0 +1,11 @@
+name: chenrui.dev site check
+
+on:
+  schedule:
+    -  "*/1 * * * *"
+
+jobs:
+  site-check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: wget https:chenrui.dev
