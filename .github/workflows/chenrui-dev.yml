@@ -2,7 +2,7 @@ name: chenrui.dev site check
 
 on:
   schedule:
-    -  "*/1 * * * *"
+    - cron:  '*/1 * * * *'
 
 jobs:
   site-check:
