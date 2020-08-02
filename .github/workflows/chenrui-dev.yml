@@ -8,4 +8,5 @@ jobs:
   site-check:
     runs-on: ubuntu-latest
     steps:
-      - run: wget https:chenrui.dev
+      - name: test site
+        run: wget https://chenrui.dev
