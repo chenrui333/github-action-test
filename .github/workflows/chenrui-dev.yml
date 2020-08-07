@@ -1,4 +1,4 @@
-name: https://chenrui.dev site check
+name: chenrui.dev site check
 
 on:
   schedule:
