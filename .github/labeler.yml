@@ -1,0 +1,5 @@
+workflows:
+  - '.github/workflows/**/*'
+
+scripts:
+  - 'scripts/**'
