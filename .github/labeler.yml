@@ -1,5 +1,7 @@
 workflows:
+  - '.github/workflows/*'
   - '.github/workflows/**/*'
 
 scripts:
-  - 'scripts/**'
+  - 'scripts/*'
+  - 'scripts/**/*'
