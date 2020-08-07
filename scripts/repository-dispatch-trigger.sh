@@ -11,4 +11,6 @@ main() {
     --data "{\"event_type\":\"trigger-event\",\"client_payload\":{\"id\":\"$id\", \"unit\":false,\"integration\":true}}"
 }
 
+
+
 main "$@"
