@@ -1,4 +1,4 @@
-name: Rust Formulae Bump
+name: rust-formulae-bump
 
 on:
   schedule:
