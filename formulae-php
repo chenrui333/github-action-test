@@ -1,0 +1,12 @@
+brew-php-switcher
+composer
+deployer
+easyengine
+php-code-sniffer
+php-cs-fixer
+phplint
+phpmd
+phpmyadmin
+phpstan
+phpunit
+wp-cli
