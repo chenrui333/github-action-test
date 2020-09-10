@@ -2,6 +2,7 @@ atlantis
 awsweeper
 cdktf
 iam-policy-json-to-terraform
+infracost
 microplane
 terraform_landscape
 terraform-docs
@@ -17,5 +18,6 @@ terraforming
 terragrunt
 terrahelp
 terrahub
+terrascan
 tfenv
 tflint
