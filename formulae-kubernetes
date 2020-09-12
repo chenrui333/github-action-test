@@ -12,6 +12,7 @@ helm@2
 helmfile
 helmsman
 istio
+k3d
 k9s
 kedge
 kind
