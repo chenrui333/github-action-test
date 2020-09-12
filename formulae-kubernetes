@@ -3,7 +3,11 @@ argocd
 aws-iam-authenticator
 click
 consul
+consul-backinator
+consul-template
 devspace
+envconsul
+fabio
 fluxctl
 glooctl
 gofabric8
