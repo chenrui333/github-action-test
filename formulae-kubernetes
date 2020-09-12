@@ -11,7 +11,7 @@ helm
 helm@2
 helmfile
 helmsman
-istio
+istioctl
 k3d
 k9s
 kedge
