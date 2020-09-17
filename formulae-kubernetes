@@ -43,10 +43,12 @@ fabio
 fluxctl
 glooctl
 gofabric8
+hadolint
 helm
 helm@2
 helmfile
 helmsman
+infrakit
 istioctl
 k3d
 k9s
@@ -79,6 +81,7 @@ minio
 octant
 okteto
 operator-sdk
+pumba
 rancher-compose
 reg
 riff
