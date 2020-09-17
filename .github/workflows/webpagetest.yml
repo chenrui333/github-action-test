@@ -1,0 +1,13 @@
+name: Run Webpagetest
+
+on: push
+
+jobs:
+  webPageTestActions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: JCofman/webPagetestAction@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEST_URL: https://example.com
+          WEBPAGETEST_API_KEY: ${{ secrets.WEBPAGETEST_API_KEY }}
