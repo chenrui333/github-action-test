@@ -9,5 +9,5 @@ jobs:
       - uses: JCofman/webPagetestAction@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TEST_URL: https://example.com
+          TEST_URL: https://meetup.com
           WEBPAGETEST_API_KEY: ${{ secrets.WEBPAGETEST_API_KEY }}
