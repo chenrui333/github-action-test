@@ -56,7 +56,15 @@ metabase
 nativefier
 netlify-cli
 newman
+node-build
 node-sass
+node
+node@10
+node@12
+node_exporter
+nodebrew
+nodeenv
+nodenv
 now-cli
 octant
 pnpm
