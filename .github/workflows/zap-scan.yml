@@ -16,16 +16,18 @@ jobs:
           pip3 install --upgrade pip github3.py
       - name: run zap baseline scan
         id: scan
-        run: zap-baseline.py -t https://selfservice-dev.pathfinder.gov.bc.ca/ -g .github/workflows/zap-rules/rules.tsv -r zapdevreport.html || echo 0
+        run: |
+          zap-baseline.py -t https://selfservice-dev.pathfinder.gov.bc.ca/ -g .github/workflows/zap-rules/rules.tsv -w zapdevreport.md || echo 0
+          echo "::set-output name=text::$(/zap/wrk/zapdevreport.md)";
       - run: |
           pwd && ls -l /zap/wrk/
-          cat /zap/wrk/zapdevreport.html
+          cat /zap/wrk/zapdevreport.md
           apt-get update && apt-get install -q -y bsd-mailx
-          echo "ZAP Scan Report" | mailx -s "ZAP Scan Report" -r "rui@meetup.com" -a /zap/wrk/zapdevreport.html rui@meetup.com
+          echo "ZAP Scan Report" | mailx -s "ZAP Scan Report" -r "rui@meetup.com" -a /zap/wrk/zapdevreport.md rui@meetup.com
 
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v2
         env:
-          PLAN: "${{ steps.scan.outputs.stdout }}"
+          PLAN: "${{ steps.scan.outputs.text }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -33,6 +35,7 @@ jobs:
             \`\`\`${process.env.PLAN}\`\`\`
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*
             </details>`;
+
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
