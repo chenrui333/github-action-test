@@ -15,7 +15,7 @@ jobs:
           pip install --upgrade pip github3.py
           pip3 install --upgrade pip github3.py
       - name: run zap baseline scan
-        run: zap-baseline.py -t https://selfservice-dev.pathfinder.gov.bc.ca/ -g gen.conf -r zapdevreport.html || echo 0
+        run: zap-baseline.py -t https://selfservice-dev.pathfinder.gov.bc.ca/ -g .github/workflows/zap-rules/rules.tsv -r zapdevreport.html || echo 0
       - run: |
           pwd && ls -l /zap/wrk/
           cat /zap/wrk/zapdevreport.html
