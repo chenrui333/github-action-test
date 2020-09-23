@@ -24,7 +24,6 @@ jobs:
           echo "ZAP Scan Report" | mailx -s "ZAP Scan Report" -r "rui@meetup.com" -a /zap/wrk/zapdevreport.html rui@meetup.com
 
       - uses: actions/github-script@0.9.0
-        if: github.event_name == 'pull_request'
         env:
           PLAN: "${{ steps.scan.outputs.stdout }}"
         with:
