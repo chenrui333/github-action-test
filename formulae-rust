@@ -79,6 +79,7 @@ rbspy
 ripgrep-all
 ripgrep
 rust-analyzer
+rustscan
 rustup-init
 saltwater
 sccache
@@ -106,6 +107,7 @@ tokei
 topgrade
 tre-command
 uutils-coreutils
+vivid
 volta
 wagyu
 wapm
