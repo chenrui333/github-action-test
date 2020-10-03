@@ -12,6 +12,7 @@ cargo-c
 cargo-instruments
 choose-rust
 click
+cloudformation-guard
 cmdshelf
 cobalt
 deno
