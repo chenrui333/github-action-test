@@ -4,6 +4,9 @@ deployer
 easyengine
 php-code-sniffer
 php-cs-fixer
+php
+php@7.2
+php@7.3
 phplint
 phpmd
 phpmyadmin
