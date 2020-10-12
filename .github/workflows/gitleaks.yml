@@ -1,0 +1,19 @@
+name: gitleaks
+
+on:
+  push:
+    branches:
+      - 'gitleaks'
+  # schedule:
+  #   # every Tuesday noon (utc time)
+  #   - cron:  '0 12 * * 0'
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: gitleaks-action
+        uses: zricethezav/gitleaks-action@master
