@@ -1,3 +1,5 @@
+
+
 bmake
 exploitdb
 faiss
@@ -5,6 +7,7 @@ geph2
 hebcal
 juju
 keydb
+libjwt
 libphonenumber
 libraw
 liquibase
@@ -27,6 +30,8 @@ translate-toolkit
 txr
 vala
 vifm
+whalebrew
+xcb-proto
 xgboost
 xorgproto
 xpa

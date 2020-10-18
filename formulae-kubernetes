@@ -1,3 +1,4 @@
+
 argo
 argocd
 aws-elasticbeanstalk
@@ -40,6 +41,7 @@ dockward
 dvm
 envconsul
 fabio
+fluent-bit
 fluxctl
 glooctl
 gofabric8
