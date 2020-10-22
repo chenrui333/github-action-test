@@ -3,7 +3,7 @@ name: perl-test
 on:
   push:
     branches:
-      - 'gitleaks'
+      - 'perl-test'
   workflow_dispatch:
 
 jobs:
