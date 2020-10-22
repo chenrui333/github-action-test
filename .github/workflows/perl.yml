@@ -19,7 +19,9 @@ jobs:
           sudo apt-get install -y libberkeleydb-perl
           ## perl deps
           cpanm -i HTML::Strip::Whitespace
-      - run: |
+          perl -MCPAN -e 'install BDB'
+      - name: run html_opt.pl
+        run: |
           echo "Optimizing..."
           .github/workflows/scripts/html_opt.pl -d . || {
               echo "Optimize failed"
