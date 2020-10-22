@@ -16,13 +16,13 @@ jobs:
           perl-version: '5.32'
       - name: Install perl dependencies for html_opt.pl
         run: |
-          sudo apt-get install -y libberkeleydb-perl
+          sudo apt-get install -y libdb5.1 libberkeleydb-perl
           ## perl deps
           cpanm -i HTML::Strip::Whitespace
           perl -MCPAN -e 'install BDB'
-      - name: Install BerkeleyDB.pm
-        run: |
-          cpanm -i BerkeleyDB
+      # - name: Install BerkeleyDB.pm
+      #   run: |
+      #     cpanm -i BerkeleyDB
       - name: run html_opt.pl
         run: |
           echo "Optimizing..."
