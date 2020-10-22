@@ -1,0 +1,26 @@
+name: perl-test
+
+on:
+  push:
+    branches:
+      - 'gitleaks'
+  workflow_dispatch:
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.32'
+      - name: Install perl dependencies for html_opt.pl
+        run: |
+          ## perl deps
+          cpanm -i HTML::Strip::Whitespace BerkeleyDB
+      - run: |
+          echo "Optimizing..."
+          .github/workflows/scripts/html_opt.pl -d . || {
+              echo "Optimize failed"
+              exit 1
+          }
