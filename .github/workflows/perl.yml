@@ -16,8 +16,9 @@ jobs:
           perl-version: '5.32'
       - name: Install perl dependencies for html_opt.pl
         run: |
+          sudo apt-get install -y libberkeleydb-perl
           ## perl deps
-          cpanm -i HTML::Strip::Whitespace BerkeleyDB
+          cpanm -i HTML::Strip::Whitespace
       - run: |
           echo "Optimizing..."
           .github/workflows/scripts/html_opt.pl -d . || {
