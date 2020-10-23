@@ -3,7 +3,6 @@
 bmake
 exploitdb
 faiss
-geph2
 hebcal
 juju
 keydb
@@ -15,9 +14,7 @@ mavsdk
 mrboom
 ncmpc
 netdata
-ory-hydra
 proteinortho
-protoc-gen-go
 pspg
 sentencepiece
 siril
@@ -30,7 +27,6 @@ translate-toolkit
 txr
 vala
 vifm
-whalebrew
 xcb-proto
 xgboost
 xorgproto
