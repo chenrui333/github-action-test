@@ -17,7 +17,8 @@ jobs:
       - name: Install perl dependencies for html_opt.pl
         run: |
           # sudo apt-get install -y libdb5.1 libberkeleydb-perl
-          sudo apt-get jq ant lbzip2 libglib2.0-dev default-libmysqlclient-dev libssl-dev \
+          sudo apt-get install -y \
+            jq ant lbzip2 libglib2.0-dev default-libmysqlclient-dev libssl-dev \
             nodejs pkg-config python-dev python-pip rsync ruby-dev \
             dh-autoreconf libcurl4-openssl-dev libberkeleydb-perl \
             cpanminus
