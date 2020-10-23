@@ -29,6 +29,12 @@ jobs:
       # - name: Install BerkeleyDB.pm
       #   run: |
       #     cpanm -i BerkeleyDB
+      - name: print out config
+        run: |
+          perl -v
+          cpanm -v
+          ls -al $(which perl)
+          ls -al $(which cpanm)
       - name: run html_opt.pl
         run: |
           echo "Optimizing..."
