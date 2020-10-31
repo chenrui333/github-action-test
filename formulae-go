@@ -18,6 +18,7 @@ aws-okta
 azcopy
 benthos
 bettercap
+bit-git
 bluepill
 buildkit
 cadence
@@ -56,6 +57,7 @@ faas-cli
 fabio
 filebeat
 flarectl
+fleet-cli
 fluxctl
 fn
 fork-cleaner
