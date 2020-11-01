@@ -2,9 +2,10 @@ brew-php-switcher
 composer
 deployer
 easyengine
+phive
+php
 php-code-sniffer
 php-cs-fixer
-php
 php@7.2
 php@7.3
 phplint

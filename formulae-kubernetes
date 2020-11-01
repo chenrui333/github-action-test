@@ -53,6 +53,7 @@ helmsman
 infrakit
 istioctl
 k3d
+k3sup
 k9s
 kedge
 kind
