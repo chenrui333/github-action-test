@@ -5,8 +5,12 @@ bmake
 ceres-solver
 conan
 dosbox-staging
+dosbox-x
 exploitdb
 faiss
+fossil
+fq
+fwup
 git-fresh
 hebcal
 hidapi
