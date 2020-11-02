@@ -11,34 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: shogo82148/actions-setup-perl@v1
+      - uses: actions/upload-artifact@v2
         with:
-          perl-version: '5.32'
-      - name: Install perl dependencies for html_opt.pl
-        run: |
-          # sudo apt-get install -y libdb5.1 libberkeleydb-perl
-          sudo apt-get install -y \
-            jq ant lbzip2 libglib2.0-dev default-libmysqlclient-dev libssl-dev \
-            nodejs pkg-config python-dev python-pip rsync ruby-dev \
-            dh-autoreconf libcurl4-openssl-dev libberkeleydb-perl \
-            cpanminus
-          sudo apt-get clean
-          ## perl deps
-          cpan -i HTML::Strip::Whitespace
-          cpan -i BerkeleyDB
-      # - name: Install BerkeleyDB.pm
-      #   run: |
-      #     cpanm -i BerkeleyDB
-      - name: print out config
-        run: |
-          perl -v
-          cpanm -v
-          ls -al $(which perl)
-          ls -al $(which cpanm)
-      - name: run html_opt.pl
-        run: |
-          echo "Optimizing..."
-          .github/workflows/scripts/html_opt.pl -d . || {
-              echo "Optimize failed"
-              exit 1
-          }
+          name: html_opt-artifact
+          path: .github/workflows/scripts/html_opt.pl
+
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir -p modules/code
+      - name: Download html_opt.pl
+        uses: actions/download-artifact@v2
+        with:
+          name: html_opt-artifact
+          path: modules/code
+      - run: ls -al modules/code/html_opt.pl
