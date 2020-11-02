@@ -27,7 +27,6 @@ jobs:
     needs: [upload]
     steps:
       - uses: actions/checkout@v2
-      - run: mkdir -p modules/code
 
       - name: Download html_opt.pl
         uses: actions/download-artifact@v2
@@ -45,12 +44,3 @@ jobs:
           path: modules/code
       - run: |
           cat modules/code/hello.txt
-
-
-      - name: Download html_opt.pl
-        uses: actions/download-artifact@v2
-        with:
-          name: hello.txt
-          path: modules/not-exist-path
-      - run: |
-          cat modules/not-exist-path/hello.txt
