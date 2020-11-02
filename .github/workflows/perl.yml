@@ -15,6 +15,11 @@ jobs:
         with:
           name: html_opt-artifact
           path: .github/workflows/scripts/html_opt.pl
+      - run: echo "hello" > hello.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: hello.txt
+          path: hello.txt
 
   download:
     runs-on: ubuntu-latest
@@ -26,4 +31,13 @@ jobs:
         with:
           name: html_opt-artifact
           path: modules/code
-      - run: ls -al modules/code/html_opt.pl
+      - run: |
+          ls -al modules/code/html_opt.pl
+          cat modules/code/html_opt.pl
+      - name: Download html_opt.pl
+        uses: actions/download-artifact@v2
+        with:
+          name: hello.txt
+          path: modules/code
+      - run: |
+          cat modules/code/hello.txt
