@@ -24,8 +24,8 @@ jobs:
             cpanminus
           sudo apt-get clean
           ## perl deps
-          cpanm -i HTML::Strip::Whitespace
-          perl -MCPAN -e 'install BDB'
+          cpan -i HTML::Strip::Whitespace
+          cpan -i BerkeleyDB
       # - name: Install BerkeleyDB.pm
       #   run: |
       #     cpanm -i BerkeleyDB
