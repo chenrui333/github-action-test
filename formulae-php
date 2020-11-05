@@ -13,4 +13,5 @@ phpmd
 phpmyadmin
 phpstan
 phpunit
+pickle
 wp-cli
