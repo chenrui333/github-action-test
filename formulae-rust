@@ -32,6 +32,7 @@ fblog
 fd
 ffsend
 findomain
+fnm
 fselect
 geckodriver
 genact
@@ -47,8 +48,8 @@ gleam
 gluon
 gnirehtet
 grex
-grin-wallet
 grin
+grin-wallet
 hexyl
 hyperfine
 inko
@@ -70,6 +71,7 @@ newsboat
 nushell
 oha
 onefetch
+ox
 oxipng
 pastel
 pngquant
@@ -78,8 +80,8 @@ pueue
 rargs
 rav1e
 rbspy
-ripgrep-all
 ripgrep
+ripgrep-all
 rust-analyzer
 rustscan
 rustup-init

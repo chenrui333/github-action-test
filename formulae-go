@@ -70,6 +70,7 @@ gauge
 geoipupdate
 geph2
 ghr
+git-lfs
 git-town
 github-markdown-toc
 github-release
@@ -90,6 +91,7 @@ heartbeat
 helmsman
 hey
 hub
+hugo
 influxdb
 inlets
 ipfs
