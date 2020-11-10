@@ -1,0 +1,18 @@
+name: "Test draft PR"
+
+on:
+  pull_request:
+    # trigger on PR against master branch
+    branches:
+      - master
+
+jobs:
+  check:
+    if: github.event.pull_request.draft == false
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: |
+          echo "test draft PR"
