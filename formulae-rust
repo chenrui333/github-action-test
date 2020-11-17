@@ -10,17 +10,22 @@ bingrep
 boringtun
 broot
 cargo-c
+cargo-edit
 cargo-instruments
+chars
 choose-rust
 click
 cloudformation-guard
 cmdshelf
 cobalt
+condure
 deno
 diesel
 diffr
 diskonaut
 diskus
+dog
+dotenv-linter
 dssim
 duckscript
 dust
@@ -32,6 +37,7 @@ fblog
 fd
 ffsend
 findomain
+flux
 fnm
 fselect
 geckodriver
@@ -47,6 +53,7 @@ gjs
 gleam
 gluon
 gnirehtet
+gping
 grex
 grin
 grin-wallet
@@ -67,6 +74,7 @@ meilisearch
 miniserve
 monolith
 navi
+ncspot
 newsboat
 nushell
 oha
@@ -82,6 +90,7 @@ rav1e
 rbspy
 ripgrep
 ripgrep-all
+rm-improved
 rust-analyzer
 rustscan
 rustup-init
@@ -103,6 +112,7 @@ ssh-permit-a38
 starship
 suricata
 svgcleaner
+taskwarrior-tui
 tealdeer
 tectonic
 texlab
