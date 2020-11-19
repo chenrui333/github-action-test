@@ -11,4 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo {{github.event.head_commit}}
+      - run: |
+          echo {{github.event.head_commit}}
