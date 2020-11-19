@@ -1,10 +1,13 @@
 abcmidi
+amqp-cpp
 arangodb
 arturo
 bmake
 botan
 ceres-solver
+checkov
 ckan
+cmake
 conan
 dcm2niix
 django-completion
