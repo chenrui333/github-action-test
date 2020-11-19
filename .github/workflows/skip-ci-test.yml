@@ -12,4 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo ${{github.event.head_commit}}
+          echo "HEAD_COMMIT is $HEAD_COMMIT"
+        env:
+          HEAD_COMMIT: ${{github.event.head_commit}}
