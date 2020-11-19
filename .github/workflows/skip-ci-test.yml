@@ -1,0 +1,14 @@
+name: skip-ci-test2
+
+on:
+  push:
+    branches:
+      - 'skip-ci-test2'
+  workflow_dispatch:
+
+jobs:
+  skip-ci-test2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo {{github.event.head_commit}}
