@@ -16,4 +16,5 @@ jobs:
       && !contains(github.event.pull_request.title, '[ci skip]')"
     steps:
       - uses: actions/checkout@v2
-      - run: echo {{github.event.head_commit}}
+      - run: |
+          echo {{github.event.head_commit}}
