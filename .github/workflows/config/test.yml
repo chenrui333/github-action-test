@@ -1,5 +1,5 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ${{ secrets.SECRET_CONFIG }}
-  namespace: ${{ NAMESPACE }}
+  name: {{ SECRET_CONFIG }}
+  namespace: {{ NAMESPACE }}

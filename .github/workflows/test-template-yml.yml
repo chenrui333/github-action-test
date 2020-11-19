@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: test site
-        run: cat .github/workflows/config/test.yml
+        run: |
+          sed -i "s|NAMESPACE|${NAMESPACE}|g" .github/workflows/config/test.yml
+          sed -i "s|SECRET_CONFIG|${{secrets.SECRET_CONFIG}}|g" .github/workflows/config/test.yml
+          cat .github/workflows/config/test.yml
         env:
           NAMESPACE: yaml-config-test
