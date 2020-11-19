@@ -1,0 +1,17 @@
+name: short-sha
+
+on:
+  push:
+    branches:
+      - 'short-sha'
+  workflow_dispatch:
+
+jobs:
+  short-sha:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "SHA8 is $SHA8"
+        env:
+          SHA8: ${GITHUB_SHA::8}
