@@ -1,0 +1,13 @@
+name: yaml-config-test
+
+on:
+  push:
+
+jobs:
+  yaml-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test site
+        run: cat .github/workflows/config/test.yml
+        env:
+          NAMESPACE: yaml-config-test
