@@ -2,8 +2,8 @@ name: misc-formulae-bump
 
 on:
   schedule:
-    # run daily 10:00AM EST
-    - cron: '0 10 * * *'
+    # Every 4 hours
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 jobs:
