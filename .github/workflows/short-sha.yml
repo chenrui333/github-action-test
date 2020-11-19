@@ -10,10 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: sha8
-        id: sha8
         run: echo "SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
       - run: |
           echo "SHA8 is $SHA8"
+          export JOB_ID=job-$SHA8
           echo "job-id is $JOB_ID"
-        with:
-          JOB_ID: "job-${{steps.sha8.outputs.SHA8}}"
