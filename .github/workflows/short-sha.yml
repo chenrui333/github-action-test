@@ -2,8 +2,6 @@ name: short-sha
 
 on:
   push:
-    branches:
-      - 'short-sha'
   workflow_dispatch:
 
 jobs:
