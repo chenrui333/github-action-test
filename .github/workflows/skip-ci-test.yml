@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo {{github.event.head_commit}}
+          echo ${{github.event.head_commit}}
