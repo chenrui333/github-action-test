@@ -15,3 +15,4 @@ jobs:
           cat .github/workflows/config/test.yml
         env:
           NAMESPACE: yaml-config-test
+      - run: .github/workflows/scripts/run.sh
