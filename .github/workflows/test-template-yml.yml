@@ -16,5 +16,8 @@ jobs:
         env:
           NAMESPACE: yaml-config-test
       - run: |
-          sed -i "s|AUTOBOT_API_KEY_BASE64|${{secrets.AUTOBOT_API_KEY_BASE64}}|g" .github/workflows/scripts/selenium/robot-e2e-secret.yml
+          # sed -i "s|AUTOBOT_API_KEY_BASE64|${{secrets.AUTOBOT_API_KEY_BASE64}}|g" .github/workflows/scripts/selenium/robot-e2e-secret.yml
           .github/workflows/scripts/run.sh
+        env:
+          AUTOBOT_API_KEY_BASE64: ${{secrets.AUTOBOT_API_KEY_BASE64}}
+          MASTER_PASSWORD_BASE64: ${{secrets.MASTER_PASSWORD_BASE64}}
