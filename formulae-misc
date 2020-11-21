@@ -46,6 +46,7 @@ libjwt
 liblinear
 libphonenumber
 libraw
+libtirpc
 libvirt
 libx11
 libxcb
@@ -110,6 +111,7 @@ vifm
 wtf
 xcb-proto
 xgboost
+xinput
 xorgproto
 xpa
 xsimd

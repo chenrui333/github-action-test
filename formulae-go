@@ -82,6 +82,7 @@ gobuster
 golang-migrate
 gomplate
 gopass
+gopls
 goreman
 gotags
 gowsdl
@@ -102,6 +103,7 @@ jvgrep
 k3d
 kcptun
 kibana
+kubecm
 kyma-cli
 lazygit
 lean-cli
@@ -149,6 +151,7 @@ tile38
 traefik
 tty-share
 ultralist
+v2ray
 vault
 vegeta
 wgcf
