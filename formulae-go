@@ -1,4 +1,5 @@
 act
+aerc
 algernon
 aliyun-cli
 alp
@@ -25,6 +26,7 @@ cadence
 calicoctl
 cartridge-cli
 certstrap
+cfn-format
 cfssl
 chamber
 chronograf
@@ -75,6 +77,7 @@ git-town
 github-markdown-toc
 github-release
 gitlab-runner
+glab
 glow
 go-jira
 go-md2man
@@ -84,6 +87,7 @@ gomplate
 gopass
 gopls
 goreman
+gosec
 gotags
 gowsdl
 gx
@@ -103,8 +107,10 @@ jvgrep
 k3d
 kcptun
 kibana
+kube-linter
 kubecm
 kyma-cli
+lab
 lazygit
 lean-cli
 lego

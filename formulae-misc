@@ -13,6 +13,7 @@ dcm2niix
 django-completion
 dosbox-staging
 dosbox-x
+easy-rsa
 elixir
 ensmallen
 esptool
@@ -25,6 +26,7 @@ fossil
 fq
 fwup
 git-fresh
+giza
 haproxy
 hebcal
 hidapi
@@ -39,6 +41,7 @@ kona
 latexindent
 libass
 libbluray
+libcap
 libgr
 libhandy
 libimagequant
@@ -46,10 +49,12 @@ libjwt
 liblinear
 libphonenumber
 libraw
+librttopo
 libtirpc
 libvirt
 libx11
 libxcb
+libxp
 liquibase
 lldpd
 lmdb
@@ -58,6 +63,7 @@ mariadb-connector-c
 mariadb-connector-odbc
 mavsdk
 mesa
+mesa-glu
 minipro
 mrboom
 mutt
@@ -68,6 +74,7 @@ openal-soft
 openrct2
 osm-pbf
 osrm-backend
+overdrive
 packetq
 pagmo
 pandocomatic
@@ -80,6 +87,7 @@ rain
 sentencepiece
 ser2net
 sha3sum
+showkey
 simdjson
 siril
 snap
@@ -105,16 +113,22 @@ tundra
 txr
 uncrustify
 up
+utf8cpp
 vala
 vcpkg
 vifm
 wtf
+xbitmaps
 xcb-proto
+xcb-util
 xgboost
 xinput
+xkeyboardconfig
 xorgproto
+xorgrgb
 xpa
 xsimd
 xtensor
+xterm
 yq
 zebra
