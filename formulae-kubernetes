@@ -38,7 +38,9 @@ dockerize
 dockviz
 dockward
 dvm
+eksctl
 envconsul
+envoy
 fabio
 fluent-bit
 fluxctl

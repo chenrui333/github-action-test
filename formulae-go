@@ -80,6 +80,7 @@ gitlab-runner
 glab
 glow
 go-jira
+go-jsonnet
 go-md2man
 gobuster
 golang-migrate
