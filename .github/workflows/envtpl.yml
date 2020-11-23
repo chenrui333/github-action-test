@@ -1,0 +1,25 @@
+name: envtpl
+
+on:
+  push:
+    branches:
+      - 'envtpl-template-test'
+  workflow_dispatch:
+
+jobs:
+  envtpl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get current date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - run:
+          pip install envtpl
+          .github/workflows/test.sh
+        env:
+          RELEASE: ${{ github.sha }}
+          ENVIRONMENT: prod
+          USER: ${{ github.actor }}
+          DATE: ${DATE}
