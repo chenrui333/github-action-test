@@ -1,0 +1,14 @@
+name: update-tlds
+
+on:
+  workflow_dispatch:
+  schedule:
+    # every month
+    - 0 0 * */1 *
+
+jobs:
+  update-tlds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "tests"
