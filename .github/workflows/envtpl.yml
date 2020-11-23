@@ -15,7 +15,7 @@ jobs:
       - name: Get current date
         run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - run:
+      - run: |
           pip install envtpl
           .github/workflows/test.sh
         env:
