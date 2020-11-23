@@ -16,8 +16,6 @@ template() {
 
 main() {
     TEMPLATE=$(template)
-
-    cat $TEMPLATE
 }
 
 time main
