@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # every month
-    - 0 0 * */1 *
+    - "0 0 * */1 *"
 
 jobs:
   update-tlds:
