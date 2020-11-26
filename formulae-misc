@@ -51,6 +51,7 @@ ibex
 innoextract
 jimtcl
 juju
+kcgi
 keydb
 kitchen-sync
 kona
@@ -63,6 +64,7 @@ libhandy
 libimagequant
 libjwt
 liblinear
+libmaa
 libphonenumber
 libraw
 librttopo
@@ -82,6 +84,7 @@ maxwell
 mesa
 mesa-glu
 minipro
+mk-configure
 mozjpeg
 mrboom
 mutt

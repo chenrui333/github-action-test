@@ -16,6 +16,7 @@ aurora
 aws-es-proxy
 aws-iam-authenticator
 aws-okta
+aws-rotate-key
 azcopy
 benthos
 bettercap
@@ -30,6 +31,7 @@ cfn-format
 cfssl
 chamber
 chronograf
+clash
 cli53
 clipper
 cointop
@@ -168,4 +170,5 @@ wsk
 wskdeploy
 wtfutil
 yaegi
+youtubedr
 zrepl
