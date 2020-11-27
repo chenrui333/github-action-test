@@ -17,6 +17,7 @@ cmake
 conan
 dcm2niix
 dfu-util
+dialog
 django-completion
 djview4
 djvulibre
@@ -29,6 +30,7 @@ esptool
 exploitdb
 faiss
 fennel
+fetchmail
 fmt
 fontforge
 fossil
@@ -45,6 +47,7 @@ gsoap
 haproxy
 hebcal
 hidapi
+hmmer
 hstr
 i2pd
 ibex
@@ -88,6 +91,7 @@ mk-configure
 mozjpeg
 mrboom
 mutt
+nanopb-generator
 naturaldocs
 ncmpc
 netdata
@@ -117,8 +121,10 @@ pspg
 psqlodbc
 pushpin
 qpid-proton
+qscintilla2
 quazip
 rain
+readosm
 sentencepiece
 ser2net
 sha3sum

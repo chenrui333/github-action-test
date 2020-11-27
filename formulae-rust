@@ -94,6 +94,7 @@ rm-improved
 rust-analyzer
 rustscan
 rustup-init
+safe-rm
 saltwater
 sccache
 sd
