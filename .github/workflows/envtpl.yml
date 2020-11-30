@@ -1,11 +1,11 @@
-name: envtpl
+name: envsubst
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  envtpl:
+  envsubst:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
