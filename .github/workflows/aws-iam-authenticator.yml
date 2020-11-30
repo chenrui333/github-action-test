@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: install aws-iam-authenticator
         run: |
-          sudo wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.2/aws-iam-authenticator_0.5.2_linux_amd64 \
-            -O /usr/local/bin/aws-iam-authenticator
+          wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.2/aws-iam-authenticator_0.5.2_linux_amd64 \
+            -O aws-iam-authenticator
+          sudo mv aws-iam-authenticator /usr/local/bin
       - name: test installation
         run: |
           aws-iam-authenticator version
@@ -21,8 +22,9 @@ jobs:
     steps:
       - name: install aws-iam-authenticator
         run: |
-          sudo wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.2/aws-iam-authenticator_0.5.2_darwin_amd64 \
-            -O /usr/local/bin/aws-iam-authenticator
+          wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.2/aws-iam-authenticator_0.5.2_darwin_amd64 \
+            -O aws-iam-authenticator
+          sudo mv aws-iam-authenticator /usr/local/bin
       - name: test installation
         run: |
           aws-iam-authenticator version
