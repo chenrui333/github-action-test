@@ -12,7 +12,9 @@ jobs:
         run: |
           wget -q https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.2/aws-iam-authenticator_0.5.2_linux_amd64 \
             -O aws-iam-authenticator
+          ls -al aws-iam-authenticator
           chmod +x aws-iam-authenticator
+          ls -al aws-iam-authenticator
           sudo mv aws-iam-authenticator /usr/local/bin
       - name: test installation
         run: |
