@@ -15,7 +15,8 @@ template() {
 }
 
 main() {
-    TEMPLATE=$(template)
+  echo "template is..."
+  TEMPLATE=$(template)
 }
 
 time main
