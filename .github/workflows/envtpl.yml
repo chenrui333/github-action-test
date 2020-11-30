@@ -2,8 +2,6 @@ name: envtpl
 
 on:
   push:
-    branches:
-      - 'envtpl-template-test'
   workflow_dispatch:
 
 jobs:
