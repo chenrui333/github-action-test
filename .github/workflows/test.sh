@@ -11,7 +11,7 @@ set -e
 
 template() {
     export TAG=$RELEASE
-    envtpl < .github/workflows/scripts/test.tpl
+    envsubst < .github/workflows/scripts/test.tpl
 }
 
 main() {
