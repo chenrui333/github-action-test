@@ -28,7 +28,6 @@ autodiff
 autopano-sift-c
 avro-c
 avro-cpp
-aws-sdk-cpp
 azure-storage-cpp
 ballerburg
 bamtools
