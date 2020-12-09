@@ -117,8 +117,10 @@ dockerize
 dockviz
 dockward
 doctl
+docui
 dolt
 drone-cli
+duf
 dvm
 earthly
 eksctl
@@ -157,6 +159,7 @@ gateway-go
 gau
 gauge
 gcsfuse
+gdm
 gdrive
 geoipupdate
 geph2
@@ -182,6 +185,7 @@ glab
 glooctl
 glow
 gmailctl
+go-bindata
 go-jira
 go-jsonnet
 go-md2man
@@ -193,6 +197,7 @@ gocryptfs
 gofabric8
 gofish
 golang-migrate
+golangci-lint
 gollum
 gomplate
 goofys
@@ -202,12 +207,15 @@ gopls
 gor
 goreleaser
 goreman
+gosec
 gost
 gostatic
 gotags
 gotop
 govc
 gowsdl
+gox
+gpm
 grafana
 gron
 groovyserv
@@ -274,6 +282,7 @@ ksync
 kube-aws
 kube-linter
 kubeaudit
+kubebuilder
 kubecfg
 kubecm
 kubeless
@@ -282,6 +291,7 @@ kubernetes-cli
 kubernetes-service-catalog-client
 kubeseal
 kubespy
+kubevela
 kumactl
 kustomize
 lab
@@ -299,6 +309,7 @@ logcli
 loki
 lunchy-go
 lxc
+mage
 mailhog
 massren
 megacmd
@@ -330,11 +341,13 @@ octant
 okteto
 opa
 openshift-cli
+operator-sdk
 ory-hydra
 osm
 overmind
 packer
 packetbeat
+packr
 path-extractor
 pdfcpu
 peco
@@ -397,6 +410,7 @@ source-to-image
 spaceinvaders-go
 ssh-vault
 ssllabs-scan
+staticcheck
 step
 stern
 stolon
@@ -411,9 +425,11 @@ tektoncd-cli
 teleconsole
 telegraf
 teleport
+tendermint
 tengo
 termshare
 termshark
+terraform
 terraform-docs
 terraform-inventory
 terraform-ls
