@@ -15,6 +15,7 @@ apache-forrest
 apache-geode
 apache-opennlp
 apache-spark
+apktool
 apollo
 app-engine-java
 artifactory
@@ -22,6 +23,7 @@ asciidoctorj
 aspectj
 atlassian-cli
 avian
+avro-tools
 aws-apigateway-importer
 aws-cfn-tools
 ballerina
@@ -82,6 +84,7 @@ fmpp
 fop
 frege
 frege-repl
+fuseki
 galen
 gcviewer
 git-credential-manager
@@ -117,6 +120,7 @@ javarepl
 jbake
 jboss-forge
 jdnssec-tools
+jena
 jenkins
 jenkins-lts
 jetty
@@ -140,12 +144,15 @@ kaitai-struct-compiler
 kamel
 kawa
 kettle
+kotlin
+ktlint
 kumo
 languagetool
 lcm
 leakcanary-shark
 libbluray
 libreadline-java
+liquibase
 liquigraph
 logstash
 mahout
