@@ -1,0 +1,20 @@
+name: workspace
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # - name: Setup node
+      #   uses: actions/setup-node@v2.1.2
+      #   with:
+      #     node-version: '4.9.1'
+      # - run: node .github/workflows/scripts/test.js
+      - name: test
+        run: |
+          RANDOM=`pwgen 13 1`
+          echo "random is $RANDOM"
