@@ -16,5 +16,5 @@ jobs:
       # - run: node .github/workflows/scripts/test.js
       - name: test
         run: |
-          RANDOM=`sudo cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1`
+          RANDOM="test$((RANDOM % 4))"
           echo "random is $RANDOM"
