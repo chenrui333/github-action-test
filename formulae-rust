@@ -113,6 +113,7 @@ ssh-permit-a38
 starship
 suricata
 svgcleaner
+t-rec
 taskwarrior-tui
 tealdeer
 tectonic
@@ -121,6 +122,7 @@ toast
 tokei
 topgrade
 tre-command
+tree-sitter
 trunk
 uutils-coreutils
 vivid
