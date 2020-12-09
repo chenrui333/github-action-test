@@ -16,5 +16,6 @@ jobs:
       # - run: node .github/workflows/scripts/test.js
       - name: test
         run: |
-          RANDOM="test$((RANDOM % 4))"
-          echo "random is $RANDOM"
+          RANDOM="$((RANDOM % 4))"
+          echo "::add-mask::$RANDOM"
+          echo "random is test$RANDOM"
