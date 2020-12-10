@@ -4,7 +4,9 @@ cdktf
 cloud-nuke
 iam-policy-json-to-terraform
 infracost
+inframap
 microplane
+terracognita
 terraform
 terraform_landscape
 terraform-docs

@@ -247,6 +247,7 @@ immudb
 influxdb
 infracost
 infrakit
+inframap
 inlets
 ioctl
 ironcli
@@ -429,6 +430,7 @@ tendermint
 tengo
 termshare
 termshark
+terracognita
 terraform
 terraform-docs
 terraform-inventory
