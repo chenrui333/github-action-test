@@ -1,0 +1,12 @@
+name: dir-test
+
+on:
+  push:
+
+jobs:
+  dir-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sh .github/workflows/scripts/test.sh
+      - run: .github/workflows/scripts/test.sh
