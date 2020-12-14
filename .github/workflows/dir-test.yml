@@ -13,3 +13,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: sh .github/workflows/scripts/test.sh
       - run: .github/workflows/scripts/test.sh
+      - run: bash --version
