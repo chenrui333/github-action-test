@@ -3,6 +3,9 @@ name: dir-test
 on:
   push:
 
+env:
+  WORKSPACE: ${{ github.workspace }}
+
 jobs:
   dir-test:
     runs-on: ubuntu-latest
