@@ -3,6 +3,8 @@ act
 aerc
 ahoy
 akamai
+algernon
+aliddns
 aliyun-cli
 alp
 amazon-ecs-cli
@@ -20,6 +22,7 @@ assh
 atlantis
 auditbeat
 aurora
+aws-console
 aws-es-proxy
 aws-iam-authenticator
 aws-okta
@@ -63,6 +66,7 @@ clash
 cli53
 clipper
 cloud-nuke
+cloudformation-cli
 cointop
 colfer
 collector-sidecar
@@ -79,7 +83,9 @@ coredns
 coreos-ct
 cortex
 cosi
+counterfeiter
 cql
+crane
 croc
 csvq
 ctop
@@ -89,6 +95,7 @@ dashing
 dbdeployer
 dbmate
 dcos-cli
+dep
 devd
 devdash
 devspace
@@ -99,6 +106,7 @@ dlite
 dnscontrol
 dnscrypt-proxy
 dnsprobe
+dnsx
 docker
 docker-credential-helper
 docker-credential-helper-ecr
@@ -119,10 +127,13 @@ dockward
 doctl
 docui
 dolt
+driftctl
 drone-cli
+dstask
 duf
 dvm
 earthly
+efm-langserver
 eksctl
 elvish
 emp
@@ -143,6 +154,7 @@ flarectl
 fleet-cli
 fleetctl
 flint-checker
+flow-cli
 flux
 fluxctl
 fn
@@ -161,6 +173,7 @@ gauge
 gcsfuse
 gdm
 gdrive
+gdu
 geoipupdate
 geph2
 gh
@@ -182,6 +195,7 @@ gitlab-runner
 gitleaks
 gitql
 glab
+glide
 glooctl
 glow
 gmailctl
@@ -196,6 +210,8 @@ gocloc
 gocryptfs
 gofabric8
 gofish
+gofumpt
+gojq
 golang-migrate
 golangci-lint
 gollum
@@ -205,6 +221,7 @@ goose
 gopass
 gopls
 gor
+goredo
 goreleaser
 goreman
 gosec
@@ -213,6 +230,7 @@ gostatic
 gotags
 gotop
 govc
+govendor
 gowsdl
 gox
 gpm
@@ -224,6 +242,7 @@ grpcurl
 grv
 gx
 gx-go
+h2spec
 hasura-cli
 hcloud
 heartbeat
@@ -235,6 +254,7 @@ helmsman
 hey
 hivemind
 hostess
+htmltest
 httpdiff
 httpx
 hub
@@ -272,9 +292,11 @@ kapacitor
 karn
 kcptun
 kedge
+keptn
 kepubify
 killswitch
 kind
+ko
 kompose
 kops
 krakend
@@ -324,8 +346,10 @@ minio-mc
 mkcert
 mmark
 mmctl
+mockery
 modd
 mpdviz
+muffet
 naabu
 nats-server
 nats-streaming-server
@@ -336,10 +360,12 @@ node_exporter
 nomad
 noti
 nsq
+nuclei
 oauth2_proxy
 oauth2l
 octant
 okteto
+ooniprobe
 opa
 openshift-cli
 operator-sdk
@@ -351,15 +377,17 @@ packetbeat
 packr
 path-extractor
 pdfcpu
+pdftilecut
 peco
 periscope
 perkeep
 pgweb
 piknik
 pilosa
+pkger
 podman
 powerline-go
-prest
+prestd
 prometheus
 promtail
 protoc-gen-go
@@ -409,6 +437,7 @@ sonobuoy
 sops
 source-to-image
 spaceinvaders-go
+sqlc
 ssh-vault
 ssllabs-scan
 staticcheck
@@ -421,6 +450,7 @@ sync_gateway
 syncthing
 talisman
 tanka
+tctl
 td
 tektoncd-cli
 teleconsole
@@ -472,7 +502,9 @@ vert
 vgrep
 virgil
 virustotal-cli
+vitess
 volt
+vsh
 vultr
 webify
 websocketd
@@ -490,4 +522,5 @@ yh
 yj
 youtubedr
 yq
+yq@3
 zrepl
