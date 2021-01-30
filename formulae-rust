@@ -9,12 +9,15 @@ bat
 bingrep
 boringtun
 broot
+cargo-audit
 cargo-c
 cargo-edit
 cargo-instruments
+cargo-watch
 chars
 choose-rust
 click
+cloudflare-wrangler
 cloudformation-guard
 cmdshelf
 cobalt
@@ -26,6 +29,7 @@ diskonaut
 diskus
 dog
 dotenv-linter
+dprint
 dssim
 duckscript
 dust
@@ -60,6 +64,7 @@ grin-wallet
 hexyl
 hyperfine
 inko
+jql
 just
 kondo
 ktmpl
@@ -77,6 +82,7 @@ navi
 ncspot
 newsboat
 nushell
+oakc
 oha
 onefetch
 ox

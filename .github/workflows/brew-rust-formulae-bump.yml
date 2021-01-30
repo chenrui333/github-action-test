@@ -2,8 +2,8 @@ name: rust-formulae-bump
 
 on:
   schedule:
-    # Every 6 hours
-    - cron: '1 */4 * * *'
+    # Every 2 hours
+    - cron: '1 */2 * * *'
   workflow_dispatch:
 
 jobs:
