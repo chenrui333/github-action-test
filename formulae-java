@@ -2,6 +2,7 @@ abcl
 activemq
 akka
 allure
+alluxio
 amdatu-bootstrap
 ammonite-repl
 ant
@@ -28,6 +29,7 @@ aws-apigateway-importer
 aws-cfn-tools
 ballerina
 basex
+batik
 bazel
 beagle
 beast
@@ -150,7 +152,7 @@ kumo
 languagetool
 lcm
 leakcanary-shark
-libbluray
+leiningen
 libreadline-java
 liquibase
 liquigraph
@@ -179,6 +181,7 @@ nifi-registry
 octave
 openapi-generator
 opentsdb
+orc-tools
 orientdb
 parquet-tools
 payara
