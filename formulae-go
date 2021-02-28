@@ -89,8 +89,10 @@ crane
 croc
 csvq
 ctop
+curlie
 cwlogs
 darksky-weather
+dasel
 dashing
 dbdeployer
 dbmate
@@ -310,6 +312,7 @@ kubecfg
 kubecm
 kubeless
 kubeprod
+kubergrunt
 kubernetes-cli
 kubernetes-service-catalog-client
 kubeseal
@@ -413,6 +416,7 @@ rke
 rqlite
 run
 s-search
+saml2aws
 sampler
 scc
 scmpuff
@@ -523,4 +527,5 @@ yj
 youtubedr
 yq
 yq@3
+yubikey-agent
 zrepl
