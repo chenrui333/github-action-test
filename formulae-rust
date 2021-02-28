@@ -1,5 +1,7 @@
 amp
 angle-grinder
+ansible
+ansible-lint
 asroute
 asuka
 b3sum
@@ -9,11 +11,13 @@ bat
 bingrep
 boringtun
 broot
+bzt
 cargo-audit
 cargo-c
 cargo-edit
 cargo-instruments
 cargo-watch
+charm-tools
 chars
 choose-rust
 click
@@ -27,6 +31,7 @@ diesel
 diffr
 diskonaut
 diskus
+docker-compose
 dog
 dotenv-linter
 dprint
@@ -39,6 +44,7 @@ exa
 fastmod
 fblog
 fd
+fdroidserver
 ffsend
 findomain
 flux
@@ -83,6 +89,7 @@ ncspot
 newsboat
 nushell
 oakc
+ocrmypdf
 oha
 onefetch
 ox
@@ -119,6 +126,7 @@ ssh-permit-a38
 starship
 suricata
 svgcleaner
+svtplay-dl
 t-rec
 taskwarrior-tui
 tealdeer
@@ -139,6 +147,7 @@ wasm-pack
 wasmer
 watchexec
 websocat
+xh
 xsv
 zenith
 zola
