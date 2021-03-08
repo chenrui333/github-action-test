@@ -36,7 +36,9 @@ bettercap
 bit-git
 bitrise
 bombadillo
+buildifier
 buildkit
+buildozer
 c14-cli
 cacli
 caddy
@@ -97,6 +99,7 @@ dashing
 dbdeployer
 dbmate
 dcos-cli
+delve
 dep
 devd
 devdash
@@ -372,6 +375,7 @@ ooniprobe
 opa
 openshift-cli
 operator-sdk
+oras
 ory-hydra
 osm
 overmind
