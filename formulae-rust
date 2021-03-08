@@ -11,6 +11,7 @@ bat
 bingrep
 boringtun
 broot
+buku
 bzt
 cargo-audit
 cargo-c
@@ -38,9 +39,11 @@ dprint
 dssim
 duckscript
 dust
+dvc
 eureka
 eva
 exa
+fabric
 fastmod
 fblog
 fd
@@ -52,7 +55,9 @@ fnm
 fselect
 geckodriver
 genact
+geph4
 gifski
+gimme-aws-creds
 git-absorb
 git-delta
 git-interactive-rebase-tool
@@ -71,6 +76,7 @@ hexyl
 hyperfine
 inko
 jql
+jrnl
 just
 kondo
 ktmpl
@@ -84,6 +90,7 @@ mdcat
 meilisearch
 miniserve
 monolith
+mycli
 navi
 ncspot
 newsboat
