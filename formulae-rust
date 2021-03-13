@@ -2,8 +2,13 @@ amp
 angle-grinder
 ansible
 ansible-lint
+ansible@2.8
+ansible@2.9
 asroute
 asuka
+aws-elasticbeanstalk
+aws-google-auth
+awscurl
 b3sum
 badtouch
 bandwhich
@@ -27,6 +32,7 @@ cloudformation-guard
 cmdshelf
 cobalt
 condure
+credstash
 deno
 diesel
 diffr
@@ -40,6 +46,7 @@ dssim
 duckscript
 dust
 dvc
+esptool
 eureka
 eva
 exa
@@ -50,6 +57,7 @@ fd
 fdroidserver
 ffsend
 findomain
+flintrock
 flux
 fnm
 fselect
@@ -89,6 +97,7 @@ mdbook
 mdcat
 meilisearch
 miniserve
+molecule
 monolith
 mycli
 navi
@@ -105,6 +114,7 @@ pastel
 pngquant
 procs
 pueue
+pwntools
 rargs
 rav1e
 rbspy
@@ -138,6 +148,7 @@ t-rec
 taskwarrior-tui
 tealdeer
 tectonic
+termius
 texlab
 toast
 tokei
@@ -156,6 +167,7 @@ watchexec
 websocat
 xh
 xsv
+ykman
 zenith
 zola
 zoxide
