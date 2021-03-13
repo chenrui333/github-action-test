@@ -224,6 +224,7 @@ gomplate
 goofys
 goose
 gopass
+gopass-jsonapi
 gopls
 gor
 goredo
@@ -525,6 +526,7 @@ wireguard-go
 wsk
 wskdeploy
 wtfutil
+xray
 yaegi
 yh
 yj
