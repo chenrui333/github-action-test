@@ -149,6 +149,7 @@ encfs
 ensmallen
 entityx
 envoy
+enzyme
 ettercap
 exiv2
 f3d
@@ -190,7 +191,6 @@ game-music-emu
 gammaray
 gammu
 gdcm
-geant4
 geogram
 geographiclib
 getdns
@@ -219,6 +219,7 @@ gromacs
 grpc
 grt
 grv
+gwenhywfar
 h2o
 h3
 hackrf
@@ -232,6 +233,7 @@ howard-hinnant-date
 hyperscan
 ibex
 icemon
+igraph
 ilmbase
 inadyn
 include-what-you-use
@@ -269,12 +271,14 @@ keystone
 khiva
 kim-api
 kitchen-sync
+klee
 known_hosts
 ktoblzcheck
 lapack
 lasi
 lastpass-cli
 laszip
+latino
 lc0
 lcm
 ldc
@@ -453,6 +457,8 @@ openfast
 openimageio
 openjpeg
 openkim-models
+openmama
+openmodelica
 openrct2
 opensubdiv
 opentracing-cpp
@@ -504,12 +510,21 @@ ptex
 pugixml
 pybind11
 pyside
+pyside@2
 qca
 qhull
 qjson
 qmmp
 qpid-proton
+qt
+qt-libiodbc
+qt-mariadb
+qt-mysql
+qt-percona-server
+qt-postgresql
+qt-unixodbc
 qtkeychain
+quazip
 quill
 qxmpp
 rabbitmq-c
@@ -518,6 +533,7 @@ rapidjson
 rawtoaces
 raxml-ng
 raylib
+rdkit
 re2
 rgf
 rocksdb
@@ -525,6 +541,7 @@ rofs-filtered
 root
 rp
 rtags
+rtl_433
 rttr
 rust
 s2geometry
@@ -607,6 +624,7 @@ urdfdom_headers
 uriparser
 utf8cpp
 vc
+vc4asm
 vcpkg
 vera++
 vgmstream
@@ -620,6 +638,7 @@ vtk
 vtk@8.2
 vulkan-headers
 wabt
+waffle
 wangle
 wasm3
 wasmer
