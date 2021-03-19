@@ -4,6 +4,7 @@ ansible
 ansible-lint
 ansible@2.8
 ansible@2.9
+as-tree
 asroute
 asuka
 aws-elasticbeanstalk
@@ -92,6 +93,7 @@ kubie
 librsvg
 loc
 lsd
+magic-wormhole
 mask
 mdbook
 mdcat
@@ -159,6 +161,7 @@ trunk
 uutils-coreutils
 vivid
 volta
+vsts-cli
 wagyu
 wapm
 wasm-pack
