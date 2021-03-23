@@ -166,7 +166,6 @@ fibjs
 field3d
 fifechan
 fish
-fizz
 flann
 flatbuffers
 flatcc
@@ -174,7 +173,6 @@ fluent-bit
 fluid-synth
 flvmeta
 fmt
-folly
 fontforge
 forge
 freediameter
@@ -639,7 +637,6 @@ vtk@8.2
 vulkan-headers
 wabt
 waffle
-wangle
 wasm3
 wasmer
 wdc
