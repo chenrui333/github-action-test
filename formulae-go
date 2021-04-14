@@ -36,13 +36,16 @@ bettercap
 bit-git
 bitrise
 bombadillo
+brook
 buildifier
 buildkit
 buildozer
+butane
 c14-cli
 cacli
 caddy
 cadence
+cadence-workflow
 calicoctl
 carina
 cartridge-cli
@@ -69,6 +72,7 @@ cli53
 clipper
 cloud-nuke
 cloudformation-cli
+clusterctl
 cointop
 colfer
 collector-sidecar
@@ -151,7 +155,6 @@ exercism
 faas-cli
 fabio
 fargatecli
-fcct
 fetch
 ffuf
 filebeat
@@ -271,6 +274,7 @@ imgproxy
 immortal
 immudb
 influxdb
+influxdb@1
 infracost
 infrakit
 inframap
@@ -342,6 +346,7 @@ lunchy-go
 lxc
 mage
 mailhog
+mapcidr
 massren
 megacmd
 metricbeat
@@ -371,6 +376,7 @@ nsq
 nuclei
 oauth2_proxy
 oauth2l
+obfs4proxy
 octant
 okteto
 ooniprobe
@@ -378,6 +384,7 @@ opa
 openshift-cli
 operator-sdk
 oras
+orgalorg
 ory-hydra
 osm
 overmind
@@ -385,6 +392,7 @@ packer
 packetbeat
 packr
 path-extractor
+pcp
 pdfcpu
 pdftilecut
 peco
@@ -419,6 +427,7 @@ reposurgeon
 restic
 riff
 rke
+rosa-cli
 rqlite
 run
 s-search
@@ -496,6 +505,7 @@ traefik@1
 triangle
 tty-share
 tunnel
+tz
 ucloud
 ultralist
 uni
