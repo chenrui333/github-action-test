@@ -96,6 +96,8 @@ leaf-proxy
 librsvg
 loc
 lsd
+lychee
+macchina
 magic-wormhole
 mask
 mdbook
@@ -175,6 +177,7 @@ wasmer
 watchexec
 websocat
 xh
+xplr
 xsv
 ykman
 zenith
