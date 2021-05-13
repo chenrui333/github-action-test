@@ -1,0 +1,14 @@
+name: update-tlds
+
+on:
+  workflow_dispatch:
+  schedule:
+      # Runs at 12:00 UTC on the 1st of every month and every Mon, Tue, Wed, Thu and Fri
+    - cron: "0 12 1 */1 1-5"
+
+jobs:
+  update-tlds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "tests"
