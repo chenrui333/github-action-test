@@ -1,0 +1,20 @@
+name: node-v14-test
+
+on: [push, pull_request]
+
+jobs:
+  label:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - run: |
+          npm --version
+          node --version
+          grunt --version
