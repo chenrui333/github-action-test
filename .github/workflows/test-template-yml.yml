@@ -1,0 +1,23 @@
+name: yaml-config-test
+
+on:
+  push:
+
+jobs:
+  yaml-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test site
+        run: |
+          sed -i "s|NAMESPACE|${NAMESPACE}|g" .github/workflows/config/test.yml
+          sed -i "s|SECRET_CONFIG|${{secrets.SECRET_CONFIG}}|g" .github/workflows/config/test.yml
+          cat .github/workflows/config/test.yml
+        env:
+          NAMESPACE: yaml-config-test
+      - run: |
+          # sed -i "s|AUTOBOT_API_KEY_BASE64|${{secrets.AUTOBOT_API_KEY_BASE64}}|g" .github/workflows/scripts/selenium/robot-e2e-secret.yml
+          .github/workflows/scripts/run.sh
+        env:
+          AUTOBOT_API_KEY_BASE64: ${{secrets.AUTOBOT_API_KEY_BASE64}}
+          MASTER_PASSWORD_BASE64: ${{secrets.MASTER_PASSWORD_BASE64}}
