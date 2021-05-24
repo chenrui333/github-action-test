@@ -26,3 +26,9 @@ jobs:
     needs: job3
     steps:
     - run: echo "job4 success"
+
+  job_notify:
+    name: notify on workflow failure
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "job_notify run"
