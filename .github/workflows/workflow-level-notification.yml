@@ -4,10 +4,10 @@ on: [pull_request]
 
 jobs:
   job1:
-    name: job1 success
+    name: job1 failure
     runs-on: ubuntu-latest
     steps:
-    - run: echo "job1 success"
+    - run: echo "job1 failure" && exit 1
   job2:
     name: job2 success
     runs-on: ubuntu-latest
