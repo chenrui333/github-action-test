@@ -15,17 +15,17 @@ jobs:
     steps:
     - run: echo "job2 success"
   job3:
-    name: job3 failure
+    name: job3 success
     runs-on: ubuntu-latest
     needs: job2
     steps:
-    - run: echo "job3 failure" && exit 1
+    - run: echo "job3 success"
   job4:
-    name: job4 success
+    name: job4 failure
     runs-on: ubuntu-latest
     needs: job3
     steps:
-    - run: echo "job4 success"
+    - run: echo "job4 failure" && exit 1
 
   job_notify:
     name: notify on workflow failure
