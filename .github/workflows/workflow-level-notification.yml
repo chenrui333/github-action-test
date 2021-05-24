@@ -29,6 +29,8 @@ jobs:
 
   job_notify:
     name: notify on workflow failure
+    needs: [job1, job2, job3, job4]
+    if: failure()
     runs-on: ubuntu-latest
     steps:
     - run: echo "job_notify run"
