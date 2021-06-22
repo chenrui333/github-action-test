@@ -12,7 +12,7 @@ jobs:
       - name: sha8
         run: echo "SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
       - name: TODAY
-        run: echo "TODAY=$(date +"%m%d%Y")" >> $GITHUB_ENV
+        run: echo "TODAY=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
       - run: |
           echo "SHA8 is $SHA8"
           export JOB_ID=job-$SHA8
