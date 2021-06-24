@@ -18,3 +18,6 @@ jobs:
           export JOB_ID=job-$SHA8
           echo "job-id is $JOB_ID"
           echo "TODAY is $TODAY"
+          aws --version
+          python --version
+          aws ecr describe-images
