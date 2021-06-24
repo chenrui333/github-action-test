@@ -1,0 +1,22 @@
+name: docker
+
+on:
+  release:
+    types:
+      - "published"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    # Publish release to container registry
+    - name: build docker-test:$GITHUB_REF release image
+      if: ${{ github.event_name == 'release'}}
+      run: |
+        docker build -t chenrui333/docker-test:$GITHUB_REF .
+    - name: publish docker:$GIHUB_REF release image
+      if: ${{ github.event_name == 'release'}}
+      run: |
+        docker push chenrui333/docker-test:$GITHUB_REF
