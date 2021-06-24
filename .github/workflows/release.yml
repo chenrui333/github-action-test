@@ -19,7 +19,3 @@ jobs:
       if: ${{ github.event_name == 'release'}}
       run: |
         docker build -t chenrui333/docker-test:$RELEASE_VERSION .
-    - name: publish docker:$GIHUB_REF release image
-      if: ${{ github.event_name == 'release'}}
-      run: |
-        docker push chenrui333/docker-test:$RELEASE_VERSION
