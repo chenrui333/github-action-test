@@ -1,0 +1,22 @@
+name: steps-condition-test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check diff
+        id: verify_diff
+        run: echo "::set-output name=new_change::true"
+      - name: Commit files
+        if: steps.verify_diff.outputs.new_change == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          echo "steps-condition-test" >> README.md
+          git add README.md
+          git commit -m "BOT: steps-condition-test"
+          git push
+      - run: echo "do something else"
