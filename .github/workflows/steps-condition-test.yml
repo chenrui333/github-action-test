@@ -20,4 +20,5 @@ jobs:
           git add README.md
           git commit -m "BOT: steps-condition-test"
           git push
-      - run: echo "do something else"
+      - name: some other step
+        run: echo "do something else"
