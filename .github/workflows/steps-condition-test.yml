@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Check diff
         id: verify_diff
-        run: echo "::set-output name=new_change::true"
+        run: echo "::set-output name=new_change::false"
       - name: Commit files
         if: steps.verify_diff.outputs.new_change == 'true'
         run: |
