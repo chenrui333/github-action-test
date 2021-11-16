@@ -2,13 +2,12 @@ name: env-test
 
 on: push
 
-env:
-  IS_QA: "qa"
-  PROJECT: "important"
-
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      IS_QA: "qa"
+      PROJECT: "important"
     steps:
       - uses: actions/checkout@v2.4.0
       - run:
