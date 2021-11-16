@@ -9,9 +9,6 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      LOCAL_TAG: "${{env.IS_QA}}-latest"
-      AWS_TASKDEF: "project-${{env.PROJECT}}-something"
     steps:
       - uses: actions/checkout@v2.4.0
       - run:
@@ -19,3 +16,6 @@ jobs:
           echo ${{env.LOCAL_TAG}}
           echo ${{env.PROJECT}}
           echo ${{env.AWS_TASKDEF}}
+        env:
+          LOCAL_TAG: "${{env.IS_QA}}-latest"
+          AWS_TASKDEF: "project-${{env.PROJECT}}-something"
