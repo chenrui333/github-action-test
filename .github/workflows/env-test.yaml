@@ -3,10 +3,8 @@ name: env-test
 on: push
 
 env:
-  IS_QA: ""
-  LOCAL_TAG: "${{env.IS_QA}}-latest"
+  IS_QA: "qa"
   PROJECT: "important"
-  AWS_TASKDEF: "project-${PROJECT}-something"
 
 jobs:
   test:
@@ -18,3 +16,6 @@ jobs:
           echo ${{env.LOCAL_TAG}}
           echo ${{env.PROJECT}}
           echo ${{env.AWS_TASKDEF}}
+        env:
+          LOCAL_TAG: "${{env.IS_QA}}-latest"
+          AWS_TASKDEF: "project-${{env.PROJECT}}-something"
