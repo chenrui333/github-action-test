@@ -1,0 +1,20 @@
+name: env-test
+
+on: push
+
+env:
+  IS_QA: ""
+  LOCAL_TAG: "${{env.IS_QA}}-latest"
+  PROJECT: "important"
+  AWS_TASKDEF: "project-${PROJECT}-something"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - run:
+          echo ${{env.IS_QA}}
+          echo ${{env.LOCAL_TAG}}
+          echo ${{env.PROJECT}}
+          echo ${{env.AWS_TASKDEF}}
