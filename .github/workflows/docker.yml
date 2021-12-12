@@ -23,10 +23,21 @@ jobs:
           username: 'chenrui'
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: chenrui/github-action-test:${{ github.sha }}
+          tags: |
+            chenrui/github-action-test:latest
+            chenrui/github-action-test:${{ github.sha }}
+            ghcr.io/chenrui/github-action-test:latest
+            ghcr.io/chenrui/github-action-test:${{ github.sha }}
