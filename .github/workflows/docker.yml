@@ -39,5 +39,5 @@ jobs:
           tags: |
             chenrui/github-action-test:latest
             chenrui/github-action-test:${{ github.sha }}
-            ghcr.io/chenrui/github-action-test:latest
-            ghcr.io/chenrui/github-action-test:${{ github.sha }}
+            ghcr.io/chenrui333/github-action-test:latest
+            ghcr.io/chenrui333/github-action-test:${{ github.sha }}
