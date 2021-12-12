@@ -6,15 +6,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-
-      - name: Get latest tag
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF:10}
-
-      - name: Clone repository
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ steps.vars.outputs.tag }}
+      - uses: actions/checkout@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -37,4 +29,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,darwin/amd64,darwin/arm64
           push: true
-          tags: chenrui/ranking:${{ steps.vars.outputs.tag }}
+          tags: chenrui/ranking:${{ github.sha }}
