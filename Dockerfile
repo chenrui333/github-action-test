@@ -13,7 +13,7 @@ RUN case $(uname -m) in x86_64|amd64) ARCH="amd64" ;; aarch64|arm64|armv8) ARCH=
 
 # Install conftest
 ENV CONFTEST_VERSION=0.28.3
-RUN case $(uname -m) in x86_64|amd64) ARCH="amd64" ;; aarch64|arm64|armv8) ARCH="arm64" ;; esac && \
+RUN case $(uname -m) in x86_64|amd64) ARCH="x86_64" ;; aarch64|arm64|armv8) ARCH="arm64" ;; esac && \
     curl -LOs https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
     mkdir -p /usr/local/bin/cft/versions/${CONFTEST_VERSION} && \
     tar -C  /usr/local/bin/cft/versions/${CONFTEST_VERSION} -xzf conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
