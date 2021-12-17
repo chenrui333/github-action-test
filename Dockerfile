@@ -2,8 +2,6 @@ FROM golang:1.17
 
 RUN apt-get update && apt-get install unzip
 
-RUN echo "Hello, my CPU architecture is $(uname -m)"
-
 # Install Terraform
 ENV TERRAFORM_VERSION=1.1.1
 RUN case $(uname -m) in x86_64|amd64) ARCH="amd64" ;; aarch64|arm64|armv7l) ARCH="arm64" ;; esac && \
