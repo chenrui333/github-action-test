@@ -1,6 +1,6 @@
 name: env-test
 
-on: push
+on: workflow_dispatch
 
 jobs:
   test:
@@ -9,7 +9,9 @@ jobs:
       IS_QA: "qa"
       PROJECT: "important"
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v2
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - run:
           echo ${{env.IS_QA}}
           echo ${{env.LOCAL_TAG}}
