@@ -1,0 +1,26 @@
+# ref, https://github.com/marketplace/actions/image-actions
+name: compress-images
+
+on:
+  pull_request:
+    paths:
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+
+jobs:
+  build:
+    name: calibreapp/image-actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compress Images
+        uses: calibreapp/image-actions@main
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          ignorePaths: 'node_modules/**,**/*_optimized.jpg,**/*_optimized.jpeg,**/*_optimized.png,**/*_optimized.webp'
+          jpegQuality: '80'
+          jpegProgressive: false
+          pngQuality: '100'
+          webpQuality: '80'
