@@ -1,0 +1,16 @@
+# ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
+name: brew
+
+on: push
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        run: brew install terraform && brew install terragrunt
+      - name: check versions
+        run: |
+          terraform --version
+          terragrunt --version
