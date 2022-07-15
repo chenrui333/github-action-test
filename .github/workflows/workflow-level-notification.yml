@@ -28,7 +28,7 @@ jobs:
     - run: echo "job4 failure" && exit 1
 
   job_notify:
-    name: notify on workflow failure
+    name: notify on workflow failure-Test
     needs: [job1, job2, job3, job4]
     if: failure()
     runs-on: ubuntu-latest
