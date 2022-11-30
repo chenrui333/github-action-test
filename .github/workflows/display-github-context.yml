@@ -26,6 +26,4 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - run: echo "GITHUB_CONTEXT is $GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+      - run: echo 'GITHUB_CONTEXT is "${{ toJSON(github) }}"'
