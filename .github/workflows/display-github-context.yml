@@ -15,7 +15,7 @@ jobs:
       matrix:
         os:
           # this array matches with whatever available in the runner-images repo
-          - ubuntu-18.04
+          # - ubuntu-18.04
           - ubuntu-20.04
           - ubuntu-22.04
           - macos-10.15
