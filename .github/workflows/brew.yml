@@ -8,8 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
+
+      # As brew got removed from the ubuntu-latest image, we need to install it
+      # https://github.com/actions/runner-images/issues/6283
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@659165717b1fd1b535840baa14e399a305d20561
+
+      - name: Install tf and tg
         run: brew install terraform && brew install terragrunt
+
       - name: check versions
         run: |
           terraform --version
