@@ -26,7 +26,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - name: "echo $RUNNER_OS, $RUNNER_ARCH and full GITHUB_CONTEXT"
+      - name: "echo ${{ env.RUNNER_OS }}, ${{ env.RUNNER_OS }} and full GITHUB_CONTEXT"
         run: |
           echo "RUNNER_OS: $RUNNER_OS"
           echo "RUNNER_ARCH: $RUNNER_ARCH"
