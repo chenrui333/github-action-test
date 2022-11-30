@@ -26,7 +26,8 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      - run: |
+      - name: "echo $RUNNER_OS, $RUNNER_ARCH and full GITHUB_CONTEXT"
+        run: |
           echo "RUNNER_OS: $RUNNER_OS"
           echo "RUNNER_ARCH: $RUNNER_ARCH"
           echo 'GITHUB_CONTEXT is "${{ toJSON(github) }}"'
