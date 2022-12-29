@@ -13,7 +13,7 @@ jobs:
       # https://github.com/actions/runner-images/issues/6283
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@c93ed60fd18549476f10a750dab0f0dd98a83821
+        uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
 
       - name: Install tf and tg
         run: brew install terraform && brew install terragrunt
