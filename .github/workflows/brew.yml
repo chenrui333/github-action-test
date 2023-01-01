@@ -1,24 +1,15 @@
 # ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
 name: brew
 
-on: push
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    # macos-latest points to macos-11
+    runs-on: macos-12
     steps:
-      - uses: actions/checkout@v3
-
-      # As brew got removed from the ubuntu-latest image, we need to install it
-      # https://github.com/actions/runner-images/issues/6283
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
-
-      - name: Install tf and tg
-        run: brew install terraform && brew install terragrunt
-
-      - name: check versions
-        run: |
-          terraform --version
-          terragrunt --version
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
