@@ -31,23 +31,23 @@ jobs:
   #         terraform --version
   #         terragrunt --version
 
-  # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   steps:
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
-
-  # debug formula on ubuntu
-  formula-debug-ubuntu:
-    runs-on: ubuntu-22.04
+  # debug formula on macos
+  formula-debug-macos:
+    runs-on: macos-12
     if: github.event_name == 'pull_request'
     steps:
-      # As brew got removed from the ubuntu-latest image, we need to install it
-      # https://github.com/actions/runner-images/issues/6283
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+
+  # # debug formula on ubuntu
+  # formula-debug-ubuntu:
+  #   runs-on: ubuntu-22.04
+  #   if: github.event_name == 'pull_request'
+  #   steps:
+  #     # As brew got removed from the ubuntu-latest image, we need to install it
+  #     # https://github.com/actions/runner-images/issues/6283
+  #     - name: Set up Homebrew
+  #       id: set-up-homebrew
+  #       uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
+  #     - name: Setup tmate session
+  #       uses: mxschmitt/action-tmate@v3
