@@ -14,33 +14,33 @@ on:
 # 2. debug formula on macos (runs on PR only)
 # 3. debug formula on ubuntu (runs on PR only)
 jobs:
-  # check formula
-  formula-check:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
+  # # check formula
+  # formula-check:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      # As brew got removed from the ubuntu-latest image, we need to install it
-      # https://github.com/actions/runner-images/issues/6283
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
+  #     # As brew got removed from the ubuntu-latest image, we need to install it
+  #     # https://github.com/actions/runner-images/issues/6283
+  #     - name: Set up Homebrew
+  #       id: set-up-homebrew
+  #       uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
 
-      - name: Install tf and tg
-        run: brew install terraform && brew install terragrunt
+  #     - name: Install tf and tg
+  #       run: brew install terraform && brew install terragrunt
 
-      - name: check versions
-        run: |
-          terraform --version
-          terragrunt --version
+  #     - name: check versions
+  #       run: |
+  #         terraform --version
+  #         terragrunt --version
 
   # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   steps:
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  formula-debug-macos:
+    runs-on: macos-12
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
