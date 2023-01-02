@@ -3,3 +3,6 @@ workflows:
 
 scripts:
   - 'scripts/**/*'
+
+homebrew:
+  - '.github/workflows/brew.yml'
