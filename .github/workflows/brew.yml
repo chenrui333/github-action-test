@@ -33,15 +33,15 @@ jobs:
   #         terraform --version
   #         terragrunt --version
 
-  # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   steps:
-  #     - run: brew update
-  #     - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  # debug formula on macos
+  formula-debug-macos:
+    runs-on: macos-12
+    if: github.event_name == 'pull_request'
+    steps:
+      - run: brew update
+      - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
