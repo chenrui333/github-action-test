@@ -23,6 +23,8 @@ jobs:
   #       id: set-up-homebrew
   #       uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
 
+  #     - run: brew update
+
   #     - name: Install tf and tg
   #       run: brew install terraform && brew install terragrunt
 
@@ -36,6 +38,8 @@ jobs:
   #   runs-on: macos-12
   #   if: github.event_name == 'pull_request'
   #   steps:
+  #     - run: brew update
+  #     - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
@@ -49,5 +53,7 @@ jobs:
   #     - name: Set up Homebrew
   #       id: set-up-homebrew
   #       uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
+  #     - run: brew update
+  #     - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
