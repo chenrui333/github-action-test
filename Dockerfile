@@ -23,4 +23,4 @@ RUN case $(uname -m) in x86_64|amd64) ARCH="x86_64" ;; aarch64|arm64|armv7l) ARC
     rm conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
     rm checksums.txt
 
-RUN go get golang.org/x/tools/cmd/goimports
+RUN go install golang.org/x/tools/cmd/goimports@latest
