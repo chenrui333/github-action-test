@@ -39,7 +39,7 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - run: brew update
-      - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
+      # - run: cd `brew --prefix` && cd Library/Taps/homebrew/homebrew-core
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
