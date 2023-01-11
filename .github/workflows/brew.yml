@@ -37,15 +37,11 @@ jobs:
   formula-debug-macos:
     if: github.event_name == 'pull_request'
     runs-on: macos-11
-    env:
-      # no need to upgrade dependencies
-      HOMEBREW_NO_AUTO_UPDATE: 1
     defaults:
       run:
         # simplify the debugging flow
         working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
     steps:
-      - run: brew update
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
