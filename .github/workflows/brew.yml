@@ -37,11 +37,12 @@ jobs:
   formula-debug-macos:
     if: github.event_name == 'pull_request'
     runs-on: macos-11
-
+    defaults:
+      run:
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
     steps:
       - run: brew update
       - name: Setup tmate session
-        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
         uses: mxschmitt/action-tmate@v3
 
   # # debug formula on ubuntu
