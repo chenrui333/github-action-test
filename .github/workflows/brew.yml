@@ -34,17 +34,17 @@ jobs:
   #         terragrunt --version
 
   # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  formula-debug-macos:
+    runs-on: macos-12
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
