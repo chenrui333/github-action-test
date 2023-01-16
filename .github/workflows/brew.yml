@@ -7,10 +7,14 @@ on:
       - main
 
 env:
+  # `test` and `audit` are test dev commands
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_ANALYTICS: 1
+  # save some time
   HOMEBREW_NO_INSTALL_CLEANUP: 1
+  # no need to upgrade dependants
+  HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
 
 # three jobs in this workflow:
 # 1. check formula
