@@ -56,9 +56,6 @@ jobs:
       - run: brew update
       - run: brew install xz
       - run: brew install licensed && brew test licensed
-      - run: |
-          brew install python@3.11
-          brew link --overwrite python@3.11
       - run: brew install pipgrip && brew test pipgrip
 
   formula-debug-macos-11:
@@ -73,9 +70,6 @@ jobs:
       - run: brew update
       - run: brew install xz
       - run: brew install licensed && brew test licensed
-      - run: |
-          brew install python@3.11
-          brew link --overwrite python@3.11
       - run: brew install pipgrip && brew test pipgrip
 
   # # debug formula on ubuntu
@@ -98,5 +92,6 @@ jobs:
       - run: brew install licensed && brew test licensed
       - run: brew install pipgrip && brew test pipgrip
       - run: brew install packmol && brew test packmol
+      - run: brew install openssl@3 && brew install cmake # for seal test
       - run: brew install seal && brew test seal
       - run: brew install wownero && brew test wownero
