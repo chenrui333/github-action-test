@@ -44,17 +44,22 @@ jobs:
   #         terragrunt --version
 
   # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  regression-test-highway-macos-11:
+    runs-on: macos-11
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - run: brew update
+      - run: brew reinstall highway
+      - run: brew install t-rec && brew test t-rec
+      - run: brew install tenyr && brew test tenyr
+      - run: brew install terminalimageviewer && brew test terminalimageviewer
+      - run: brew install texlive && brew test texlive
+
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
