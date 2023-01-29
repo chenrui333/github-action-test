@@ -67,6 +67,7 @@ jobs:
     if: github.event_name == 'pull_request'
     defaults:
       run:
+        shell: bash
         # simplify the debugging flow
         # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
         working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
