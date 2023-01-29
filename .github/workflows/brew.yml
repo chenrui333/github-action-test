@@ -67,7 +67,6 @@ jobs:
     if: github.event_name == 'pull_request'
     defaults:
       run:
-        shell: bash
         # simplify the debugging flow
         # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
         working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
@@ -81,7 +80,5 @@ jobs:
           cd /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
           wget https://raw.githubusercontent.com/Homebrew/homebrew-core/34db078c693ab8c1e4db379a215c7da270badb4c/Formula/glow.rb -O Formula/glow.rb
           brew reinstall -s glow
-          env | grep "CI="
           unset CI
-          env | grep "CI="
           brew test -d -v glow
