@@ -81,4 +81,5 @@ jobs:
           brew reinstall -s dust
           dust --version
           env | grep "CI="
+          unset CI
           brew test -d -v dust
