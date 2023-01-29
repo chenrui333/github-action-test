@@ -78,9 +78,7 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
       - run: |
           cd /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-          wget https://raw.githubusercontent.com/Homebrew/homebrew-core/fcf8cdadb06673beb9e7c462f838554388db0a1b/Formula/dust.rb -O Formula/dust.rb
+          wget https://raw.githubusercontent.com/Homebrew/homebrew-core/7cbd693e18ef00a7ca267e73ffe311eaba5e075e/Formula/dust.rb -O Formula/dust.rb
           brew reinstall -s dust
           dust --version
-          env | grep "CI="
-          unset CI
           brew test -d -v dust
