@@ -59,19 +59,19 @@ jobs:
   #       uses: mxschmitt/action-tmate@v3
 
   # # debug formula on ubuntu
-  # formula-debug-ubuntu:
-  #   runs-on: ubuntu-22.04
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     # As brew got removed from the ubuntu-latest image, we need to install it
-  #     # https://github.com/actions/runner-images/issues/6283
-  #     - name: Set up Homebrew
-  #       id: set-up-homebrew
-  #       uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  formula-debug-ubuntu:
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      # As brew got removed from the ubuntu-latest image, we need to install it
+      # https://github.com/actions/runner-images/issues/6283
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
