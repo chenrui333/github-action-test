@@ -78,7 +78,6 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
       - run: |
           cd /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-          wget https://raw.githubusercontent.com/Homebrew/homebrew-core/34db078c693ab8c1e4db379a215c7da270badb4c/Formula/glow.rb -O Formula/glow.rb
+          wget https://raw.githubusercontent.com/Homebrew/homebrew-core/adbcaff51a12a8f591772b8972899f78d2c7bf78/Formula/glow.rb -O Formula/glow.rb
           brew reinstall -s glow
-          unset CI
           brew test -d -v glow
