@@ -17,6 +17,8 @@ env:
   HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
+  ACTIONS_RUNNER_DEBUG: true
+  ACTIONS_STEP_DEBUG: true
 
 # three jobs in this workflow:
 # 1. check formula
@@ -78,4 +80,5 @@ jobs:
           wget https://raw.githubusercontent.com/Homebrew/homebrew-core/fcf8cdadb06673beb9e7c462f838554388db0a1b/Formula/dust.rb -O Formula/dust.rb
           brew reinstall -s dust
           dust --version
+          env | grep "CI="
           brew test -d -v dust
