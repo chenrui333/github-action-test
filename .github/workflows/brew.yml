@@ -17,6 +17,7 @@ env:
   HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
+  # enable debug logging, https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging
   ACTIONS_RUNNER_DEBUG: true
   ACTIONS_STEP_DEBUG: true
 
