@@ -92,4 +92,4 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@449449e64aaa5faac0d24229a2ffba32438e4b63
       - run: brew update
       - run: brew install ruby-build
-      - run: brew install rbenv && brew test rbenv
+      - run: brew install ruby rbenv && brew test rbenv
