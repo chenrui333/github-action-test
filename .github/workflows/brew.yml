@@ -49,17 +49,32 @@ jobs:
   #         terragrunt --version
 
   # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-12
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  formula-debug-arturo-0.9.83-macos-12:
+    runs-on: macos-12
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - run: brew update
+      - run: wget https://raw.githubusercontent.com/Homebrew/homebrew-core/46740ee86ca9d9b678edb565496e7e1cb35a4d50/Formula/arturo.rb -O arturo.rb
+      - run: brew install --build-from-source arturo.rb
+      - run: brew test arturo.rb
+  formula-debug-arturo-0.9.83-macos-11:
+    runs-on: macos-11
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - run: brew update
+      - run: wget https://raw.githubusercontent.com/Homebrew/homebrew-core/46740ee86ca9d9b678edb565496e7e1cb35a4d50/Formula/arturo.rb -O arturo.rb
+      - run: brew install --build-from-source arturo.rb
+      - run: brew test arturo.rb
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
