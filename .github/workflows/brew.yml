@@ -49,7 +49,7 @@ jobs:
   #         terragrunt --version
 
   # # debug formula on macos
-  formula-debug-macos:
+  formula-debug-getdns-macos-12:
     runs-on: macos-12
     if: github.event_name == 'pull_request'
     defaults:
@@ -58,9 +58,23 @@ jobs:
         # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
         working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
     steps:
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
+      - run: brew update
+      - run: wget https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69a3b25f4e15a99c7580b10f02dc7ea815059f/Formula/getdns.rb -O getdns.rb
+      - run: brew install --build-from-source getdns.rb
+      - run: brew test getdns.rb
+  formula-debug-getdns-macos-11:
+    runs-on: macos-11
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - run: brew update
+      - run: wget https://raw.githubusercontent.com/Homebrew/homebrew-core/fe69a3b25f4e15a99c7580b10f02dc7ea815059f/Formula/getdns.rb -O getdns.rb
+      - run: brew install --build-from-source getdns.rb
+      - run: brew test getdns.rb
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
   #   runs-on: ubuntu-22.04
