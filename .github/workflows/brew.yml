@@ -37,7 +37,7 @@ jobs:
   #     - name: Set up Homebrew
   #       id: set-up-homebrew
   #       # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-  #       uses: Homebrew/actions/setup-homebrew@840f649
+  #       uses: Homebrew/actions/setup-homebrew@840f6491759034b559587cf9192e6a3aa81262d3
 
   #     - run: brew update
 
@@ -77,6 +77,6 @@ jobs:
   #     - name: Set up Homebrew
   #       id: set-up-homebrew
   #       # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-  #       uses: Homebrew/actions/setup-homebrew@840f649
+  #       uses: Homebrew/actions/setup-homebrew@840f6491759034b559587cf9192e6a3aa81262d3
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
