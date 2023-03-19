@@ -61,6 +61,7 @@ jobs:
     steps:
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
 
       - name: Enable debug mode
         run: |
