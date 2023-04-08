@@ -92,5 +92,5 @@ jobs:
         if: runner.debug
 
       - run: brew update
-      - run: brew install mesa texlive
+      - run: brew install webp texlive
       - run: brew test texlive
