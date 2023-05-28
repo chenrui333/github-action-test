@@ -1,6 +1,9 @@
 # ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
 name: brew-regression
 
+# ref, https://github.blog/changelog/2022-09-26-github-actions-dynamic-names-for-workflow-runs/
+run-name: regression test ${{inputs.formula}}
+
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +25,7 @@ env:
 
 jobs:
   macos-build:
-    name: regression test ${{inputs.formula}} on ${{ matrix.os }}}
+    name: ${{ matrix.os }} test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -35,7 +38,7 @@ jobs:
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
 
   linux-build:
-    name: regression test ${{inputs.formula}} on ubuntu-22.04
+    name: ubuntu-22.04 test
     runs-on: ubuntu-22.04
     steps:
       - name: Set up Homebrew
