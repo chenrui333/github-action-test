@@ -1,5 +1,5 @@
 # ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
-name: brew
+name: brew-debug
 
 on:
   pull_request:
