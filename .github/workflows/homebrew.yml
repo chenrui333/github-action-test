@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@67c851794cd9f6000e4047cf2a47b023540ac1be
+        uses: Homebrew/actions/setup-homebrew@f41cd33e7878416907e5b52f1c750eaf63dad347
 
       - name: Configure Git user
         uses: Homebrew/actions/git-user-config@master
