@@ -1,0 +1,50 @@
+# ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
+name: brew-regression-build
+
+# ref, https://github.blog/changelog/2022-09-26-github-actions-dynamic-names-for-workflow-runs/
+run-name: regression build ${{inputs.formula}}
+
+on:
+  workflow_dispatch:
+    inputs:
+      formula:
+        description: Formula name
+        required: true
+
+env:
+  # `test` and `audit` are test dev commands
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  # save some time
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+  # no need to upgrade dependants
+  HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
+  # https://github.com/Homebrew/homebrew-test-bot/pull/868
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+
+jobs:
+  macos-build:
+    name: ${{ matrix.os }} build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-11
+          - macos-12
+          - macos-13
+    steps:
+      - run: brew update
+      - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
+
+  linux-build:
+    name: ubuntu-22.04 build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        # https://github.com/Homebrew/actions/tree/master/setup-homebrew
+        uses: Homebrew/actions/setup-homebrew@3040c87fbdd10e6ec48d90bd23cb0abb6d66152d
+      - run: brew update
+      - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
