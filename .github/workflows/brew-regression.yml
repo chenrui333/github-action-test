@@ -28,6 +28,7 @@ jobs:
     name: ${{ matrix.os }} test
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
           - macos-11
