@@ -37,6 +37,7 @@ jobs:
     steps:
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
+      - run: brew linkage --cached ${{inputs.formula}}
 
   linux-build:
     name: ubuntu-22.04 build
@@ -48,3 +49,4 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@f8b224a6d5e4f1668351c7e7e7c0c1c10e228294
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
+      - run: brew linkage --cached ${{inputs.formula}}
