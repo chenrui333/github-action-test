@@ -37,7 +37,6 @@ jobs:
           - macos-11
           - macos-12
     steps:
-      - run: brew update
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
