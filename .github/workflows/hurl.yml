@@ -26,4 +26,4 @@ jobs:
           HURL_VERSION: 4.0.0
 
       - name: Run tests
-        run: hurl --retry --retry-max-count 5 --test --glob "hurl/chenrui.dev/site.hurl"
+        run: hurl --retry 5 --test --glob "hurl/chenrui.dev/site.hurl"
