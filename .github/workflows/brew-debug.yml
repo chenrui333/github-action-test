@@ -37,7 +37,7 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     - run: fix python@3.11 link issue
+  #     - name: overwrite python@3.11 links for macos-13 builds
   #       if: matrix.os == 'macos-13'
   #       run: |
   #         brew link --overwrite python@3.11
