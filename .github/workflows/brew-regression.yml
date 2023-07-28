@@ -35,6 +35,10 @@ jobs:
           - macos-12
           - macos-13
     steps:
+      - run: fix python@3.11 link issue
+        if: matrix.os == 'macos-13'
+        run: |
+          brew link --overwrite python@3.11
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
