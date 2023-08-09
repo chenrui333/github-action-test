@@ -23,7 +23,7 @@ env:
 # 2. debug formula on ubuntu (runs on PR only)
 jobs:
   dummy-job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - run: echo "dummy job"
 
