@@ -1,5 +1,11 @@
 GET https://chenrui.dev
-User-Agent: hurltest/4.0.0
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/116.0.5845.146 Mobile/15E148 Safari/604.1
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+DNT: 1
+Connection: close
+Accept-Encoding: identity
 
 [Options]
 location: true
