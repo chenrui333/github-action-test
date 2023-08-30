@@ -1,5 +1,5 @@
 GET https://chenrui.dev
-User-Agent: hurl/4.0.0
+User-Agent: hurltest/4.0.0
 
 [Options]
 location: true

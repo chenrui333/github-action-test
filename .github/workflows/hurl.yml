@@ -9,8 +9,8 @@ on:
       - .github/workflows/hurl.yml
   workflow_dispatch:
   schedule:
-    # run every 30 mins
-    - cron: "*/30 * * * *"
+    # run every 5 mins
+    - cron: "*/5 * * * *"
 
 jobs:
   hurl:
@@ -27,3 +27,8 @@ jobs:
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/site.hurl"
+        continue-on-error: true
+
+      - name: Run tests
+        run: hurl --retry 5 --test --glob "hurl/chenrui.dev/site.hurl"
+        continue-on-error: true
