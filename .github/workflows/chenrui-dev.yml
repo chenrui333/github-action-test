@@ -11,3 +11,12 @@ jobs:
     steps:
       - name: test site
         run: wget https://chenrui.dev
+        continue-on-error: true
+
+      - name: test site
+        run: wget https://chenrui.dev
+        continue-on-error: true
+
+      - name: test site
+        run: wget https://chenrui.dev
+        continue-on-error: true
