@@ -28,22 +28,17 @@ jobs:
       - run: echo "dummy job"
 
   # # debug formula on macos
-  # formula-debug-macos:
-  #   runs-on: macos-13
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - name: overwrite python@3.11 links for macos-13 builds
-  #       if: matrix.os == 'macos-13'
-  #       run: |
-  #         brew install python@3.11
-  #         brew link --overwrite python@3.11
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  formula-debug-macos:
+    runs-on: macos-11
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
 
   # # debug formula on ubuntu
