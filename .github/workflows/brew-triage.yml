@@ -1,0 +1,16 @@
+# https://github.com/Homebrew/homebrew-core/blob/master/.github/workflows/triage.yml
+name: Triage tasks
+
+on: pull_request
+
+jobs:
+  triage:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Label pull request
+        uses: Homebrew/actions/label-pull-requests@master
+        if: always()
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          def: |
+            - label: CI-no-fail-fast
