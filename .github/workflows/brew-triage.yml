@@ -5,7 +5,7 @@ on: pull_request
 
 jobs:
   triage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Label pull request
         uses: Homebrew/actions/label-pull-requests@master
