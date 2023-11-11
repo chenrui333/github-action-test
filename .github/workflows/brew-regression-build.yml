@@ -31,15 +31,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-11
           - macos-12
           - macos-13
     steps:
-      - name: overwrite python@3.11 links for macos-13 builds
-        if: matrix.os == 'macos-13'
-        run: |
-          brew install python@3.11
-          brew link --overwrite python@3.11
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
