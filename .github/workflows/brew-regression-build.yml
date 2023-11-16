@@ -31,15 +31,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-11
           - macos-12
           - macos-13
     steps:
-      - name: overwrite python@3.11 links for macos-13 builds
-        if: matrix.os == 'macos-13'
-        run: |
-          brew install python@3.11
-          brew link --overwrite python@3.11
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
@@ -51,7 +45,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@46ba48b41f618cba4d47649c1248a8cba2a4c07a
+        uses: Homebrew/actions/setup-homebrew@b8900afaf219ec19995b1917a7d6f04aafec1ca1
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
