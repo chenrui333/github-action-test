@@ -20,10 +20,10 @@ jobs:
 
       - name: Install hurl
         run: |
-          cd /usr/local/bin && curl -fsSL https://github.com/Orange-OpenSource/hurl/releases/download/$HURL_VERSION/hurl-$HURL_VERSION-x86_64-linux.tar.gz | sudo tar xz --strip-components 1
+          cd /usr/local/bin && curl -fsSL https://github.com/Orange-OpenSource/hurl/releases/download/$HURL_VERSION/hurl-$HURL_VERSION-x86_64-unknown-linux-gnu.tar.gz | sudo tar xz --strip-components 1
           hurl --version
         env:
-          HURL_VERSION: 4.0.0
+          HURL_VERSION: 4.1.0
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/*.hurl"
