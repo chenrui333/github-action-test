@@ -19,8 +19,9 @@
     ],
   },
 
-  regexManagers: [
+  customManagers: [
     {
+      customType: "regex",
       fileMatch: ["(^|/)Dockerfile$", "(^|/)Dockerfile\\.[^/]*$"],
       matchStrings: [
         // example:
@@ -32,11 +33,12 @@
       extractVersionTemplate: '^v(?<version>\\d+\\.\\d+\\.\\d+)',
     },
     {
+      customType: "regex",
       fileMatch: [
         "^\\.github/workflows/[^/]+\\.ya?ml$"
       ],
       matchStrings: [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+version: (?<currentValue>.*)\\s"
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+version: (?<currentValue>.*)\\s",
       ]
     },
   ],
