@@ -5,7 +5,7 @@
   ],
 
   commitMessageSuffix: " in {{packageFile}}",
-  dependencyDashboardAutoclose: true,
+  dependencyDashboard: true,
   automerge: true,
   baseBranches: ["main", "/^release\-.*/"],
   platformAutomerge: true,
