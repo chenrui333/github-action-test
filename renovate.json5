@@ -1,0 +1,7 @@
+{
+  extends: ['config:base'], // Use Renovate's base configuration
+
+  // Global Configurations
+  schedule: ['before 5am on monday'],
+  automerge: true,
+}
