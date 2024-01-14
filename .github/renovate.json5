@@ -1,7 +1,20 @@
 {
-  extends: ['config:base'], // Use Renovate's base configuration
+  extends: [
+    "config:base",
+    "schedule:daily",
+  ],
 
-  // Global Configurations
-  schedule: ['before 5am on monday'],
+  commitMessageSuffix: " in {{packageFile}}",
+  dependencyDashboardAutoclose: true,
   automerge: true,
+  baseBranches: ["main", "/^release\-.*/"],
+  platformAutomerge: true,
+  labels: ["dependencies"],
+
+  vulnerabilityAlerts: {
+    enabled: true,
+    labels: [
+      "security",
+    ],
+  },
 }
