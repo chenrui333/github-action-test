@@ -1,11 +1,9 @@
 workflows:
-- changed-files:
-  - any-glob-to-any-file: '.github/workflows/**/*'
-
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**/*'
 scripts:
-- changed-files:
-  - any-glob-to-any-file: 'scripts/**/*'
-
+  - changed-files:
+      - any-glob-to-any-file: 'scripts/**/*'
 homebrew:
-- changed-files:
-  - any-glob-to-any-file: '.github/workflows/brew.yml'
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/brew.yml'
