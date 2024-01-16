@@ -1,5 +1,5 @@
 GET https://chenrui.dev
-User-Agent: Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.163 Mobile Safari/537.36
+User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.210 Mobile Safari/537.36
 Cache-Control: no-cache, no-store, must-revalidate
 Pragma: no-cache
 Expires: 0
