@@ -37,11 +37,6 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     - name: overwrite python@3.11 links for macos-13 builds
-  #       if: matrix.os == 'macos-13'
-  #       run: |
-  #         brew install python@3.11
-  #         brew link --overwrite python@3.11
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
