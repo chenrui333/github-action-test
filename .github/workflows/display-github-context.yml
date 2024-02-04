@@ -15,8 +15,9 @@ jobs:
           - ubuntu-22.04
           - macos-12
           - macos-13
+          - macos-14
           # custom runner
-          # - macos-13-xl
+          # - macos-14-xl
 
     runs-on: ${{ matrix.os }}
     steps:

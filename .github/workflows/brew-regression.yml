@@ -33,6 +33,7 @@ jobs:
         os:
           - macos-12
           - macos-13
+          - macos-14
     steps:
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
