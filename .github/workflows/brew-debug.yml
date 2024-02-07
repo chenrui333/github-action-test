@@ -29,7 +29,7 @@ jobs:
 
   # # debug formula on macos
   formula-debug-macos:
-    runs-on: macos-14
+    runs-on: macos-13 # macos-14 is arm runner
     if: github.event_name == 'pull_request'
     defaults:
       run:
