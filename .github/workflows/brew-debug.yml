@@ -60,7 +60,8 @@ jobs:
           rm -f /usr/local/bin/python3.12
           rm -f /usr/local/bin/python3.12-config
 
-          brew install python@3.11
+          brew install python@3.12
+          brew link --overwrite python@3.12
           python --version
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
