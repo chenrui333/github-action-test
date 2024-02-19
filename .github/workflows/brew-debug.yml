@@ -38,7 +38,6 @@ jobs:
         working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
     steps:
       - name: overwrite python@3.11 links
-        if: matrix.os == 'macos-13'
         run: |
           # fix `brew link python@3.12` issue
           # see upstream discussion in https://github.com/actions/setup-python/issues/577
