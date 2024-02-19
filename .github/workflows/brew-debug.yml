@@ -39,6 +39,8 @@ jobs:
     steps:
       - name: overwrite python@3.11 links
         run: |
+          brew update
+
           # fix `brew link python@3.12` issue
           # see upstream discussion in https://github.com/actions/setup-python/issues/577
 
