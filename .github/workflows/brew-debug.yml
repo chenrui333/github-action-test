@@ -37,8 +37,33 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
+  #     - name: Setup Homebrew python@3.12
+  #       run: |
+  #         brew update
+
+  #         # fix `brew link python@3.12` issue
+  #         # see upstream discussion in https://github.com/actions/setup-python/issues/577
+
+  #         rm -f /usr/local/bin/2to3
+  #         rm -f /usr/local/bin/idle3
+  #         rm -f /usr/local/bin/pydoc3
+  #         rm -f /usr/local/bin/python3
+  #         rm -f /usr/local/bin/python3-config
+  #         rm -f /usr/local/bin/2to3-3.11
+  #         rm -f /usr/local/bin/idle3.11
+  #         rm -f /usr/local/bin/pydoc3.11
+  #         rm -f /usr/local/bin/python3.11
+  #         rm -f /usr/local/bin/python3.11-config
+  #         rm -f /usr/local/bin/2to3-3.12
+  #         rm -f /usr/local/bin/idle3.12
+  #         rm -f /usr/local/bin/pydoc3.12
+  #         rm -f /usr/local/bin/python3.12
+  #         rm -f /usr/local/bin/python3.12-config
+
+  #         brew install python@3.12
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
+
 
 
   # # debug formula on ubuntu
