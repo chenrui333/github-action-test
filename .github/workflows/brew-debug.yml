@@ -37,8 +37,10 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
+  #     - run: brew update
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
+
 
 
   # # debug formula on ubuntu
