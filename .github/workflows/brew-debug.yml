@@ -27,7 +27,21 @@ jobs:
     steps:
       - run: echo "dummy job"
 
-  # debug formula on macos
+  # # debug formula run on arm macos
+  # formula-debug-macos:
+  #   runs-on: macos-14 # macos-14 is arm runner
+  #   if: github.event_name == 'pull_request'
+  #   defaults:
+  #     run:
+  #       # simplify the debugging flow
+  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+  #       working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
+  #   steps:
+  #     - run: brew update
+  #     - name: Setup tmate session
+  #       uses: mxschmitt/action-tmate@v3
+
+  # debug formula run on intel macos
   formula-debug-macos:
     runs-on: macos-13 # macos-14 is arm runner
     if: github.event_name == 'pull_request'
@@ -40,8 +54,6 @@ jobs:
       - run: brew update
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-
-
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:

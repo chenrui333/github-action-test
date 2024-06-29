@@ -16,15 +16,16 @@ jobs:
   hurl:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Install hurl
         run: |
-          cd /usr/local/bin && curl -fsSL https://github.com/Orange-OpenSource/hurl/releases/download/$HURL_VERSION/hurl-$HURL_VERSION-x86_64-unknown-linux-gnu.tar.gz | sudo tar xz --strip-components 1
+          cd /tmp && curl -fsSL https://github.com/Orange-OpenSource/hurl/releases/download/$HURL_VERSION/hurl-$HURL_VERSION-x86_64-unknown-linux-gnu.tar.gz -o hurl.tar.gz
+          sudo tar xzf hurl.tar.gz -C /usr/local/bin --strip-components=2 hurl-$HURL_VERSION-x86_64-unknown-linux-gnu/bin
           hurl --version
         env:
           # renovate: datasource=github-releases depName=Orange-OpenSource/hurl
-          HURL_VERSION: 4.1.0
+          HURL_VERSION: 4.3.0
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/*.hurl"

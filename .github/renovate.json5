@@ -35,11 +35,12 @@
     {
       customType: "regex",
       fileMatch: [
-        "^\\.github/workflows/[^/]+\\.ya?ml$"
+        "(^|/)\\.github/workflows/[^/]+\\.ya?ml$"
       ],
       matchStrings: [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+version: (?<currentValue>.*)\\s",
-      ]
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s",
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s]*?_VERSION: (?<currentValue>.*)\\s",
+      ],
     },
   ],
 }
