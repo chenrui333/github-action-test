@@ -40,8 +40,8 @@ jobs:
       - run: brew linkage --cached ${{inputs.formula}}
 
   linux-build:
-    name: ubuntu-22.04 build
-    runs-on: ubuntu-22.04
+    name: ubuntu-24.04 build
+    runs-on: ubuntu-24.04
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
