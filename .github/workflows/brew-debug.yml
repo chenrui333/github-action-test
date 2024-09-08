@@ -23,7 +23,7 @@ env:
 # 2. debug formula on ubuntu (runs on PR only)
 jobs:
   dummy-job:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - run: echo "dummy job"
 
@@ -57,7 +57,7 @@ jobs:
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
-  #   runs-on: ubuntu-22.04
+  #   runs-on: ubuntu-24.04
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -65,7 +65,7 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     # As brew got removed from the ubuntu-latest image, we need to install it
+  #     # As brew got removed from the ubuntu images, we need to install it
   #     # https://github.com/actions/runner-images/issues/6283
   #     - name: Set up Homebrew
   #       id: set-up-homebrew
