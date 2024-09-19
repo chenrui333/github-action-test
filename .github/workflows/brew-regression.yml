@@ -40,13 +40,13 @@ jobs:
       - run: brew linkage --cached ${{inputs.formula}}
 
   linux-build:
-    name: ubuntu-22.04 test
-    runs-on: ubuntu-22.04
+    name: ubuntu-24.04 test
+    runs-on: ubuntu-24.04
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@68fa6aeb1ccb0596d311f2b34ec74ec21ee68e54
+        uses: Homebrew/actions/setup-homebrew@f3fe7e5489044c80b8d27d9ce5d20e5e56c7563b
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
