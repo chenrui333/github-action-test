@@ -5,6 +5,9 @@ name: brew-regression
 run-name: regression test ${{inputs.formula}}
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       formula:
