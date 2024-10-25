@@ -17,6 +17,7 @@ jobs:
           - macos-12
           - macos-13
           - macos-14
+          - macos-15
           # custom large runners, https://docs.github.com/en/actions/using-github-hosted-runners/about-larger-runners/about-larger-runners
           # - macos-14-large # intel runner
           # - macos-14-xlarge # arm runner
