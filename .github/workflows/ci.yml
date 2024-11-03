@@ -39,12 +39,13 @@ jobs:
         # if: steps.diffset.outputs.scala_files
         run: |
           VERSION=3.8.3
+          INSTALL_LOCATION=/usr/local/bin/scalafmt-native
           echo "Installing scalafmt version $VERSION..."
           curl -sL https://raw.githubusercontent.com/scalameta/scalafmt/master/bin/install-scalafmt-native.sh | \
-            bash -s -- $VERSION .
-          ./scalafmt-native --help
+            bash -s -- $VERSION $INSTALL_LOCATION
+          scalafmt-native --help
           echo "checking scala files..."
-          ./scalafmt-native ${{ steps.diffset.outputs.scala_files }} || echo "something didn't work out but that's ok"
+          scalafmt-native ${{ steps.diffset.outputs.scala_files }} || echo "something didn't work out but that's ok"
           # git diff --exit-code -- ${{ steps.diffset.outputs.scala_files }} || {
           #   git add ${{ steps.diffset.outputs.scala_files }}
           #   git config --global user.name 'GitHub Actions'
