@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  merge_group:
+    types: [ checks_requested ]
+  push:
+    branches-ignore:
+      - main
+      # To avoid to trigger the workflow twice on merge queue checks
+      - gh-readonly-queue/main/*
+
+jobs:
+  lint:
+    name: Lint
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Diffset
+        id: diffset
+        uses: softprops/diffset@v2
+        with:
+          base: main
+          scala_files: "**/*.scala"
+          java_files: "**/*.java"
+          cfn_files: "**/*.cf.yml"
+          sam_files: "**/template.y*ml" # template.ymml is the aws sam default template
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
+        with:
+          app-id: ${{ vars.MEETUP_GIT_BOT_APP_ID }}
+          private-key: ${{ secrets.MEETUP_GIT_BOT_PRIVATE_KEY }}
+      - name: Checkout
+        if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+      - name: Scala Codestyle
+        if: steps.diffset.outputs.scala_files
+        run: |
+          VERSION=3.8.3
+          echo "Installing scalafmt version $VERSION..."
+          curl -sL https://raw.githubusercontent.com/scalameta/scalafmt/master/bin/install-scalafmt-native.sh | \
+            bash -s -- $VERSION .
+          ./scalafmt-native --help
+          echo "checking scala files..."
+          ./scalafmt-native ${{ steps.diffset.outputs.scala_files }} || echo "something didn't work out but that's ok"
+          git diff --exit-code -- ${{ steps.diffset.outputs.scala_files }} || {
+            git add ${{ steps.diffset.outputs.scala_files }}
+            git config --global user.name 'GitHub Actions'
+            git config --global user.email 'github-actions@users.noreply.github.com'
+            git commit -m "💅 fixing up some Scala code style"
+            git push
+          }
+      - name: Setup Java
+        if: steps.diffset.outputs.java_files
+        uses: actions/setup-java@v4
+        with:
+          java-version: 22
+          distribution: "corretto"
+      - name: Java Codestyle
+        if: steps.diffset.outputs.java_files
+        run: |
+          tools/google-java-format fix ${{ steps.diffset.outputs.java_files }}
+          git diff --exit-code -- ${{ steps.diffset.outputs.java_files }} || {
+            git add ${{ steps.diffset.outputs.java_files }}
+            git config --global user.name 'GitHub Actions'
+            git config --global user.email 'github-actions@users.noreply.github.com'
+            git commit -m "💅 fixing up some java code style"
+            git push
+          }
+      - name: install cfn-lint
+        if: steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
+        uses: scottbrenner/cfn-lint-action@v2
+      - name: cfn-lint cloudformation
+        if: steps.diffset.outputs.cfn_files
+        run: |
+          cfn-lint --version
+          cfn-lint ${{ steps.diffset.outputs.cfn_files }}
+      - name: cfn-lint aws sam
+        if: steps.diffset.outputs.sam_files
+        run: |
+          cfn-lint --version
+          # ignoring E3030 until cnf-updates specs for newer provided.al2023 runtime added nov 10, 2023
+          # https://aws.amazon.com/blogs/compute/introducing-the-amazon-linux-2023-runtime-for-aws-lambda/
+          cfn-lint -i E3030 ${{ steps.diffset.outputs.sam_files }}
