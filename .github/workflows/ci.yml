@@ -36,7 +36,7 @@ jobs:
       #   with:
       #     token: ${{ steps.app-token.outputs.token }}
       - name: Scala Codestyle
-        if: steps.diffset.outputs.scala_files
+        # if: steps.diffset.outputs.scala_files
         run: |
           VERSION=3.8.3
           echo "Installing scalafmt version $VERSION..."
@@ -45,13 +45,13 @@ jobs:
           ./scalafmt-native --help
           echo "checking scala files..."
           ./scalafmt-native ${{ steps.diffset.outputs.scala_files }} || echo "something didn't work out but that's ok"
-          git diff --exit-code -- ${{ steps.diffset.outputs.scala_files }} || {
-            git add ${{ steps.diffset.outputs.scala_files }}
-            git config --global user.name 'GitHub Actions'
-            git config --global user.email 'github-actions@users.noreply.github.com'
-            git commit -m "💅 fixing up some Scala code style"
-            git push
-          }
+          # git diff --exit-code -- ${{ steps.diffset.outputs.scala_files }} || {
+          #   git add ${{ steps.diffset.outputs.scala_files }}
+          #   git config --global user.name 'GitHub Actions'
+          #   git config --global user.email 'github-actions@users.noreply.github.com'
+          #   git commit -m "💅 fixing up some Scala code style"
+          #   git push
+          # }
       - name: Setup Java
         if: steps.diffset.outputs.java_files
         uses: actions/setup-java@v4
