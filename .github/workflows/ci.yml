@@ -15,26 +15,26 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-      - name: Diffset
-        id: diffset
-        uses: softprops/diffset@v2
-        with:
-          base: main
-          scala_files: "**/*.scala"
-          java_files: "**/*.java"
-          cfn_files: "**/*.cf.yml"
-          sam_files: "**/template.y*ml" # template.ymml is the aws sam default template
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
-        with:
-          app-id: ${{ vars.MEETUP_GIT_BOT_APP_ID }}
-          private-key: ${{ secrets.MEETUP_GIT_BOT_PRIVATE_KEY }}
-      - name: Checkout
-        if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.app-token.outputs.token }}
+      # - name: Diffset
+      #   id: diffset
+      #   uses: softprops/diffset@v2
+      #   with:
+      #     base: main
+      #     scala_files: "**/*.scala"
+      #     java_files: "**/*.java"
+      #     cfn_files: "**/*.cf.yml"
+      #     sam_files: "**/template.y*ml" # template.ymml is the aws sam default template
+      # - uses: actions/create-github-app-token@v1
+      #   id: app-token
+      #   if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
+      #   with:
+      #     app-id: ${{ vars.MEETUP_GIT_BOT_APP_ID }}
+      #     private-key: ${{ secrets.MEETUP_GIT_BOT_PRIVATE_KEY }}
+      # - name: Checkout
+      #   if: steps.diffset.outputs.scala_files || steps.diffset.outputs.java_files || steps.diffset.outputs.cfn_files || steps.diffset.outputs.sam_files
+      #   uses: actions/checkout@v4
+      #   with:
+      #     token: ${{ steps.app-token.outputs.token }}
       - name: Scala Codestyle
         if: steps.diffset.outputs.scala_files
         run: |
