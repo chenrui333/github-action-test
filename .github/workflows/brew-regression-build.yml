@@ -34,6 +34,7 @@ jobs:
           - macos-12
           - macos-13
           - macos-14
+          - macos-15
     steps:
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
@@ -46,7 +47,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@5f3a2b28310ab94ebb09b74f8ff70c11aa4731bd
+        uses: Homebrew/actions/setup-homebrew@96b62547f9c35113f88af3d8fbb24b40018217d9
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
