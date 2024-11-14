@@ -34,19 +34,20 @@ jobs:
           - macos-12
           - macos-13
           - macos-14
+          - macos-15
     steps:
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
 
   linux-build:
-    name: ubuntu-22.04 test
-    runs-on: ubuntu-22.04
+    name: ubuntu-24.04 test
+    runs-on: ubuntu-24.04
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@68fa6aeb1ccb0596d311f2b34ec74ec21ee68e54
+        uses: Homebrew/actions/setup-homebrew@c1d44829f8bbdcaca771828d77d9ee9786d09e1b
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}

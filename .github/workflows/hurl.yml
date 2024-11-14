@@ -14,9 +14,9 @@ on:
 
 jobs:
   hurl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Install hurl
         run: |
@@ -25,7 +25,7 @@ jobs:
           hurl --version
         env:
           # renovate: datasource=github-releases depName=Orange-OpenSource/hurl
-          HURL_VERSION: 4.3.0
+          HURL_VERSION: 5.0.1
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/*.hurl"

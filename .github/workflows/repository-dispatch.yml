@@ -15,9 +15,9 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: show context
         run: |
           echo "github sha is ${{ github.sha }}"
@@ -29,10 +29,10 @@ jobs:
           echo "id is $ID"
           echo "integration is ${{ github.event.client_payload.integration }}"
   show-id:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build]
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: show id
         run: |
           echo "id is $ID"
