@@ -47,7 +47,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@bb20746bb9b67e4b268bfcfcec8737bd7075dd4b
+        uses: Homebrew/actions/setup-homebrew@7f8c7049f9ba0b2d6fcfe918a52aac387c875db6
       - run: brew update
       - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
