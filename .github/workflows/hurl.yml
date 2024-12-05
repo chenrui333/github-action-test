@@ -25,7 +25,7 @@ jobs:
           hurl --version
         env:
           # renovate: datasource=github-releases depName=Orange-OpenSource/hurl
-          HURL_VERSION: 5.0.1
+          HURL_VERSION: 6.0.0
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/*.hurl"
