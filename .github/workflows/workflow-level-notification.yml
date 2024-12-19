@@ -1,0 +1,36 @@
+name: workflow level notification
+
+on: [pull_request]
+
+jobs:
+  job1:
+    name: job1 success
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "job1 success"
+  job2:
+    name: job2 success
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+    - run: echo "job2 success"
+  job3:
+    name: job3 success
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+    - run: echo "job3 success"
+  job4:
+    name: job4 failure
+    runs-on: ubuntu-latest
+    needs: job3
+    steps:
+    - run: echo "job4 failure" && exit 1
+
+  job_notify:
+    name: notify on workflow failure
+    needs: [job1, job2, job3, job4]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "job_notify run"
