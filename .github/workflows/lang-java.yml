@@ -31,4 +31,10 @@ jobs:
           distribution: 'zulu'
 
       - name: Display Java Version
-        run: java --version
+        shell: bash
+        run: |
+          if [[ "${{ matrix.java }}" == "8" ]]; then
+            java -version
+          else
+            java --version
+          fi
