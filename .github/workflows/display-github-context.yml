@@ -1,7 +1,6 @@
 name: display-github-context
 
 on:
-  workflow_dispatch:
   pull_request:
     paths:
       - '.github/workflows/display-github-context.yml'
