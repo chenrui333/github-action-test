@@ -60,8 +60,12 @@ jobs:
             }
 
             const body = [
+              `**Runner OS**: ${process.env.RUNNER_OS}`,
+              `**Runner Arch**: ${process.env.RUNNER_ARCH}`,
+              '',
               '<details>',
-              '<summary>Runner details for ${process.env.RUNNER_OS}/${process.env.RUNNER_ARCH}</summary>',
+              '<summary>See full GitHub context</summary>',
+              '',
               '```json',
               JSON.stringify(context, null, 2),
               '```',
