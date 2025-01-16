@@ -60,11 +60,12 @@ jobs:
             }
 
             const body = [
-              `**OS**: ${process.env.RUNNER_OS}`,
-              `**Arch**: ${process.env.RUNNER_ARCH}`,
+              '<details>',
+              '<summary>Runner details for ${process.env.RUNNER_OS}/${process.env.RUNNER_ARCH}</summary>',
               '```json',
               JSON.stringify(context, null, 2),
               '```',
+              '</details>',
             ].join('\n');
 
             await github.rest.issues.createComment({
