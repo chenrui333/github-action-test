@@ -1,0 +1,40 @@
+# Test workflow to inspect and display the Java versions installed on GitHub-hosted runners.
+
+name: lang-java
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/lang-java.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  show-java-version:
+    name: Show JDK ${{ matrix.java }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [8, 11, 17, 21, 23, 24-ea]
+        os: [ubuntu-latest, macos-13, macos-latest]
+
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'zulu'
+
+      - name: Display Java Version
+        shell: bash
+        run: |
+          if [[ "${{ matrix.java }}" == "8" ]]; then
+            java -version
+          else
+            java --version
+          fi

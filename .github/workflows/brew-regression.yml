@@ -31,7 +31,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-12
           - macos-13
           - macos-14
           - macos-15
@@ -47,7 +46,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@064c96758610d925cdfa1878c508528f23dc6a58
+        uses: Homebrew/actions/setup-homebrew@63bb528561e28897e6430ee4b95ef7b0539d5183
       - run: brew update
       - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
       - run: brew linkage --cached ${{inputs.formula}}
