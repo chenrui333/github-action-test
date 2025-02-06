@@ -1,5 +1,5 @@
 GET https://mobile.twitter.com
-User-Agent: hurl/4.0.0
+User-Agent: hurl-mup/4.0.0
 
 HTTP/2 200
 
