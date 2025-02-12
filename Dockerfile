@@ -1,6 +1,9 @@
 FROM golang:1.23@sha256:927112936d6b496ed95f55f362cc09da6e3e624ef868814c56d55bd7323e0959
 
-RUN apt-get update && apt-get install unzip
+# renovate: datasource=apt depName=unzip versioning=loose
+ENV UNZIP_VERSION=6.0-28
+RUN apt-get update && \
+    apt-get install -y unzip=${UNZIP_VERSION}
 
 # Install Terraform
 # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
