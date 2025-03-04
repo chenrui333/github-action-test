@@ -11,7 +11,7 @@ on:
         description: 'Set this if you are running the job manually.'
         default: false
 
-permisions:
+permissions:
   contents: read
 
 jobs:
