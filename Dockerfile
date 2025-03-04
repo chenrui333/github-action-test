@@ -1,32 +1,51 @@
-FROM golang:1.24@sha256:3f7444391c51a11a039bf0359ee81cc64e663c17d787ad0e637a4de1a3f62a71
+FROM amazoncorretto:21-al2023
+ARG TARGETPLATFORM
 
-# https://packages.debian.org/stable/upzip
-# renovate: release=stable depName=unzip
-ARG UNZIP_VERSION=6.0-28
-RUN apt-get update && \
-    apt-get install -y unzip=${UNZIP_VERSION}
+# our entrypoint script depends on xargs which is not installed by
+# default on al2023
+# https://github.com/amazonlinux/amazon-linux-2023/issues/355
+RUN dnf install -y findutils
 
-# Install Terraform
-# renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-ARG TERRAFORM_VERSION=1.10.5
-RUN case $(uname -m) in x86_64|amd64) ARCH="amd64" ;; aarch64|arm64|armv7l) ARCH="arm64" ;; esac && \
-    wget -nv -O terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && \
-    mkdir -p /usr/local/bin/tf/versions/${TERRAFORM_VERSION} && \
-    unzip terraform.zip -d /usr/local/bin/tf/versions/${TERRAFORM_VERSION} && \
-    ln -s /usr/local/bin/tf/versions/${TERRAFORM_VERSION}/terraform /usr/local/bin/terraform && \
-    rm terraform.zip
+# Tweak JVM DNS cache TTL for faster failover in cases when AWS restarts instances
+# See https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html
+ENV NETWORKADDRESS_CACHE_TTL 60
+# Uncomments an existing line in java.security and updates its value to the one defined by env variable
+# #networkaddress.cache.ttl=-1 --> networkaddress.cache.ttl=5
+RUN sed -i -E "s/#(networkaddress\.cache\.ttl)=(.*)/\1=$NETWORKADDRESS_CACHE_TTL/g" $JAVA_HOME/conf/security/java.security
 
-# Install conftest
-# renovate: datasource=github-releases depName=open-policy-agent/conftest
-ARG CONFTEST_VERSION=0.56.0
-RUN case $(uname -m) in x86_64|amd64) ARCH="x86_64" ;; aarch64|arm64|armv7l) ARCH="arm64" ;; esac && \
-    curl -LOs https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
-    curl -LOs https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/checksums.txt && \
-    sed -n "/conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz/p" checksums.txt | sha256sum -c && \
-    mkdir -p /usr/local/bin/cft/versions/${CONFTEST_VERSION} && \
-    tar -C  /usr/local/bin/cft/versions/${CONFTEST_VERSION} -xzf conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
-    ln -s /usr/local/bin/cft/versions/${CONFTEST_VERSION}/conftest /usr/local/bin/conftest${CONFTEST_VERSION} && \
-    rm conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
-    rm checksums.txt
+# Timezone needed for correct flume logging
+ENV TZ=America/New_York
+# note: only needed because we send email in process which refer to static resources
+ENV READ_RESOURCE_MANIFEST_FROM_DISK=true
+ENV RESOURCE_MANIFEST_PATH=/app/resource-manifest.json
 
-RUN go install golang.org/x/tools/cmd/goimports@latest
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN mkdir -p /usr/local/img_root/photo_upload/member
+
+# install hurl, a readiness checking tool for health checks
+# we may want to consider creating a base image for deployments with this
+# preinstalled if this adds a undesirable about of docker build time
+
+ARG HURL_VERSION=6.0.0
+ARG HURL_AMD64_MD5=d331e8aee33c8a96cdeeeb551c73c7d0
+ARG HURL_ARM_MD5=6fbd19d46ee9d0b018bf952feae230e2
+
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+  dnf install -y tar gzip \
+  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu.tar.gz \
+  | tar xvz -C /tmp \
+  && echo "$HURL_AMD64_MD5 /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu/bin/hurl" | md5sum -c \
+  && mv /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu /tmp/hurl; \
+  fi
+
+RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+  dnf install -y tar gzip \
+  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu.tar.gz \
+  | tar xvz -C /tmp \
+  && echo "$HURL_ARM_MD5 /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu/bin/hurl" | md5sum -c \
+  && mv /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu /tmp/hurl; \
+  fi
+
+ENV PATH="$PATH:/tmp/hurl"
+
+WORKDIR /app
