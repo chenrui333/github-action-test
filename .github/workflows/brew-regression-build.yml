@@ -2,7 +2,7 @@
 name: brew-regression-build
 
 # ref, https://github.blog/changelog/2022-09-26-github-actions-dynamic-names-for-workflow-runs/
-run-name: regression build ${{inputs.formula}}
+run-name: regression build "${{inputs.formula}}"
 
 on:
   workflow_dispatch:
@@ -23,6 +23,9 @@ env:
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
 
+permissions:
+  contents: read
+
 jobs:
   macos-build:
     name: ${{ matrix.os }} build
@@ -36,8 +39,8 @@ jobs:
           - macos-15
     steps:
       - run: brew update
-      - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
-      - run: brew linkage --cached ${{inputs.formula}}
+      - run: brew install -s "${{inputs.formula}}" && brew test "${{inputs.formula}}"
+      - run: brew linkage --cached "${{inputs.formula}}"
 
   linux-build:
     name: ubuntu-24.04 build
@@ -48,5 +51,5 @@ jobs:
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
         uses: Homebrew/actions/setup-homebrew@c54d8fc811183990efb4e254f29fb38560934ce1
       - run: brew update
-      - run: brew install -s ${{inputs.formula}} && brew test ${{inputs.formula}}
-      - run: brew linkage --cached ${{inputs.formula}}
+      - run: brew install -s "${{inputs.formula}}" && brew test "${{inputs.formula}}"
+      - run: brew linkage --cached "${{inputs.formula}}"
