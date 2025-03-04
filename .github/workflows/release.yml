@@ -9,13 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
 
-    # Publish release to container registry
-    - name: populate release version
-      if: ${{ github.event_name == 'release'}}
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-    - name: build docker-test:$RELEASE_VERSION release image
-      if: ${{ github.event_name == 'release'}}
-      run: |
-        docker build -t chenrui333/docker-test:$RELEASE_VERSION .
+      # Publish release to container registry
+      - name: populate release version
+        if: ${{ github.event_name == 'release'}}
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: build docker-test:$RELEASE_VERSION release image
+        if: ${{ github.event_name == 'release'}}
+        run: |
+          docker build -t chenrui333/docker-test:$RELEASE_VERSION .
