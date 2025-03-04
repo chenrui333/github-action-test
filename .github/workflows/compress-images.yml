@@ -9,6 +9,9 @@ on:
       - '**.png'
       - '**.webp'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: calibreapp/image-actions

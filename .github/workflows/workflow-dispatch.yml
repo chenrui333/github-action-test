@@ -11,6 +11,9 @@ on:
         description: 'Set this if you are running the job manually.'
         default: false
 
+permisions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-24.04

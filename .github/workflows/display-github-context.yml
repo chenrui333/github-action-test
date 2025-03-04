@@ -5,6 +5,9 @@ on:
     paths:
       - '.github/workflows/display-github-context.yml'
 
+permissions:
+  contents: read
+
 jobs:
   all_jobs:
     strategy:

@@ -12,6 +12,9 @@ on:
     # run every 5 mins
     - cron: "*/5 * * * *"
 
+permissions:
+  contents: read
+
 jobs:
   hurl:
     runs-on: ubuntu-24.04

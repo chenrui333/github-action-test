@@ -18,6 +18,9 @@ env:
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
 
+permissions:
+  contents: read
+
 # three jobs in this workflow:
 # 1. debug formula on macos (runs on PR only)
 # 2. debug formula on ubuntu (runs on PR only)

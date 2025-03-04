@@ -23,6 +23,9 @@ env:
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
 
+permissions:
+  contents: read
+
 jobs:
   macos-build:
     name: ${{ matrix.os }} build
