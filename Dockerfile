@@ -8,7 +8,7 @@ RUN dnf install -y findutils
 
 # Tweak JVM DNS cache TTL for faster failover in cases when AWS restarts instances
 # See https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-jvm-ttl.html
-ENV NETWORKADDRESS_CACHE_TTL 60
+ENV NETWORKADDRESS_CACHE_TTL=60
 # Uncomments an existing line in java.security and updates its value to the one defined by env variable
 # #networkaddress.cache.ttl=-1 --> networkaddress.cache.ttl=5
 RUN sed -i -E "s/#(networkaddress\.cache\.ttl)=(.*)/\1=$NETWORKADDRESS_CACHE_TTL/g" $JAVA_HOME/conf/security/java.security
@@ -31,19 +31,19 @@ ARG HURL_AMD64_MD5=d331e8aee33c8a96cdeeeb551c73c7d0
 ARG HURL_ARM_MD5=6fbd19d46ee9d0b018bf952feae230e2
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
-  dnf install -y tar gzip \
-  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu.tar.gz \
-  | tar xvz -C /tmp \
-  && echo "$HURL_AMD64_MD5 /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu/bin/hurl" | md5sum -c \
-  && mv /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu /tmp/hurl; \
+  dnf install -y tar gzip && \
+  curl -sL "https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+    | tar xvz -C /tmp && \
+  ( echo "$HURL_AMD64_MD5 /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu/bin/hurl" | md5sum -c ) && \
+  mv /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu /tmp/hurl; \
   fi
 
 RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
-  dnf install -y tar gzip \
-  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu.tar.gz \
-  | tar xvz -C /tmp \
-  && echo "$HURL_ARM_MD5 /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu/bin/hurl" | md5sum -c \
-  && mv /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu /tmp/hurl; \
+  dnf install -y tar gzip && \
+  curl -sL "https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu.tar.gz" \
+    | tar xvz -C /tmp && \
+  ( echo "$HURL_ARM_MD5 /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu/bin/hurl" | md5sum -c ) && \
+  mv /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu /tmp/hurl; \
   fi
 
 ENV PATH="$PATH:/tmp/hurl"
