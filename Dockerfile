@@ -27,23 +27,23 @@ RUN mkdir -p /usr/local/img_root/photo_upload/member
 # preinstalled if this adds a undesirable about of docker build time
 
 ARG HURL_VERSION=6.0.0
-ARG HURL_AMD64_MD5=d331e8aee33c8a96cdeeeb551c73c7d0
-ARG HURL_ARM_MD5=6fbd19d46ee9d0b018bf952feae230e2
+ARG HURL_AMD64_MD5=bafd0e2a44c2e4eaef79a6af045ae15d
+ARG HURL_ARM_MD5=e35b52e0e32f2d9d86bf8c9d406ae15c
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
-  dnf install -y tar gzip && \
-  curl -sL "https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
-    | tar xvz -C /tmp && \
-  ( echo "$HURL_AMD64_MD5 /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu/bin/hurl" | md5sum -c ) && \
-  mv /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu /tmp/hurl; \
+  dnf install -y tar gzip \
+  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu.tar.gz \
+  | tar xvz -C /tmp \
+  && echo "$HURL_AMD64_MD5 /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu/bin/hurl" | md5sum -c \
+  && mv /tmp/hurl-${HURL_VERSION}-x86_64-unknown-linux-gnu /tmp/hurl; \
   fi
 
 RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
-  dnf install -y tar gzip && \
-  curl -sL "https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu.tar.gz" \
-    | tar xvz -C /tmp && \
-  ( echo "$HURL_ARM_MD5 /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu/bin/hurl" | md5sum -c ) && \
-  mv /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu /tmp/hurl; \
+  dnf install -y tar gzip \
+  && curl -sL https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu.tar.gz \
+  | tar xvz -C /tmp \
+  && echo "$HURL_ARM_MD5 /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu/bin/hurl" | md5sum -c \
+  && mv /tmp/hurl-${HURL_VERSION}-aarch64-unknown-linux-gnu /tmp/hurl; \
   fi
 
 ENV PATH="$PATH:/tmp/hurl"
