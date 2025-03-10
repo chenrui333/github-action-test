@@ -12,11 +12,16 @@ on:
     # run every 5 mins
     - cron: "*/5 * * * *"
 
+permissions:
+  contents: read
+
 jobs:
   hurl:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
 
       - name: Install hurl
         run: |
