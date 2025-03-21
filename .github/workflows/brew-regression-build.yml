@@ -16,6 +16,9 @@ env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_ANALYTICS: 1
+  # https://github.com/Homebrew/homebrew-core/blob/2b267008a1315bae4bceb2efb4a9e503e2d00b62/.github/workflows/tests.yml#L16-L17
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
+  HOMEBREW_ARM64_TESTING: 1
   # save some time
   HOMEBREW_NO_INSTALL_CLEANUP: 1
   # no need to upgrade dependants
