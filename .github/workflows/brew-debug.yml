@@ -91,7 +91,7 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     - name: actions/checkout@v4
+  #     - uses: actions/checkout@v4
   #     - name: Setup Homebrew
   #       run: |
   #         .github/workflows/scripts/install_homebrew.sh
