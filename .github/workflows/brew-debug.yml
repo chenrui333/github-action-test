@@ -29,7 +29,7 @@ permissions:
 # 2. debug formula on ubuntu (runs on PR only)
 jobs:
   dummy-job:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - run: echo "dummy job"
 
@@ -63,7 +63,7 @@ jobs:
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
-  #   runs-on: ubuntu-24.04
+  #   runs-on: ubuntu-22.04
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -83,7 +83,7 @@ jobs:
 
   # # debug formula on ubuntu arm
   # formula-debug-ubuntu-arm:
-  #   runs-on: ubuntu-24.04-arm
+  #   runs-on: ubuntu-22.04-arm
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
