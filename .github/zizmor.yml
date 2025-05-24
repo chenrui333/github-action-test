@@ -1,0 +1,18 @@
+rules:
+  template-injection:
+    ignore:
+      - brew-regression-build.yml:42
+      - brew-regression-build.yml:43
+      - brew-regression-build.yml:54
+      - brew-regression-build.yml:55
+      - brew-regression.yml:42
+      - brew-regression.yml:43
+      - brew-regression.yml:54
+      - brew-regression.yml:55
+      - credentials.yml:22
+      - delete-event.yml:18
+      - display-github-context.yml:34
+      - display-github-context.yml:42
+      - repository-dispatch.yml:27
+      - repository-dispatch.yml:32
+      - workflow-dispatch.yml:25

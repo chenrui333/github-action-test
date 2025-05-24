@@ -13,11 +13,17 @@ on:
 env:
   ID: ${{ github.event.client_payload.id }}
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+
       - name: show context
         run: |
           echo "github sha is ${{ github.sha }}"
@@ -28,11 +34,15 @@ jobs:
         run: |
           echo "id is $ID"
           echo "integration is ${{ github.event.client_payload.integration }}"
+
   show-id:
     runs-on: ubuntu-24.04
     needs: [build]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+
       - name: show id
         run: |
           echo "id is $ID"

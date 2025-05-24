@@ -9,12 +9,18 @@ on:
       - '**.png'
       - '**.webp'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: calibreapp/image-actions
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+
       - name: Compress Images
         uses: calibreapp/image-actions@main
         with:
