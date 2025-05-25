@@ -1,4 +1,4 @@
-FROM golang:1.24@sha256:c5adecdb7b3f8c5ca3c88648a861882849cc8b02fed68ece31e25de88ad13418
+FROM golang:1.24@sha256:4c0a1814a7c6c65ece28b3bfea14ee3cf83b5e80b81418453f0e9d5255a5d7b8
 
 # https://packages.debian.org/stable/upzip
 # renovate: release=stable depName=unzip
