@@ -11,12 +11,18 @@ env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_ANALYTICS: 1
+  # https://github.com/Homebrew/homebrew-core/blob/2b267008a1315bae4bceb2efb4a9e503e2d00b62/.github/workflows/tests.yml#L16-L17
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
+  HOMEBREW_ARM64_TESTING: 1
   # save some time
   HOMEBREW_NO_INSTALL_CLEANUP: 1
   # no need to upgrade dependants
   HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
+
+permissions:
+  contents: read
 
 # three jobs in this workflow:
 # 1. debug formula on macos (runs on PR only)
@@ -57,7 +63,7 @@ jobs:
 
   # # debug formula on ubuntu
   # formula-debug-ubuntu:
-  #   runs-on: ubuntu-24.04
+  #   runs-on: ubuntu-22.04
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -71,6 +77,24 @@ jobs:
   #       id: set-up-homebrew
   #       # https://github.com/Homebrew/actions/tree/master/setup-homebrew
   #       uses: Homebrew/actions/setup-homebrew@bc738ca370c95ed8d8b44c9b5fcba16e54f5218a
+
+  #     - name: Setup tmate session
+  #       uses: mxschmitt/action-tmate@v3
+
+  # # debug formula on ubuntu arm
+  # formula-debug-ubuntu-arm:
+  #   runs-on: ubuntu-22.04-arm
+  #   if: github.event_name == 'pull_request'
+  #   defaults:
+  #     run:
+  #       # simplify the debugging flow
+  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup Homebrew
+  #       run: |
+  #         .github/workflows/scripts/install_homebrew.sh
 
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3

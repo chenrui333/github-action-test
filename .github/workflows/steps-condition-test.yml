@@ -2,15 +2,22 @@ name: steps-condition-test
 
 on: push
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+
       - name: Check diff
         id: verify_diff
         run: |
           git diff --quiet README.md || echo "::set-output name=new_change::true"
+
       - name: Commit files
         if: steps.verify_diff.outputs.new_change == 'true'
         run: |
