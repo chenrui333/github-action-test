@@ -1,43 +1,80 @@
-# This workflow is trying to display all the environment variables that are
-# available to the job of all the available images, https://github.com/actions/runner-images
-# It runs on demand
 name: display-github-context
 
 on:
-  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/display-github-context.yml'
 
 jobs:
-  nix_jobs:
+  all_jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-20.04
+          # Linux & macOS
           - ubuntu-22.04
+          - ubuntu-22.04-arm
           - ubuntu-24.04
-          - macos-12
+          - ubuntu-24.04-arm
           - macos-13
           - macos-14
           - macos-15
-          # custom large runners, https://docs.github.com/en/actions/using-github-hosted-runners/about-larger-runners/about-larger-runners
-          # - macos-14-large # intel runner
-          # - macos-14-xlarge # arm runner
+          # custom large runners, e.g.:
+          # - macos-14-large (intel)
+          # - macos-14-xlarge (arm)
 
-    runs-on: ${{ matrix.os }}
-    steps:
-      - run: |
-          echo "RUNNER_OS: $RUNNER_OS"
-          echo "RUNNER_ARCH: $RUNNER_ARCH"
-          echo 'GITHUB_CONTEXT is "${{ toJSON(github) }}"'
-
-  windows_jobs:
-    strategy:
-      matrix:
-        os:
+          # Windows
           - windows-2019
           - windows-2022
+
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      pull-requests: write # for actions/github-script
     steps:
-      - run: |
+      - name: Show runner info (Linux/macOS)
+        if: startsWith(matrix.os, 'ubuntu-') || startsWith(matrix.os, 'macos-')
+        shell: bash
+        run: |
+          echo "RUNNER_OS: $RUNNER_OS"
+          echo "RUNNER_ARCH: $RUNNER_ARCH"
+          echo "GITHUB_CONTEXT: ${{ toJSON(github) }}"
+
+      - name: Show runner info (Windows)
+        if: startsWith(matrix.os, 'windows-')
+        shell: pwsh
+        run: |
           echo "RUNNER_OS: $env:RUNNER_OS"
           echo "RUNNER_ARCH: $env:RUNNER_ARCH"
           echo 'GITHUB_CONTEXT is "${{ toJSON(github) }}"'
+
+      - name: Post runner info as PR comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Only post a comment if we have a PR, otherwise skip
+            if (!context.payload.pull_request) {
+              console.log('Not a PR, skipping comment creation.');
+              return;
+            }
+
+            const body = [
+              `**Runner OS**: ${process.env.RUNNER_OS}`,
+              `**Runner Arch**: ${process.env.RUNNER_ARCH}`,
+              '',
+              '<details>',
+              '<summary>See full GitHub context</summary>',
+              '',
+              '```json',
+              JSON.stringify(context, null, 2),
+              '```',
+              '</details>',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });

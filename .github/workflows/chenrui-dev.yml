@@ -5,6 +5,9 @@ on:
   schedule:
     - cron:  '*/1 * * * *'
 
+permissions:
+  contents: read
+
 jobs:
   site-check:
     runs-on: ubuntu-24.04

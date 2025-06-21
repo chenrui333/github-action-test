@@ -2,7 +2,7 @@
 name: brew-regression
 
 # ref, https://github.blog/changelog/2022-09-26-github-actions-dynamic-names-for-workflow-runs/
-run-name: regression test ${{inputs.formula}}
+run-name: regression test "${{inputs.formula}}"
 
 on:
   workflow_dispatch:
@@ -16,12 +16,18 @@ env:
   HOMEBREW_DEVELOPER: 1
   HOMEBREW_NO_AUTO_UPDATE: 1
   HOMEBREW_NO_ANALYTICS: 1
+  # https://github.com/Homebrew/homebrew-core/blob/2b267008a1315bae4bceb2efb4a9e503e2d00b62/.github/workflows/tests.yml#L16-L17
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
+  HOMEBREW_ARM64_TESTING: 1
   # save some time
   HOMEBREW_NO_INSTALL_CLEANUP: 1
   # no need to upgrade dependants
   HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
+
+permissions:
+  contents: read
 
 jobs:
   macos-build:
@@ -31,14 +37,13 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-12
           - macos-13
           - macos-14
           - macos-15
     steps:
       - run: brew update
-      - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
-      - run: brew linkage --cached ${{inputs.formula}}
+      - run: brew install "${{inputs.formula}}" && brew test "${{inputs.formula}}"
+      - run: brew linkage --cached "${{inputs.formula}}"
 
   linux-build:
     name: ubuntu-24.04 test
@@ -47,7 +52,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@ceaf6d407e58a157f6b382dcd0180d548cf92995
+        uses: Homebrew/actions/setup-homebrew@b3fb6f7cb1475434d4285b90020c2aa51f1e0b12
       - run: brew update
-      - run: brew install ${{inputs.formula}} && brew test ${{inputs.formula}}
-      - run: brew linkage --cached ${{inputs.formula}}
+      - run: brew install "${{inputs.formula}}" && brew test "${{inputs.formula}}"
+      - run: brew linkage --cached "${{inputs.formula}}"

@@ -1,5 +1,5 @@
 GET https://google.com
-User-Agent: hurl/4.0.0
+User-Agent: hurl-mup/4.0.0
 
 HTTP/2 301
 Location: https://www.google.com/
@@ -12,7 +12,7 @@ header "server" == "gws"
 header "alt-svc" == "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
 
 GET https://google.com
-User-Agent: hurl/4.0.0
+User-Agent: hurl-mup/4.0.0
 
 [Options]
 location: true
