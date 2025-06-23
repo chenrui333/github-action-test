@@ -46,7 +46,8 @@ jobs:
       - run: brew update
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-
+        with:
+          working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
   # # debug formula run on intel macos
   # formula-debug-macos:
   #   runs-on: macos-13 # macos-14 is arm runner
