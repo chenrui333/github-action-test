@@ -1,0 +1,23 @@
+name: short-sha
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  short-sha:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: sha8
+        run: echo "SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
+      - name: TODAY
+        run: echo "TODAY=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
+      - run: |
+          echo "SHA8 is $SHA8"
+          export JOB_ID=job-$SHA8
+          echo "job-id is $JOB_ID"
+          echo "TODAY is $TODAY"
+          aws --version
+          python --version
+          aws ecr describe-images
