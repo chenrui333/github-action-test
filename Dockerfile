@@ -1,8 +1,8 @@
 FROM golang:1.25@sha256:4859242e2c392ddc9d3225fd41181c00a443d9cc005b8e5131ce164106fbc676
 
-# https://packages.debian.org/stable/upzip
+# https://packages.debian.org/stable/unzip
 # renovate: release=stable depName=unzip
-ARG UNZIP_VERSION=6.0-28
+ARG UNZIP_VERSION=6.0-29
 RUN apt-get update && \
     apt-get install -y unzip=${UNZIP_VERSION}
 
