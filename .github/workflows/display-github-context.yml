@@ -24,8 +24,8 @@ jobs:
           # - macos-14-xlarge (arm)
 
           # Windows
-          - windows-2019
           - windows-2022
+          - windows-2025
 
     runs-on: ${{ matrix.os }}
     permissions:
