@@ -8,6 +8,7 @@ on:
 jobs:
   all_jobs:
     strategy:
+      fail-fast: false
       matrix:
         os:
           # Linux & macOS
@@ -23,37 +24,41 @@ jobs:
           # - macos-14-xlarge (arm)
 
           # Windows
-          - windows-2019
           - windows-2022
+          - windows-2025
 
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
       pull-requests: write # for actions/github-script
+
     steps:
       - name: Show runner info (Linux/macOS)
         if: startsWith(matrix.os, 'ubuntu-') || startsWith(matrix.os, 'macos-')
         shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "RUNNER_OS: $RUNNER_OS"
           echo "RUNNER_ARCH: $RUNNER_ARCH"
-          echo "GITHUB_CONTEXT: ${{ toJSON(github) }}"
+          printf 'GITHUB_CONTEXT: %s\n' "$GITHUB_CONTEXT"
 
       - name: Show runner info (Windows)
         if: startsWith(matrix.os, 'windows-')
         shell: pwsh
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "RUNNER_OS: $env:RUNNER_OS"
           echo "RUNNER_ARCH: $env:RUNNER_ARCH"
-          echo 'GITHUB_CONTEXT is "${{ toJSON(github) }}"'
+          echo "GITHUB_CONTEXT: $env:GITHUB_CONTEXT"
 
       - name: Post runner info as PR comment
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Only post a comment if we have a PR, otherwise skip
             if (!context.payload.pull_request) {
               console.log('Not a PR, skipping comment creation.');
               return;
