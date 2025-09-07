@@ -8,6 +8,7 @@ on:
 jobs:
   all_jobs:
     strategy:
+      fail-fast: false
       matrix:
         os:
           # Linux & macOS
