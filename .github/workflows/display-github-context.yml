@@ -17,11 +17,8 @@ jobs:
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - macos-13 # intel
-          - macos-13-xlarge # arm
           - macos-14 # arm
-          - macos-14-large
           - macos-15 # arm
-          - macos-15-large # intel
           - macos-26 # arm
           # custom large runners, e.g.:
           # - macos-14-large (intel)
