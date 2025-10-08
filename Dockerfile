@@ -30,3 +30,9 @@ RUN case $(uname -m) in x86_64|amd64) ARCH="x86_64" ;; aarch64|arm64|armv7l) ARC
     rm checksums.txt
 
 RUN go install golang.org/x/tools/cmd/goimports@latest
+
+# Build and install agents
+COPY agents /tmp/agents
+RUN cd /tmp/agents && \
+    go build -o /usr/local/bin/agents ./cmd/agents && \
+    rm -rf /tmp/agents
