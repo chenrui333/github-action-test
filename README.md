@@ -49,4 +49,9 @@ The repository includes a GitHub Actions workflow (`.github/workflows/lint.yml`)
 - Pushes to `main` branch
 - Pull requests
 
-The workflow will fail if any Dockerfile is not properly formatted. To fix formatting issues, run `make fmt` locally and commit the changes.
+**Auto-formatting:** If any Dockerfile is not properly formatted, the workflow will:
+1. Automatically format the files using `dockerfmt`
+2. Commit the changes to the PR with the message "chore: format Dockerfiles with dockerfmt"
+3. Push the changes back to the branch
+
+This means you don't need to manually fix formatting issues - the bot will do it for you!
