@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dockerfmt
+        name: Format Dockerfiles
+        entry: dockerfmt -w
+        language: golang
+        additional_dependencies: ['github.com/reteps/dockerfmt@latest']
+        files: '(Dockerfile.*|.*\.dockerfile)$'
+        pass_filenames: true
