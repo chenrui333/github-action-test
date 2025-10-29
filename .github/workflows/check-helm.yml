@@ -1,0 +1,120 @@
+name: display-github-context
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/display-github-context.yml'
+
+jobs:
+  all_jobs:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          # Linux & macOS
+          - ubuntu-22.04
+          - ubuntu-22.04-arm
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+          - macos-13 # intel
+          - macos-14 # arm
+          - macos-15 # arm
+          - macos-26 # arm
+          # custom large runners, e.g.:
+          # - macos-14-large (intel)
+          # - macos-14-xlarge (arm)
+
+          # Windows
+          - windows-2022
+          - windows-2025
+
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      pull-requests: write # for actions/github-script
+
+    steps:
+      # --- Check Helm on Linux/macOS ---
+      - name: Check system Helm (Linux/macOS)
+        if: startsWith(matrix.os, 'ubuntu-') || startsWith(matrix.os, 'macos-')
+        id: helm_check_unix
+        shell: bash
+        run: |
+          if command -v helm >/dev/null 2>&1; then
+            HELM_BIN="$(command -v helm)"
+            HELM_VER="$(helm version --short 2>/dev/null || true)"
+            echo "helm_found=true"            >> "$GITHUB_OUTPUT"
+            echo "helm_path=${HELM_BIN}"      >> "$GITHUB_OUTPUT"
+            echo "helm_version=${HELM_VER}"   >> "$GITHUB_OUTPUT"
+            echo "Found Helm at ${HELM_BIN}: ${HELM_VER}"
+          else
+            echo "helm_found=false"           >> "$GITHUB_OUTPUT"
+            echo "helm_path="                 >> "$GITHUB_OUTPUT"
+            echo "helm_version="              >> "$GITHUB_OUTPUT"
+            echo "Helm not found on PATH"
+          fi
+
+      # --- Check Helm on Windows ---
+      - name: Check system Helm (Windows)
+        if: startsWith(matrix.os, 'windows-')
+        id: helm_check_win
+        shell: pwsh
+        run: |
+          $helm = Get-Command helm -ErrorAction SilentlyContinue
+          if ($helm) {
+            $ver = (& helm version --short) 2>$null
+            "helm_found=true"            >> $env:GITHUB_OUTPUT
+            "helm_path=$($helm.Source)"  >> $env:GITHUB_OUTPUT
+            "helm_version=$ver"          >> $env:GITHUB_OUTPUT
+            Write-Host "Found Helm at $($helm.Source): $ver"
+          } else {
+            "helm_found=false"           >> $env:GITHUB_OUTPUT
+            "helm_path="                 >> $env:GITHUB_OUTPUT
+            "helm_version="              >> $env:GITHUB_OUTPUT
+            Write-Host "Helm not found on PATH"
+          }
+
+      # --- Update the PR comment to include Helm info ---
+      - name: Post runner info as PR comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            if (!context.payload.pull_request) {
+              console.log('Not a PR, skipping comment creation.');
+              return;
+            }
+
+            // Pick the right step outputs based on OS
+            const isWin = process.env.RUNNER_OS === 'Windows';
+            const step = isWin ? '${{ steps.helm_check_win.outputs.helm_found }}' : '${{ steps.helm_check_unix.outputs.helm_found }}';
+
+            const helmFound   = isWin ? '${{ steps.helm_check_win.outputs.helm_found }}'   : '${{ steps.helm_check_unix.outputs.helm_found }}';
+            const helmPath    = isWin ? '${{ steps.helm_check_win.outputs.helm_path }}'    : '${{ steps.helm_check_unix.outputs.helm_path }}';
+            const helmVersion = isWin ? '${{ steps.helm_check_win.outputs.helm_version }}' : '${{ steps.helm_check_unix.outputs.helm_version }}';
+
+            const helmLines = helmFound === 'true'
+              ? [`**Helm**: ${helmVersion}`, `**Helm Path**: ${helmPath}`]
+              : ['**Helm**: not found on PATH'];
+
+            const body = [
+              `**Runner OS**: ${process.env.RUNNER_OS}`,
+              `**Runner Arch**: ${process.env.RUNNER_ARCH}`,
+              ...helmLines,
+              '',
+              '<details>',
+              '<summary>See full GitHub context</summary>',
+              '',
+              '```json',
+              JSON.stringify(context, null, 2),
+              '```',
+              '</details>',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
