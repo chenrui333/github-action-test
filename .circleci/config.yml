@@ -1,0 +1,39 @@
+version: 2.1
+
+jobs:
+  check-helm:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Install Helm"
+          command: |
+            # Install Helm
+            curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      - run:
+          name: "Check system installed Helm"
+          command: |
+            # Check if Helm is available in the system
+            if command -v helm >/dev/null 2>&1; then
+              echo "✅ Helm found in system!"
+              echo "Helm version: $(helm version --short)"
+              echo "Helm location: $(which helm)"
+
+              # Test basic Helm functionality
+              echo "Testing Helm functionality..."
+              helm repo add stable https://charts.helm.sh/stable
+              helm repo update
+              helm search repo stable/nginx
+
+              echo "✅ Helm is working correctly!"
+            else
+              echo "❌ Helm not found in system"
+              exit 1
+            fi
+
+workflows:
+  version: 2
+  check-system-tools:
+    jobs:
+      - check-helm
