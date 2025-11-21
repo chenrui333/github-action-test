@@ -92,9 +92,6 @@ jobs:
         working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Homebrew
-        run: |
-          .github/workflows/scripts/install_homebrew.sh
 
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
