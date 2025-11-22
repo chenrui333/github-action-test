@@ -3,8 +3,8 @@ FROM golang:1.25@sha256:f60eaa87c79e604967c84d18fd3b151b3ee3f033bcdade4f3494e384
 # https://packages.debian.org/stable/unzip
 # renovate: release=stable depName=unzip
 ARG UNZIP_VERSION=6.0-29
-RUN apt-get update && \
-    apt-get install -y unzip=${UNZIP_VERSION}
+RUN apt-get update \
+    && apt-get install -y unzip=${UNZIP_VERSION}
 
 # Install Terraform
 # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
