@@ -47,9 +47,9 @@ jobs:
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
-  # # debug formula run on intel macos
+  # # debug formula run on macos-15-intel
   # formula-debug-macos:
-  #   runs-on: macos-13 # macos-14 is arm runner
+  #   runs-on: macos-15-intel
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
