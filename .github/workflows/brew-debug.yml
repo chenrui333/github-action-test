@@ -53,7 +53,6 @@ jobs:
           brew tap | grep '^homebrew/core$'
           test -d "$(brew --repository homebrew/core)/.git"
           HOMEBREW_NO_INSTALL_FROM_API=1 brew update
-          brew uninstall --ignore-dependencies hello || true
           HOMEBREW_NO_INSTALL_FROM_API=1 brew install -s hello
           brew list --versions hello
           hello --version
