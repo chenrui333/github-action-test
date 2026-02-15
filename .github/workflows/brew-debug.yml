@@ -81,20 +81,17 @@ jobs:
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
-  # # debug formula on ubuntu arm
-  # formula-debug-ubuntu-arm:
-  #   runs-on: ubuntu-22.04-arm
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup Homebrew
-  #       run: |
-  #         .github/workflows/scripts/install_homebrew.sh
+  # debug formula on ubuntu arm
+  formula-debug-ubuntu-arm:
+    runs-on: ubuntu-22.04-arm
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - uses: actions/checkout@v4
 
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
