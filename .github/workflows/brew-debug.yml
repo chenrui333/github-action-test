@@ -55,7 +55,9 @@ jobs:
           HOMEBREW_NO_INSTALL_FROM_API=1 brew update
           brew uninstall --ignore-dependencies hello || true
           HOMEBREW_NO_INSTALL_FROM_API=1 brew install -s hello
-          brew test hello
+          brew list --versions hello
+          hello --version
+          brew linkage --cached hello
 
       - name: Report cache state
         run: echo "homebrew-core cache-hit=${{ steps.core-cache.outputs.cache-hit }}"
