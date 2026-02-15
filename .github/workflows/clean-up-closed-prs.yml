@@ -1,0 +1,47 @@
+name: Clean up closed PRs
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  delete-branch:
+    if: >
+      !github.event.pull_request.merged &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref != github.event.repository.default_branch
+    runs-on: ubuntu-24.04
+    # Ignore errors as branch may already be deleted or protected.
+    continue-on-error: true
+    permissions:
+      contents: write
+    steps:
+      - name: Delete branch
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            const branch = context.payload.pull_request?.head?.ref;
+            if (!branch) {
+              core.info("No PR head ref found, skipping.");
+              return;
+            }
+
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${branch}`,
+              });
+              core.notice(`Deleted branch '${branch}'.`);
+            } catch (error) {
+              if (error.status === 404 || error.status === 422) {
+                core.warning(`Branch '${branch}' is already gone or cannot be deleted.`);
+                return;
+              }
+              throw error;
+            }
