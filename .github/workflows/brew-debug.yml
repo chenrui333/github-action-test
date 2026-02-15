@@ -24,77 +24,38 @@ env:
 permissions:
   contents: read
 
-# three jobs in this workflow:
-# 1. debug formula on macos (runs on PR only)
-# 2. debug formula on ubuntu (runs on PR only)
 jobs:
-  dummy-job:
-    runs-on: ubuntu-24.04
+  validate-setup-homebrew-arm:
+    name: validate setup-homebrew on ubuntu-22.04-arm
+    runs-on: ubuntu-22.04-arm
     steps:
-      - run: echo "dummy job"
+      - uses: actions/checkout@v4
 
-  # # debug formula run on arm macos
-  # formula-debug-macos:
-  #   runs-on: macos-14 # macos-14 is arm runner
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - run: brew update
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+      - name: Restore homebrew/core tap cache
+        id: core-cache
+        uses: actions/cache@v4
+        with:
+          path: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
+          key: ${{ runner.os }}-${{ runner.arch }}-homebrew-core-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-homebrew-core-
 
-  # # debug formula run on macos-15-intel
-  # formula-debug-macos:
-  #   runs-on: macos-15-intel
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - run: brew update
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@04a6d8cfe9d251e2afb78c5bdc6274ec9642aea2
+        with:
+          core: true
 
-  # # debug formula on ubuntu
-  # formula-debug-ubuntu:
-  #   runs-on: ubuntu-22.04
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     # As brew got removed from the ubuntu images, we need to install it
-  #     # https://github.com/actions/runner-images/issues/6283
-  #     - name: Set up Homebrew
-  #       id: set-up-homebrew
-  #       # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-  #       uses: Homebrew/actions/setup-homebrew@bc738ca370c95ed8d8b44c9b5fcba16e54f5218a
+      - name: Validate source-build flow
+        run: |
+          set -euxo pipefail
+          brew --version
+          brew tap | grep '^homebrew/core$'
+          test -d "$(brew --repository homebrew/core)/.git"
+          HOMEBREW_NO_INSTALL_FROM_API=1 brew update
+          brew uninstall --ignore-dependencies hello || true
+          HOMEBREW_NO_INSTALL_FROM_API=1 brew install -s hello
+          brew test hello
 
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
-
-  # # debug formula on ubuntu arm
-  # formula-debug-ubuntu-arm:
-  #   runs-on: ubuntu-22.04-arm
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup Homebrew
-  #       run: |
-  #         .github/workflows/scripts/install_homebrew.sh
-
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+      - name: Report cache state
+        run: echo "homebrew-core cache-hit=${{ steps.core-cache.outputs.cache-hit }}"
