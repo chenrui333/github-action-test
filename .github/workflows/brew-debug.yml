@@ -1,4 +1,6 @@
 # ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
+# ref, https://github.com/actions/runner-images/issues/13545
+# ref, https://github.com/actions/runner-images/pull/13549
 name: brew-debug
 
 on:
@@ -33,8 +35,8 @@ jobs:
     steps:
       - run: echo "dummy job"
 
-  # # debug formula run on arm macos
-  # formula-debug-macos:
+  # # debug formula run on macos-14-arm
+  # formula-debug-macos-14-arm:
   #   runs-on: macos-14 # macos-14 is arm runner
   #   if: github.event_name == 'pull_request'
   #   defaults:
@@ -48,7 +50,7 @@ jobs:
   #       uses: mxschmitt/action-tmate@v3
 
   # # debug formula run on macos-15-intel
-  # formula-debug-macos:
+  # formula-debug-macos-15-intel:
   #   runs-on: macos-15-intel
   #   if: github.event_name == 'pull_request'
   #   defaults:
@@ -61,8 +63,8 @@ jobs:
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
-  # # debug formula on ubuntu
-  # formula-debug-ubuntu:
+  # # debug formula on ubuntu-22.04-intel
+  # formula-debug-ubuntu-22.04-intel:
   #   runs-on: ubuntu-22.04
   #   if: github.event_name == 'pull_request'
   #   defaults:
@@ -81,8 +83,8 @@ jobs:
   #     - name: Setup tmate session
   #       uses: mxschmitt/action-tmate@v3
 
-  # # debug formula on ubuntu arm
-  # formula-debug-ubuntu-arm:
+  # # debug formula on ubuntu-22.04-arm
+  # formula-debug-ubuntu-22.04-arm:
   #   runs-on: ubuntu-22.04-arm
   #   if: github.event_name == 'pull_request'
   #   defaults:
