@@ -64,7 +64,7 @@ jobs:
   #       uses: mxschmitt/action-tmate@v3
 
   # debug formula on ubuntu-22.04-intel
-  formula-debug-ubuntu-22.04-intel:
+  formula-debug-ubuntu-22-04-intel:
     runs-on: ubuntu-22.04
     if: github.event_name == 'pull_request'
     defaults:
