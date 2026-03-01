@@ -1,0 +1,4 @@
+- task: hurl
+  params:
+    glob: "hurl/chenrui.dev/*.hurl"
+    retries: 1

@@ -1,0 +1,17 @@
+- task: hurl
+  params:
+    glob: "hurl/chenrui.dev/*.hurl"
+    retries: 5
+
+- task: archive
+  params:
+    url: "https://chenrui.dev"
+
+- task: repo_dispatch
+  params:
+    event_type: "trigger-event"
+    owner: "chenrui333"
+    repo: "github-action-test"
+    client_payload:
+      id: "sample-run"
+      source: "agents"
