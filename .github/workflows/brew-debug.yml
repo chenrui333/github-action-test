@@ -35,7 +35,6 @@ jobs:
     steps:
       - run: echo "dummy job"
 
-  # debug formula run on arm macos
   formula-debug-macos:
     runs-on: macos-26 # macos-26 is arm runner
     if: github.event_name == 'pull_request'
