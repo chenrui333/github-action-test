@@ -12,6 +12,7 @@
 - `.github/workflows/repository-dispatch.yml` is paired with `scripts/repository-dispatch-trigger.sh`.
 - `.github/workflows/labeler.yml` is the workflow; `.github/labeler.yml` is the label rules config.
 - `.github/renovate.json5` and `.github/zizmor.yml` matter whenever you change action versions, digests, or templated expressions.
+- `mise.toml` is the repo-local tool manifest for workflow linting and related CLI checks.
 
 ## GitHub Context
 - Open issues are mostly background context rather than an active roadmap. The current set is dominated by automation artifacts such as the Renovate dependency dashboard and an old ZAP baseline report, plus a small number of feature ideas.
@@ -30,8 +31,10 @@
 - If you update a workflow pattern that also appears in commented examples, update the commented template too when it is clearly intended as a copy/paste starting point.
 
 ## Validation
-- For every changed workflow file, run YAML parsing with Ruby:
-  - `ruby -e 'require "yaml"; YAML.load_file(".github/workflows/<file>.yml")'`
+- Install repo tools first when needed:
+  - `mise install`
+- For every changed workflow file, run YAML linting with the repo config:
+  - `yamllint -c .yamllint .github/workflows/<file>.yml`
 - Run targeted workflow linting:
   - `actionlint .github/workflows/<file>.yml`
 - For shell scripts, run:
@@ -41,11 +44,14 @@
 - Always run:
   - `git diff --check`
 - `.yamlfmt` excludes `.github/workflows/**`, so do not expect `yamlfmt` to reformat workflow YAML for you.
+- `mise.toml` currently manages `actionlint`, `lychee`, `shellcheck`, `yamllint`, and `zizmor`.
 - Repo-wide `actionlint` is not currently clean. It reports pre-existing warnings in `check-helm.yml`, `chenrui-dev.yml`, `hurl.yml`, `release.yml`, and `steps-condition-test.yml`. Treat those as baseline unless the task is specifically lint cleanup.
 
 ## Commit And Review Norms
 - Recent human commits use short imperative subjects. Bot updates use Renovate-style `chore(deps): ...` subjects.
+- Use scoped conventional commit subjects for manual changes, for example `chore(tooling): ...`, `docs(agents): ...`, or `style(workflows): ...`.
 - Keep manual changes narrowly scoped and split unrelated workflow edits into separate commits.
+- Prefer more granular commits when the changes are independently reviewable. Tool manifests, lint config, docs updates, and workflow formatting fixes should usually land in separate commits.
 - Check branch state before editing. If the user explicitly asks to land directly, committing on `main` is acceptable in this repo; otherwise avoid assuming.
 - Use `gh` for live repo state because auth is already configured locally. Useful commands:
   - `gh pr list --state open`
