@@ -3,7 +3,7 @@ name: chenrui.dev site check
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '0 * * * *'
 
 permissions:
   contents: read
@@ -13,13 +13,5 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: test site
-        run: wget https://chenrui.dev
-        continue-on-error: true
-
-      - name: test site
-        run: wget https://chenrui.dev
-        continue-on-error: true
-
-      - name: test site
-        run: wget https://chenrui.dev
+        run: wget --spider https://chenrui.dev
         continue-on-error: true
