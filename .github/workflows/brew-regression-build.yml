@@ -25,6 +25,7 @@ env:
   HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
   # https://github.com/Homebrew/homebrew-test-bot/pull/868
   HOMEBREW_NO_INSTALL_FROM_API: 1
+  FORMULA: ${{ inputs.formula }}
 
 permissions:
   contents: read
@@ -41,9 +42,19 @@ jobs:
           - macos-14
           - macos-15
     steps:
+      - name: Validate formula input
+        run: |
+          [[ "$FORMULA" == -* ]] && {
+            echo "Formula input must not start with '-'"
+            exit 1
+          }
+          [[ "$FORMULA" =~ ^[A-Za-z0-9@._+/-]+$ ]] || {
+            echo "Formula input contains unsupported characters: $FORMULA"
+            exit 1
+          }
       - run: brew update
-      - run: brew install -s "${{inputs.formula}}" && brew test "${{inputs.formula}}"
-      - run: brew linkage --cached "${{inputs.formula}}"
+      - run: brew install -s "$FORMULA" && brew test "$FORMULA"
+      - run: brew linkage --cached "$FORMULA"
 
   linux-build:
     name: ubuntu-24.04 build
@@ -53,6 +64,16 @@ jobs:
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
         uses: Homebrew/actions/setup-homebrew@50b8c2ab4a835c38897ed2c56c293b07167c0b59
+      - name: Validate formula input
+        run: |
+          [[ "$FORMULA" == -* ]] && {
+            echo "Formula input must not start with '-'"
+            exit 1
+          }
+          [[ "$FORMULA" =~ ^[A-Za-z0-9@._+/-]+$ ]] || {
+            echo "Formula input contains unsupported characters: $FORMULA"
+            exit 1
+          }
       - run: brew update
-      - run: brew install -s "${{inputs.formula}}" && brew test "${{inputs.formula}}"
-      - run: brew linkage --cached "${{inputs.formula}}"
+      - run: brew install -s "$FORMULA" && brew test "$FORMULA"
+      - run: brew linkage --cached "$FORMULA"
