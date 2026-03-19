@@ -63,7 +63,7 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@ebe7cd12aeb3c69ccf1a6ba5a4eba5bfdfb00b3b
+        uses: Homebrew/actions/setup-homebrew@ce7bf90411a903bfdfa085393262989c064588e6
       - name: Validate formula input
         run: |
           [[ "$FORMULA" == -* ]] && {
