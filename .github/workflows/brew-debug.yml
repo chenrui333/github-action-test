@@ -46,8 +46,8 @@ jobs:
   #       working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
   #     - run: brew update
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  #     - name: Setup upterm session
+  #       uses: owenthereal/action-upterm@v1
 
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
@@ -60,8 +60,8 @@ jobs:
   #       working-directory: /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
   #     - run: brew update
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  #     - name: Setup upterm session
+  #       uses: owenthereal/action-upterm@v1
 
   # debug formula on ubuntu-22.04-intel
   formula-debug-ubuntu-22-04-intel:
@@ -98,5 +98,5 @@ jobs:
   #       run: |
   #         .github/workflows/scripts/install_homebrew.sh
 
-  #     - name: Setup tmate session
-  #       uses: mxschmitt/action-tmate@v3
+  #     - name: Setup upterm session
+  #       uses: owenthereal/action-upterm@v1
