@@ -1,0 +1,12 @@
+extends: default
+
+ignore: |
+  .git/
+
+rules:
+  comments: disable
+  comments-indentation: disable
+  document-start: disable
+  line-length: disable
+  truthy:
+    check-keys: false
