@@ -11,7 +11,7 @@
   platformAutomerge: false,
   minimumReleaseAge: '2 days',
   internalChecksFilter: 'strict',
-  baseBranches: [
+  baseBranchPatterns: [
     'main',
     '/^release-.*/',
   ],
@@ -27,9 +27,9 @@
   customManagers: [
     {
       customType: 'regex',
-      fileMatch: [
-        '(^|/)Dockerfile$',
-        '(^|/)Dockerfile\\.[^/]*$',
+      managerFilePatterns: [
+        '/(^|/)Dockerfile$/',
+        '/(^|/)Dockerfile\\.[^/]*$/',
       ],
       matchStrings: [
         'renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s',
@@ -39,8 +39,8 @@
     },
     {
       customType: 'regex',
-      fileMatch: [
-        '(^|/)\\.github/workflows/[^/]+\\.ya?ml$',
+      managerFilePatterns: [
+        '/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/',
       ],
       matchStrings: [
         '# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s',
