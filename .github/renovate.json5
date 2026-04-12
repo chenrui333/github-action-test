@@ -1,18 +1,20 @@
 {
   extends: [
-    'config:recommended',
+    'config:best-practices',
     'schedule:daily',
   ],
   commitMessagePrefix: 'chore(deps):',
   commitMessageSuffix: ' in {{packageFile}}',
-  dependencyDashboard: true,
   automerge: true,
+  automergeType: 'pr',
   automergeStrategy: 'rebase',
+  platformAutomerge: false,
+  minimumReleaseAge: '2 days',
+  internalChecksFilter: 'strict',
   baseBranches: [
     'main',
     '/^release-.*/',
   ],
-  platformAutomerge: true,
   labels: [
     'dependencies',
   ],
