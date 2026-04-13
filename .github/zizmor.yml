@@ -1,14 +1,13 @@
 rules:
+  dangerous-triggers:
+    ignore:
+      - clean-up-closed-prs.yml:3
   template-injection:
     ignore:
-      - brew-regression-build.yml:42
-      - brew-regression-build.yml:43
-      - brew-regression-build.yml:54
-      - brew-regression-build.yml:55
-      - brew-regression.yml:42
-      - brew-regression.yml:43
-      - brew-regression.yml:54
-      - brew-regression.yml:55
+      - check-helm.yml:91
+      - check-helm.yml:93
+      - check-helm.yml:94
+      - check-helm.yml:95
       - credentials.yml:22
       - delete-event.yml:18
       - display-github-context.yml:34
@@ -16,3 +15,6 @@ rules:
       - repository-dispatch.yml:27
       - repository-dispatch.yml:32
       - workflow-dispatch.yml:25
+  unpinned-uses:
+    ignore:
+      - credentials.yml:14

@@ -22,7 +22,7 @@ jobs:
           persist-credentials: false
 
       - name: Compress Images
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@f32575787d333b0579f0b7d506ff03be63a669d1 # 1.4.1
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           ignorePaths: 'node_modules/**,**/*_optimized.jpg,**/*_optimized.jpeg,**/*_optimized.png,**/*_optimized.webp'

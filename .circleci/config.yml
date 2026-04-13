@@ -5,7 +5,7 @@ version: 2.1
 jobs:
   check-helm:
     docker:
-      - image: cimg/deploy:2026.02
+      - image: cimg/deploy:2026.04@sha256:18671ea495eadac621a523875677fe677a8a70bc7661c1e9fefdffc5cbd2a89b
     steps:
       - checkout
       - run:
