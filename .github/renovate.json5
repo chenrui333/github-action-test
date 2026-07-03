@@ -1,17 +1,20 @@
 {
   extends: [
-    'config:recommended',
+    'config:best-practices',
     'schedule:daily',
   ],
+  commitMessagePrefix: 'chore(deps):',
   commitMessageSuffix: ' in {{packageFile}}',
-  dependencyDashboard: true,
   automerge: true,
+  automergeType: 'pr',
   automergeStrategy: 'rebase',
-  baseBranches: [
+  platformAutomerge: false,
+  minimumReleaseAge: '2 days',
+  internalChecksFilter: 'strict',
+  baseBranchPatterns: [
     'main',
     '/^release-.*/',
   ],
-  platformAutomerge: true,
   labels: [
     'dependencies',
   ],
@@ -24,9 +27,9 @@
   customManagers: [
     {
       customType: 'regex',
-      fileMatch: [
-        '(^|/)Dockerfile$',
-        '(^|/)Dockerfile\\.[^/]*$',
+      managerFilePatterns: [
+        '/(^|/)Dockerfile$/',
+        '/(^|/)Dockerfile\\.[^/]*$/',
       ],
       matchStrings: [
         'renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s',
@@ -36,8 +39,8 @@
     },
     {
       customType: 'regex',
-      fileMatch: [
-        '(^|/)\\.github/workflows/[^/]+\\.ya?ml$',
+      managerFilePatterns: [
+        '/(^|/)\\.github/workflows/[^/]+\\.ya?ml$/',
       ],
       matchStrings: [
         '# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s',
