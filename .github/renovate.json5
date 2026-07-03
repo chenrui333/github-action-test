@@ -11,6 +11,15 @@
   platformAutomerge: false,
   minimumReleaseAge: '2 days',
   internalChecksFilter: 'strict',
+  packageRules: [
+    {
+      matchUpdateTypes: [
+        'digest',
+        'pinDigest',
+      ],
+      minimumReleaseAge: null,
+    },
+  ],
   baseBranchPatterns: [
     'main',
     '/^release-.*/',
