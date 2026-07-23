@@ -19,7 +19,7 @@ jobs:
   hurl:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
 
@@ -30,7 +30,7 @@ jobs:
           hurl --version
         env:
           # renovate: datasource=github-releases depName=Orange-OpenSource/hurl
-          HURL_VERSION: 7.1.0
+          HURL_VERSION: 8.0.1
 
       - name: Run tests
         run: hurl --retry 5 --test --glob "hurl/chenrui.dev/*.hurl"
