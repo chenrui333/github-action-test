@@ -2,7 +2,7 @@
 
 ## Repo Intent
 - This repository is a sandbox for testing GitHub Actions behavior, runner environments, and small automation ideas.
-- Most meaningful changes land in `.github/workflows/`; the only other recurring code paths are `Dockerfile`, `.circleci/config.yml`, and `scripts/repository-dispatch-trigger.sh`.
+- Most meaningful changes land in `.github/workflows/`; the only other recurring code paths are `Dockerfile` and `scripts/repository-dispatch-trigger.sh`.
 - `README.md` is intentionally minimal. Derive behavior from workflow files and git history, not from project docs.
 
 ## File Map
