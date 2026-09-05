@@ -5,7 +5,7 @@ on:
     types: ["trigger-event"]
 
 # how to test this workflow
-# GITHUB_TOKEN=xxx ./scripts/repository-dispatch-trigger.sh
+# gh auth login, then ./scripts/repository-dispatch-trigger.sh
 
 # run log result
 # https://github.com/chenrui333/github-action-test/actions/runs/161112535
@@ -26,14 +26,16 @@ jobs:
 
       - name: show context
         run: |
-          echo "github sha is ${{ github.sha }}"
-          echo "github.event is ${{ toJson(github.event) }}"
-          echo "github.event_name is ${{ github.event_name }}"
+          printf 'github sha is %s\n' "$GITHUB_SHA"
+          cat "$GITHUB_EVENT_PATH"
+          printf 'github.event_name is %s\n' "$GITHUB_EVENT_NAME"
       - name: run build
         if: github.event_name == 'repository_dispatch'
+        env:
+          INTEGRATION: ${{ github.event.client_payload.integration }}
         run: |
-          echo "id is $ID"
-          echo "integration is ${{ github.event.client_payload.integration }}"
+          printf 'id is %s\n' "$ID"
+          printf 'integration is %s\n' "$INTEGRATION"
 
   show-id:
     runs-on: ubuntu-24.04

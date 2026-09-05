@@ -27,7 +27,6 @@ permissions:
   contents: read
 
 # Branch-based reproductions live here; main intentionally runs only a placeholder.
-# For routine platform inspection use runner-diagnostics.yml.
 # Keep these templates when reproducing behavior tied to a PR event or old bootstrap.
 jobs:
   dummy-job:

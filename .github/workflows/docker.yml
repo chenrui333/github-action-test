@@ -1,6 +1,10 @@
 name: docker
 
 on:
+  pull_request:
+    paths:
+      - Dockerfile
+      - .github/workflows/docker.yml
   push:
     branches:
       - main
@@ -14,6 +18,7 @@ permissions:
 jobs:
   docker:
     runs-on: ubuntu-24.04
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -23,7 +28,7 @@ jobs:
         uses: docker/setup-qemu-action@1f40c72289eff860ee54a304f1438e3cff362e0a # v4
         with:
           image: tonistiigi/binfmt:latest
-          platforms: arm64,arm
+          platforms: arm64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
@@ -31,24 +36,26 @@ jobs:
           cache-binary: false
 
       - name: Login to DockerHub
+        if: github.event_name == 'push'
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
         with:
           username: 'chenrui'
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Login to GitHub Container Registry
+        if: github.event_name == 'push'
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GH_REGISTRY_TOKEN }}
 
-      - name: Build and push
+      - name: Build image (publish only on main push)
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
         with:
           context: .
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: true
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name == 'push' }}
           tags: |
             chenrui/github-action-test:latest
             chenrui/github-action-test:${{ github.sha }}
