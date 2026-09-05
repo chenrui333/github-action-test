@@ -13,9 +13,9 @@ Default building blocks like `actions/checkout` and `actions/cache` are intentio
 
 ## Debugging And Manual Ops
 
-- [owenthereal/action-upterm](https://github.com/owenthereal/action-upterm): interactive shell access to a live runner. This is the preferred debug-session action in this repo instead of `tmate`. Example here: `.github/workflows/credentials.yml`.
+- [owenthereal/action-upterm](https://github.com/owenthereal/action-upterm): interactive shell access to a live runner. This is the preferred debug-session action in this repo instead of `tmate`. Templates here: `.github/workflows/brew-debug.yml`.
 - [Homebrew/actions/setup-homebrew](https://github.com/Homebrew/actions/tree/main/setup-homebrew): reliable Homebrew bootstrap for CI, especially useful when testing Linux ARM or custom tap flows. Examples here: `.github/workflows/brew-regression.yml`, `.github/workflows/brew-regression-build.yml`.
-- [timheuer/base64-to-file](https://github.com/timheuer/base64-to-file): decode a base64 secret into an on-disk file when a tool expects file-based credentials. Example here: `.github/workflows/credentials.yml`.
+- [timheuer/base64-to-file](https://github.com/timheuer/base64-to-file): decode a base64 secret into an on-disk file when a tool expects file-based credentials. Templates here: `.github/workflows/brew-debug.yml`.
 - [softprops/diffset](https://github.com/softprops/diffset): produce changed-file lists between refs so jobs can scope work or build small matrices.
 
 ## Repo Hygiene
