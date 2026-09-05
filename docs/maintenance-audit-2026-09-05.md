@@ -296,10 +296,10 @@ all fixtures into generic HTTP 200 checks to manufacture green results.
 | ShellCheck / bash -n | Two SC2086 installer findings; Bash syntax passes | Pass after quoting |
 | regular zizmor | Green but 17 ignores | Green with one exact cleanup ignore |
 | no-ignore auditor/online zizmor | Detailed review performed | Remaining categories discussed above, not silently ignored |
-| lychee all original Markdown | 18 unique URLs pass | Pass: all 36 unique links in the audit documentation |
+| lychee all original Markdown | 18 unique URLs pass | Pass: all 37 unique links in the audit documentation |
 | dispatch helper | Inspected original curl flow | Mocked gh verifies JSON/stdin, HTTP exit propagation and invalid arguments; no event sent |
 | credential workflow | Unsafe content print found | Fake file verifies mode 600, no content output, space-containing path and cleanup; no real secret used |
-| Docker | ARM64 build passes | Patched ARM64 image build and Terraform/Conftest/goimports smoke pass before final retry/built-in-smoke edits; final rebuild blocked by repeated network timeouts. ARM32 rejection passes. |
+| Docker | ARM64 build passes | Patched ARM64 image build and Terraform/Conftest/goimports smoke pass before final retry/built-in-smoke edits; final rebuild exhausted retries with curl exit 28. ARM32 rejection passes. |
 | Renovate | Old local validator rejects pre-existing baseBranchPatterns | ARG extraction passes for Terraform, Conftest and pinned goimports; current official JSON schema passes. Full current-validator installation stalled and was stopped; no downgrade for stale tooling. |
 
 The security merge is verified; hosted queues can outlive the local audit. Syntax
@@ -318,11 +318,13 @@ unexecuted.
 | #756 (based on #755) | Manual runner diagnostics and scratchpad templates | `d48617f` |
 | #757 | Container integrity, supported architectures and PR build smoke | `c6de1ba` |
 | #758 | Renovate merge policy and extraction | `966c2ac` |
+| #759 (based on #754) | Audit report and proposed metadata | `12c866c`, `a0c5392`; `bc03767` incorporates final tooling fixes |
 
 All authored commits include DCO sign-off. Existing experiment PR metadata is
 unchanged. #754 was retargeted after #753 merged, and main was incorporated so its
 diff excludes merged security work. #756 should be refreshed onto main after #755
-merges. GitHub checks were still queued during the final local validation; they
+merges. The combined scope changes 32 files, including this report and seven metadata drafts.
+GitHub checks were still queued during the final local validation; they
 are not reported as passing. The combined patch set passes `mise run check` with
 one exact zizmor ignore and 48 persona-suppressed findings.
 
