@@ -28,12 +28,12 @@ not equivalent to deployed fixes.
 | P1 | Renovate requests rebase automerge in a squash-only repository. Its Docker regex matches `ENV` but versions use `ARG`; dashboard #35 lists neither Terraform nor Conftest. | #758 uses squash and extracts both ARG/ENV; accepts upstream versions with or without `v`. |
 | P1 | README was a heading; agent guidance listed fixed/deleted lint failures. | #754 provides onboarding, canonical checks, experiment map, and current agent guidance. |
 | P2 | No tracked workflow validation CI; only two current actionlint style findings and two standalone shell quoting findings remained. | #753/#754 fix them without exclusions, add mise tasks and narrow CI. |
-| P2 | Eight runner PRs mostly enable a platform-specific shell without a purpose/body/exit criterion. #657 and #642 have byte-identical diffs. | #756 adds manual diagnostics; triage and proposed metadata below preserve useful distinctions. |
+| P2 | Eight runner PRs mostly enable a platform-specific shell without a purpose/body/exit criterion. #657 and #642 have byte-identical diffs. | #756 hardens existing scratchpad templates; retain platform branches with explicit purposes and exit criteria. |
 | P2 | Homebrew label rule references deleted `brew.yml`. Image compression defaults to committing with a read-only token. | Follow-up recommendations below; do not grant writes mechanically. |
 
 The five highest-value improvements are credential/input safety; reproducible
 checks and CI; useful README/accurate agent guidance; restoring Homebrew Git-tap
-semantics with reusable diagnostics; and container/dependency correctness.
+semantics with maintainable branch scratchpads; and container/dependency correctness.
 
 ## Workflow inventory
 
@@ -65,11 +65,11 @@ human use. Dependency-only commits do not establish active experiment use.
 | workflow-dispatch | Manual inputs; Ubuntu 24.04 | Input/default fixture | R | No retained runs. Input strings preserved, transported via env. |
 
 New `lint.yml` in #754 runs all structural checks with R, no persistent checkout
-credentials, a 15-minute timeout, and cancellation of superseded runs. New manual
-`runner-diagnostics.yml` in #756 has R, a 60-minute job bound, explicit runner
-choices, optional source test, and optional actor-restricted Upterm (five-minute
-connection wait). Manual diagnostics deliberately do not cancel another active
-investigation or cache core.
+credentials, a 15-minute timeout, and cancellation of superseded runs. #756 pins
+and bounds the commented scratchpad templates, restricts Upterm to the actor, and
+fixes the historical bootstrap caller's working directory. The proposed generalized
+runner workflow was removed at the owner's request; branch-based experiments remain
+the preferred model.
 
 History confirms `brew-regression.yml` (256 path occurrences) and
 `brew-regression-build.yml` (246) dominate all-ref churn, followed by Dockerfile
@@ -141,7 +141,7 @@ Existing “macos-14 is arm runner” comments are correct for the standard labe
 [Ubuntu 24.04 manifest](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md)
 and Ubuntu 22.04 manifest explicitly list preinstalled Homebrew **not on PATH**.
 macOS 15 Intel/ARM and macOS 26 ARM manifests also list Homebrew. #756 replaces
-the removal claim with explicit setup and records pre-setup PATH availability. No blanket runner upgrade was made.
+the removal claim with guidance to use explicit setup. No blanket runner upgrade was made.
 
 ## Homebrew design and PR overlap
 
@@ -155,8 +155,8 @@ is retained for reproducibility; its presence does not establish modern ARM supp
 under supported configurations. The [pinned setup action](https://github.com/Homebrew/actions/blob/fc695c54c2032716dd4cedd007489c8e32fc8a5d/setup-homebrew/main.sh)
 handles Linux and both macOS architectures, installs when brew is absent, computes
 tap paths from brew, and exports PATH for later steps. The correct prefix differs
-between Intel macOS, Apple Silicon, and Linux; the new diagnostic asks brew instead
-of hard-coding a working directory before setup.
+between Intel macOS, Apple Silicon, and Linux; use brew to discover paths after
+setup, and avoid assuming a core working directory exists before bootstrap.
 
 The custom installer is **not needed for ordinary modern bootstrap**. It remains
 as a historical clone/symlink fixture: it assumes a fresh runner, is not idempotent,
@@ -182,13 +182,12 @@ alone from making caches shareable across PRs. Add a refresh component and measu
 cold/warm time before deciding the cache pays for itself. The successful February
 run has expired logs (HTTP 410); no cache-hit/miss claim can be verified from it.
 
-`brew-debug.yml` remains the right place for reproductions tied to branch/PR events
-or old bootstrap behavior. Routine platform choice should use #756 after it lands
-and receives real hosted validation. Inputs can drive `runs-on`; this is supported
-by [GitHub workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax).
-A single selected runner avoids launching an expensive matrix for every shell.
-The diagnostic records the original environment before setup but its optional shell
-is post-setup; that distinction preserves #449's possible raw-image value.
+`brew-debug.yml` remains the preferred model for runner investigations and
+reproductions tied to branch/PR events or old bootstrap behavior. A generalized
+manual workflow is technically possible, but its added maintenance is not justified
+for this owner's usage. #756 therefore retains only the scratchpad hardening.
+Document each platform branch's image, commands, observations, and exit criteria;
+do not retire a useful branch solely because its shell setup resembles another.
 
 ## Open PR triage
 
@@ -200,11 +199,11 @@ compare against `454a161` after the security merge and will drift.
 | PR | Created / updated | Draft; behind/ahead | Runner / bootstrap / commands | Checks and review | Overlap / unique value | Primary disposition / next step |
 | --- | --- | --- | --- | --- | --- | --- |
 | #449 | 2025-03-19 / 2026-03-02 | Yes; 110/3 | Ubuntu 22.04 ARM; checkout v4 + Upterm v1; no current installer call | Conflicted; old shell check success; no reviews | Raw runner shell differs from #639's installed environment; no source-build assertion | **KEEP AS EXPERIMENT**. Describe raw-image purpose; pin actions/disable credentials, bound shell before another run. |
-| #558 | 2025-10-04 / 2026-08-15 | Yes; 12/6 | macOS 26 ARM; brew update in assumed core path + Upterm | Mergeable; debug cancelled; no reviews | Same pattern as #636/#644 on distinct OS; no unique commands | **REPLACE WITH GENERALIZED TEST**. Validate #756 on macOS 26, then preserve an image/run result before closure. |
-| #622 | 2026-01-17 / 2026-01-17 | No; 134/1 | macOS 15 Intel; brew update + mutable tmate v3 | Conflicted on refresh; debug cancelled; overview review only | Intel prefix is unique environment, not unique logic | **REPLACE WITH GENERALIZED TEST**. Validate Intel diagnostic; do not merge stale tmate solely to keep a shell. |
-| #636 | 2026-02-13 / 2026-08-16 | Yes; 12/2 | macOS 15 ARM; brew update + tmate v3 | Mergeable; debug cancelled; no inline reviews | Duplicates platform-shell pattern | **REPLACE WITH GENERALIZED TEST**. Validate #756 ARM15 and record observation. |
+| #558 | 2025-10-04 / 2026-08-15 | Yes; 12/6 | macOS 26 ARM; brew update in assumed core path + Upterm | Mergeable; debug cancelled; no reviews | Same pattern as #636/#644 on distinct OS; no unique commands | **KEEP AS EXPERIMENT**. Document the macOS 26 observation; pin and bound the session before another run. |
+| #622 | 2026-01-17 / 2026-01-17 | No; 134/1 | macOS 15 Intel; brew update + mutable tmate v3 | Conflicted on refresh; debug cancelled; overview review only | Intel prefix is unique environment, not unique logic | **UPDATE**. Resolve branch conflicts and replace mutable tmate with pinned actor-restricted Upterm before another Intel investigation. |
+| #636 | 2026-02-13 / 2026-08-16 | Yes; 12/2 | macOS 15 ARM; brew update + tmate v3 | Mergeable; debug cancelled; no inline reviews | Duplicates platform-shell pattern | **UPDATE**. Replace mutable tmate with pinned actor-restricted Upterm; record the macOS 15 observation and exit criteria. |
 | #639 | 2026-02-15 / 2026-02-15 | No; 119/3 | Ubuntu 22.04 ARM; cache v4 + setup `04a6d8c` core=true; source hello/linkage/version | Conflicted; old success; 5 inline findings | Only cache reuse/source assertions; not on main | **UPDATE**. Move to separate cache experiment, refresh pins/checkout config, validate cold/warm behavior and cache refresh. Reject redundant-env suggestion. |
-| #642 | 2026-02-19 / 2026-08-16 | No; 12/6 | Ubuntu 22.04 x64; old setup `bc738ca` + Upterm v1 | Mergeable; debug failure after about 2h48; log shows setup/core clone and established SSH session; exact terminal cause unclear | Byte-identical workflow/diff to #657 | **REPLACE WITH GENERALIZED TEST**. Use current pinned setup in #756; don't label the old result a bootstrap failure. |
+| #642 | 2026-02-19 / 2026-08-16 | No; 12/6 | Ubuntu 22.04 x64; old setup `bc738ca` + Upterm v1 | Mergeable; debug failure after about 2h48; log shows setup/core clone and established SSH session; exact terminal cause unclear | Byte-identical workflow/diff to #657 | **UPDATE**. Refresh setup and Upterm pins on this branch; record the session outcome without treating the old failure as a bootstrap failure. |
 | #644 | 2026-02-23 / 2026-07-23 | Yes; 18/4 | macOS 14 ARM; brew update + Upterm v1 | Mergeable; cancelled; no reviews | Soon-to-retire OS reproduction has time-limited value | **KEEP AS EXPERIMENT**. Capture needed Sonoma evidence before Nov 2; bound/pin before rerunning. |
 | #657 | 2026-03-07 / 2026-08-15 | Yes; 12/4 | Same runner/setup/commands as #642 | Mergeable; cancelled; no reviews | No unique diff or description | **SUPERSEDED** by #642. Preserve any external session notes, then close if owner agrees. |
 
@@ -238,16 +237,10 @@ For #657, once approved:
 > and the same Upterm session. #642 preserves that test configuration. No unique
 > commands or observations were found in this PR's description or reviews.
 
-For #558/#622/#636/#642, **only after replacement is merged and the relevant hosted
-run succeeds**, substitute the PR-specific runner and actual run URL:
-
-> Closing this platform-shell experiment after Runner diagnostics was validated on
-> RUNNER in RUN_URL. The replacement records image and Homebrew state and supports
-> a bounded actor-restricted shell. The original branch configuration remains in
-> this PR's history; any unique observations are recorded in the linked run notes.
-
-Do not post the conditional comment before those conditions are true. Closing
-same-repo PRs invokes branch cleanup; do not assume the branch will remain.
+No closure is recommended for #558/#622/#636/#642 on the basis of a generalized
+replacement: that workflow was withdrawn. Keep or update these branches as listed
+above. Closing same-repo PRs invokes branch cleanup; do not assume a closed PR's
+branch will remain.
 
 ## Docker, Renovate, and repository hygiene
 
@@ -315,22 +308,25 @@ unexecuted.
 | #753 (merged by owner) | Credential/event security and Helm defects | `8814da5`; squash commit `454a161` |
 | #754 | Reproducible checks, CI, human/agent documentation | `39d5fd7`, `a6268f1`, `583c2b3`, `74308bf`; `603a334` incorporates the security squash without force-pushing |
 | #755 | Git-tap regression semantics | `44188cf` |
-| #756 (based on #755) | Manual runner diagnostics and scratchpad templates | `d48617f` |
+| #756 | Scratchpad template hardening; generalized workflow withdrawn | `d48617f`, revised by `58df1a4` |
 | #757 | Container integrity, supported architectures and PR build smoke | `c6de1ba` |
 | #758 | Renovate merge policy and extraction | `966c2ac` |
-| #759 (based on #754) | Audit report and proposed metadata | `12c866c`, `a0c5392`; `bc03767` incorporates final tooling fixes |
+| #759 | Audit report and proposed metadata | `12c866c`, `a0c5392`; `bc03767` incorporates final tooling fixes |
 
 All authored commits include DCO sign-off. Existing experiment PR metadata is
-unchanged. #754 was retargeted after #753 merged, and main was incorporated so its
-diff excludes merged security work. #756 should be refreshed onto main after #755
-merges. The combined scope changes 32 files, including this report and seven metadata drafts.
-GitHub checks were still queued during the final local validation; they
-are not reported as passing. The combined patch set passes `mise run check` with
-one exact zizmor ignore and 48 persona-suppressed findings.
+unchanged. After #754 and #755 merged, #759 and #756 were refreshed onto main.
+#759 preserves the README audit link while resolving the merge conflict. #756
+removes the generalized workflow and keeps only template fixes; its triage
+recommendations and metadata drafts here now preserve branch-based investigations.
+
+The original combined patch set passed `mise run check` with one exact zizmor ignore
+and 48 persona-suppressed findings; hosted checks were queued at that snapshot.
+The withdrawal and conflict-resolution changes are validated separately and do not
+retroactively change the original audit's test results.
 
 ## Worthwhile next work
 
-Recommended: review scoped PRs; run #756 on the required platforms after landing;
+Recommended: review scoped PRs; document and refresh runner branches before reuse;
 refresh #639 with cold/warm cache evidence; close #657 only after approval; remove
 macOS 14 from routine coverage before retirement while preserving its reproduction.
 Fix the stale Homebrew label glob. Decide whether image compression should publish
@@ -347,10 +343,10 @@ no longer wanted. None requires another task runner or blanket modernization.
    platform shells; seven lack bodies and all lack recorded experiment exit criteria.
 2. #449's raw-image shell, #639's cache/source validation, and #644's retiring Sonoma
    target retain distinct value. Other platforms remain useful but need no distinct logic.
-3. #657 exactly duplicates #642; #558/#622/#636/#642 share the generalizable shell pattern.
+3. #657 exactly duplicates #642; #558/#622/#636/#642 share a shell pattern on distinct platforms; similarity alone does not justify closure.
 4. #639 does not fully supersede #449: automated cached setup differs from a raw shell.
 5. Keep brew-debug for branch/event-specific reproductions.
-6. Use selected-runner manual diagnostics for routine inspection; keep caching separate.
+6. No generalized workflow is needed for the current usage; retain branch scratchpads and keep caching separate.
 7. All executable labels on original main are documented; macOS 14 is deprecating.
    The literal macOS `-arm` names in PR titles are not documented standard labels.
 8. Standard macOS 14 ARM comments are correct; the Ubuntu Homebrew-removal claim is stale.
@@ -369,7 +365,7 @@ no longer wanted. None requires another task runner or blanket modernization.
 19. Only Helm SC2129 remained; these are style debt, not an intentional failure fixture.
     The four other named baseline workflows were repaired/deleted earlier.
 20. AGENTS had stale README/lint guidance; #754 refreshes it and documents setup's env behavior.
-21. Keep #449/#644; update #639; replace #558/#622/#636/#642 after diagnostic evidence;
+21. Keep #449/#558/#644; update #622/#636/#639/#642;
     #657 is superseded. None is an unconditional merge candidate now.
 22. Prioritize credential/input safety; reproducible checks/CI; clear human/agent docs;
-    correct Homebrew setup and reusable diagnostics; container/dependency correctness.
+    correct Homebrew setup and maintainable branch scratchpads; container/dependency correctness.
