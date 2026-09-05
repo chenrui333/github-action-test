@@ -4,3 +4,37 @@ lychee = "0.24.2"
 shellcheck = "0.11.0"
 yamllint = "1.38.0"
 zizmor = "1.30.0"
+
+[tasks.actionlint]
+description = "Validate every workflow, including embedded shell"
+run = "actionlint .github/workflows/*.yml"
+
+[tasks.yamllint]
+description = "Validate workflow and configuration YAML"
+run = "yamllint -c .yamllint .github .yamllint .yamlfmt"
+
+[tasks.shellcheck]
+description = "Check shell scripts and Bash syntax"
+run = '''
+shellcheck scripts/*.sh .github/workflows/scripts/*.sh
+for script in scripts/*.sh .github/workflows/scripts/*.sh; do
+  bash -n "$script"
+done
+'''
+
+[tasks.zizmor]
+description = "Audit workflows without requiring a GitHub token"
+run = "zizmor --strict-collection ."
+
+[tasks.docs]
+description = "Check local Markdown links without network requests"
+run = "lychee --offline --config lychee.toml '**/*.md'"
+
+[tasks.links]
+description = "Check all Markdown links, including external URLs"
+run = "lychee --config lychee.toml '**/*.md'"
+
+[tasks.check]
+description = "Run reproducible repository checks (external links: mise run links)"
+depends = ["actionlint", "yamllint", "shellcheck", "zizmor", "docs"]
+run = "git diff --check"
