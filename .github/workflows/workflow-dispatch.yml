@@ -22,6 +22,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - run: |
-          echo "Job time range arg: ${{ github.event.inputs.time_window }}"
-          echo "Job run manually?: ${{ github.event.inputs.manual }}"
+      - env:
+          TIME_WINDOW: ${{ inputs.time_window }}
+          MANUAL: ${{ inputs.manual }}
+        run: |
+          printf 'Job time range arg: %s\n' "$TIME_WINDOW"
+          printf 'Job run manually?: %s\n' "$MANUAL"
