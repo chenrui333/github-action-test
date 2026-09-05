@@ -24,7 +24,7 @@ done
 
 [tasks.zizmor]
 description = "Audit workflows without requiring a GitHub token"
-run = "zizmor --strict-collection ."
+run = "zizmor --offline --strict-collection ."
 
 [tasks.docs]
 description = "Check local Markdown links without network requests"
