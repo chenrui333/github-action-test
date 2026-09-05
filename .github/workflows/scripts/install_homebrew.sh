@@ -10,14 +10,14 @@ sudo apt-get install -y git curl
 echo "Creating Homebrew directory in /home/linuxbrew/.linuxbrew..."
 sudo mkdir -p /home/linuxbrew/.linuxbrew
 # Ensure the current user owns this directory so that brew can write to it
-sudo chown -R $USER: /home/linuxbrew/.linuxbrew
+sudo chown -R "$USER": /home/linuxbrew/.linuxbrew
 
 echo "Cloning the Homebrew repository..."
 git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
 
 echo "Creating bin directory for Homebrew..."
 sudo mkdir -p /home/linuxbrew/.linuxbrew/bin
-sudo chown -R $USER: /home/linuxbrew/.linuxbrew/bin
+sudo chown -R "$USER": /home/linuxbrew/.linuxbrew/bin
 
 echo "Linking the brew executable..."
 ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
