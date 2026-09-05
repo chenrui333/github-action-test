@@ -253,7 +253,8 @@ cleans apt lists and verifies exact checksum entries before extraction. HTTPS
 checksum files provide integrity checking but do not replace independent signature
 verification. SBOM/provenance expansion is optional; no new supply-chain framework
 is warranted. Binfmt's mutable image remains a reproducibility limitation even
-though its action is pinned. amd64 still needs a native or emulated build smoke.
+though its action is pinned. Hosted CI subsequently built and executed the bundled
+tools on both amd64 and ARM64; see the completion evidence below.
 
 Renovate's best-practices preset already pins action and Docker digests; the live
 dashboard confirms all five mise tools are detected. Keep Renovate. The release
@@ -292,12 +293,11 @@ all fixtures into generic HTTP 200 checks to manufacture green results.
 | lychee all original Markdown | 18 unique URLs pass | Pass: all 37 unique links in the audit documentation |
 | dispatch helper | Inspected original curl flow | Mocked gh verifies JSON/stdin, HTTP exit propagation and invalid arguments; no event sent |
 | credential workflow | Unsafe content print found | Fake file verifies mode 600, no content output, space-containing path and cleanup; no real secret used |
-| Docker | ARM64 build passes | Patched ARM64 image build and Terraform/Conftest/goimports smoke pass before final retry/built-in-smoke edits; final rebuild exhausted retries with curl exit 28. ARM32 rejection passes. |
+| Docker | ARM64 build passes | Patched ARM64 image build and Terraform/Conftest/goimports smoke pass before final retry/built-in-smoke edits; final local rebuild exhausted retries with curl exit 28. Subsequent hosted CI builds and binary smoke tests pass on both amd64 and ARM64. ARM32 rejection passes. |
 | Renovate | Old local validator rejects pre-existing baseBranchPatterns | ARG extraction passes for Terraform, Conftest and pinned goimports; current official JSON schema passes. Full current-validator installation stalled and was stopped; no downgrade for stale tooling. |
 
-The security merge is verified; hosted queues can outlive the local audit. Syntax
-checks do not establish a new manual workflow's hosted execution, ARM/Intel parity,
-cache effectiveness, registry publication, or secret rotation. No mutating manual
+The security merge is verified. Syntax checks do not establish Homebrew
+ARM/Intel parity, cache effectiveness, registry publication, or secret rotation. No mutating manual
 workflow was dispatched. PR metadata drafts and closure recommendations remain
 unexecuted.
 
@@ -323,6 +323,23 @@ The original combined patch set passed `mise run check` with one exact zizmor ig
 and 48 persona-suppressed findings; hosted checks were queued at that snapshot.
 The withdrawal and conflict-resolution changes are validated separately and do not
 retroactively change the original audit's test results.
+
+## Completion evidence
+
+After resolving the conflict and withdrawing the generalized workflow, all checks
+passed on #756 at `58df1a4` and #759 at `dfe0cb6`, including Repository checks.
+The documentation link check also passed on #759. These are specific verified
+heads, not a promise that later changes will pass.
+
+The [container PR build](https://github.com/chenrui333/github-action-test/actions/runs/33959727938)
+completed successfully on September 5, 2026. Its logs show the final Dockerfile's
+checksum steps and execution of Terraform 1.11.1, Conftest 0.58.0, and goimports
+for both `linux/amd64` and `linux/arm64`. This resolves the earlier container build
+validation gap caused by local download timeouts. The PR build did not publish.
+
+#753, #754, #755, #757, and #758 have merged. #756 and #759 remain reviewable,
+conflict-free PRs. The eight original experiment PRs remain open and unchanged;
+this audit delivers recommendations rather than merging or closing them.
 
 ## Worthwhile next work
 
