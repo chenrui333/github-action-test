@@ -1,9 +1,9 @@
-name: display-github-context
+name: check-helm
 
 on:
   pull_request:
     paths:
-      - '.github/workflows/display-github-context.yml'
+      - '.github/workflows/check-helm.yml'
 
 jobs:
   all_jobs:
@@ -43,14 +43,18 @@ jobs:
           if command -v helm >/dev/null 2>&1; then
             HELM_BIN="$(command -v helm)"
             HELM_VER="$(helm version --short 2>/dev/null || true)"
-            echo "helm_found=true"            >> "$GITHUB_OUTPUT"
-            echo "helm_path=${HELM_BIN}"      >> "$GITHUB_OUTPUT"
-            echo "helm_version=${HELM_VER}"   >> "$GITHUB_OUTPUT"
+            {
+              echo "helm_found=true"
+              echo "helm_path=${HELM_BIN}"
+              echo "helm_version=${HELM_VER}"
+            } >> "$GITHUB_OUTPUT"
             echo "Found Helm at ${HELM_BIN}: ${HELM_VER}"
           else
-            echo "helm_found=false"           >> "$GITHUB_OUTPUT"
-            echo "helm_path="                 >> "$GITHUB_OUTPUT"
-            echo "helm_version="              >> "$GITHUB_OUTPUT"
+            {
+              echo "helm_found=false"
+              echo "helm_path="
+              echo "helm_version="
+            } >> "$GITHUB_OUTPUT"
             echo "Helm not found on PATH"
           fi
 
@@ -76,8 +80,13 @@ jobs:
 
       # --- Update the PR comment to include Helm info ---
       - name: Post runner info as PR comment
-        if: ${{ github.event_name == 'pull_request' }}
+        # Fork PR tokens cannot write comments; runner diagnostics still run.
+        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          HELM_FOUND: ${{ steps.helm_check_win.outputs.helm_found || steps.helm_check_unix.outputs.helm_found }}
+          HELM_PATH: ${{ steps.helm_check_win.outputs.helm_path || steps.helm_check_unix.outputs.helm_path }}
+          HELM_VERSION: ${{ steps.helm_check_win.outputs.helm_version || steps.helm_check_unix.outputs.helm_version }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -86,13 +95,9 @@ jobs:
               return;
             }
 
-            // Pick the right step outputs based on OS
-            const isWin = process.env.RUNNER_OS === 'Windows';
-            const step = isWin ? '${{ steps.helm_check_win.outputs.helm_found }}' : '${{ steps.helm_check_unix.outputs.helm_found }}';
-
-            const helmFound   = isWin ? '${{ steps.helm_check_win.outputs.helm_found }}'   : '${{ steps.helm_check_unix.outputs.helm_found }}';
-            const helmPath    = isWin ? '${{ steps.helm_check_win.outputs.helm_path }}'    : '${{ steps.helm_check_unix.outputs.helm_path }}';
-            const helmVersion = isWin ? '${{ steps.helm_check_win.outputs.helm_version }}' : '${{ steps.helm_check_unix.outputs.helm_version }}';
+            const helmFound = process.env.HELM_FOUND;
+            const helmPath = process.env.HELM_PATH;
+            const helmVersion = process.env.HELM_VERSION;
 
             const helmLines = helmFound === 'true'
               ? [`**Helm**: ${helmVersion}`, `**Helm Path**: ${helmPath}`]

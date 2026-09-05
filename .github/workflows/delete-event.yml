@@ -16,7 +16,10 @@ jobs:
           persist-credentials: false
 
       - name: run build
+        env:
+          DELETED_REF: ${{ github.event.ref }}
+          DELETED_REF_TYPE: ${{ github.event.ref_type }}
         run: |
-          echo "GITHUB_SHA is ${{ github.sha }}"
-          echo "GITHUB_REF is ${{ github.ref }}"
-          echo "${{ github.event.ref }} - ${{ github.event.ref_type }}"
+          printf 'GITHUB_SHA is %s\n' "$GITHUB_SHA"
+          printf 'GITHUB_REF is %s\n' "$GITHUB_REF"
+          printf '%s - %s\n' "$DELETED_REF" "$DELETED_REF_TYPE"
