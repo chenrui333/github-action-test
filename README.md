@@ -85,6 +85,9 @@ The credential-file workflow verifies decoding without printing file content.
 
 ## Maintenance
 
+See the [September 2026 audit](docs/maintenance-audit-2026-09-05.md) for workflow
+classification, runner compatibility, security findings, and proposed PR dispositions.
+
 Keep triggers narrow, pin actions to immutable SHAs, use minimal job permissions,
 and disable checkout credential persistence unless a job deliberately pushes.
 Preserve useful reproductions and historical fixtures; investigate history before
