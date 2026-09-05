@@ -7,7 +7,7 @@
   commitMessageSuffix: ' in {{packageFile}}',
   automerge: true,
   automergeType: 'pr',
-  automergeStrategy: 'rebase',
+  automergeStrategy: 'squash',
   platformAutomerge: false,
   minimumReleaseAge: '2 days',
   internalChecksFilter: 'strict',
@@ -41,10 +41,10 @@
         '/(^|/)Dockerfile\\.[^/]*$/',
       ],
       matchStrings: [
-        'renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s',
+        'renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s(?:ARG|ENV) .*?_VERSION=(?<currentValue>.*)\\s',
       ],
       versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
-      extractVersionTemplate: '^v(?<version>\\d+\\.\\d+\\.\\d+)',
+      extractVersionTemplate: '^v?(?<version>\\d+\\.\\d+\\.\\d+)',
     },
     {
       customType: 'regex',
