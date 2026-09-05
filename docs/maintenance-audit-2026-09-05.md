@@ -137,8 +137,11 @@ larger-runner provisioning.
 | windows-2022 / windows-2025 | Windows Server x64 | Standard; context/Helm | Valid. |
 
 Existing “macos-14 is arm runner” comments are correct for the standard label;
-“-large” is Intel. The stale Ubuntu Homebrew-removal comment overstates permanent
-image behavior and is replaced in templates. No blanket runner upgrade was made.
+“-large” is Intel. The stale Ubuntu Homebrew-removal comment is wrong today: the current
+[Ubuntu 24.04 manifest](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md)
+and Ubuntu 22.04 manifest explicitly list preinstalled Homebrew **not on PATH**.
+macOS 15 Intel/ARM and macOS 26 ARM manifests also list Homebrew. #756 replaces
+the removal claim with explicit setup and records pre-setup PATH availability. No blanket runner upgrade was made.
 
 ## Homebrew design and PR overlap
 
@@ -335,3 +338,36 @@ Optional: pin binfmt's image digest, migrate Docker GHCR auth after confirming
 package permissions, separate advisory live-site monitoring from exact historical
 HTTP fixtures, and remove unused Licensebat config only if its reference value is
 no longer wanted. None requires another task runner or blanket modernization.
+
+## Explicit answers to the audit questions
+
+1. Several brew-debug PRs remain open because branches are being used as reusable
+   platform shells; seven lack bodies and all lack recorded experiment exit criteria.
+2. #449's raw-image shell, #639's cache/source validation, and #644's retiring Sonoma
+   target retain distinct value. Other platforms remain useful but need no distinct logic.
+3. #657 exactly duplicates #642; #558/#622/#636/#642 share the generalizable shell pattern.
+4. #639 does not fully supersede #449: automated cached setup differs from a raw shell.
+5. Keep brew-debug for branch/event-specific reproductions.
+6. Use selected-runner manual diagnostics for routine inspection; keep caching separate.
+7. All executable labels on original main are documented; macOS 14 is deprecating.
+   The literal macOS `-arm` names in PR titles are not documented standard labels.
+8. Standard macOS 14 ARM comments are correct; the Ubuntu Homebrew-removal claim is stale.
+9. All executable original-main action pins are immutable and verified; old PR/template tags need repair.
+10. Write scopes have identified consumers; release scope is narrowed. Read scopes are
+    conservative, and image compression lacks writes for its default mode.
+11. Original-main checkout credentials are disabled; #449/#639 still need branch fixes.
+12. Default zizmor hid input findings behind ignores; those paths are fixed. No patched-tree P0 found.
+13. The credential workflow could print decoded secrets; full GitHub context also carried
+    token data. #753 fixes both. Arbitrary event payloads remain visible by design.
+14. The custom Linux ARM installer is unnecessary for normal setup, but retained historically.
+15. Renovate tracks executable action pins and all mise tools; #758 fixes missed Docker ARGs.
+16. Onboarding now documents pinned tools and the checks they run.
+17. Yes: `mise install && mise run check`; use `mise run links` for network links.
+18. Yes: #754 adds narrow read-only validation CI without excluding experimental workflows.
+19. Only Helm SC2129 remained; these are style debt, not an intentional failure fixture.
+    The four other named baseline workflows were repaired/deleted earlier.
+20. AGENTS had stale README/lint guidance; #754 refreshes it and documents setup's env behavior.
+21. Keep #449/#644; update #639; replace #558/#622/#636/#642 after diagnostic evidence;
+    #657 is superseded. None is an unconditional merge candidate now.
+22. Prioritize credential/input safety; reproducible checks/CI; clear human/agent docs;
+    correct Homebrew setup and reusable diagnostics; container/dependency correctness.
