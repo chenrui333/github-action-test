@@ -26,9 +26,8 @@ env:
 permissions:
   contents: read
 
-# three jobs in this workflow:
-# 1. debug formula on macos (runs on PR only)
-# 2. debug formula on ubuntu (runs on PR only)
+# Branch-based reproductions live here; main intentionally runs only a placeholder.
+# Keep these templates when reproducing behavior tied to a PR event or old bootstrap.
 jobs:
   dummy-job:
     runs-on: ubuntu-24.04
@@ -38,6 +37,7 @@ jobs:
   # # debug formula run on macos-14-arm
   # formula-debug-macos-14-arm:
   #   runs-on: macos-14 # macos-14 is arm runner
+  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -47,11 +47,15 @@ jobs:
   #   steps:
   #     - run: brew update
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@v1
+  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       with:
+  #         limit-access-to-actor: true
+  #         wait-timeout-minutes: 5
 
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
   #   runs-on: macos-15-intel
+  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -61,11 +65,15 @@ jobs:
   #   steps:
   #     - run: brew update
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@v1
+  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       with:
+  #         limit-access-to-actor: true
+  #         wait-timeout-minutes: 5
 
   # # debug formula on ubuntu-22.04-intel
   # formula-debug-ubuntu-22-04-intel:
   #   runs-on: ubuntu-22.04
+  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -73,7 +81,7 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     # As brew got removed from the ubuntu images, we need to install it
+  #     # Use explicit setup; image preinstallation and PATH change over time.
   #     # https://github.com/actions/runner-images/issues/6283
   #     - name: Set up Homebrew
   #       id: set-up-homebrew
@@ -81,11 +89,15 @@ jobs:
   #       uses: Homebrew/actions/setup-homebrew@bc738ca370c95ed8d8b44c9b5fcba16e54f5218a
 
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@v1
+  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       with:
+  #         limit-access-to-actor: true
+  #         wait-timeout-minutes: 5
 
   # # debug formula on ubuntu-22.04-arm
   # formula-debug-ubuntu-22-04-arm:
   #   runs-on: ubuntu-22.04-arm
+  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -93,10 +105,16 @@ jobs:
   #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
   #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+  #       with:
+  #         persist-credentials: false
   #     - name: Setup Homebrew
+  #       working-directory: ${{ github.workspace }}
   #       run: |
   #         .github/workflows/scripts/install_homebrew.sh
 
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@v1
+  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       with:
+  #         limit-access-to-actor: true
+  #         wait-timeout-minutes: 5
