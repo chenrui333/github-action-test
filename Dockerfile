@@ -25,7 +25,7 @@ RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupporte
 
 # Install conftest
 # renovate: datasource=github-releases depName=open-policy-agent/conftest
-ARG CONFTEST_VERSION=0.58.0
+ARG CONFTEST_VERSION=0.69.0
 RUN case "$TARGETARCH" in amd64) ARCH="x86_64" ;; arm64) ARCH="arm64" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fLOsS https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fLOsS https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/checksums.txt && \
