@@ -12,7 +12,7 @@ ARG TARGETARCH
 
 # Install Terraform
 # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-ARG TERRAFORM_VERSION=1.11.1
+ARG TERRAFORM_VERSION=1.16.1
 RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform_SHA256SUMS https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
