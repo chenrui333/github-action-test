@@ -38,7 +38,7 @@ RUN case "$TARGETARCH" in amd64) ARCH="x86_64" ;; arm64) ARCH="arm64" ;; *) echo
     rm checksums.txt conftest.sha256
 
 # renovate: datasource=github-tags depName=golang/tools
-ARG GOIMPORTS_VERSION=0.49.0
+ARG GOIMPORTS_VERSION=0.50.0
 RUN go install golang.org/x/tools/cmd/goimports@v${GOIMPORTS_VERSION}
 
 # A successful cross-platform build must also execute the bundled binaries.
