@@ -3,7 +3,7 @@ name: link-checker
 on:
   pull_request:
     paths:
-      - README.md
+      - '**/*.md'
       - lychee.toml
       - .github/workflows/link-checker.yml
   workflow_dispatch:
@@ -29,5 +29,5 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         with:
-          args: --config ./lychee.toml README.md
+          args: --config ./lychee.toml '**/*.md'
           failIfEmpty: false

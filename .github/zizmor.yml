@@ -1,20 +1,5 @@
 rules:
   dangerous-triggers:
     ignore:
+      # Closed same-repository PRs only; no checkout or execution of PR code.
       - clean-up-closed-prs.yml:3
-  template-injection:
-    ignore:
-      - check-helm.yml:91
-      - check-helm.yml:93
-      - check-helm.yml:94
-      - check-helm.yml:95
-      - credentials.yml:22
-      - delete-event.yml:18
-      - display-github-context.yml:34
-      - display-github-context.yml:42
-      - repository-dispatch.yml:27
-      - repository-dispatch.yml:32
-      - workflow-dispatch.yml:25
-  unpinned-uses:
-    ignore:
-      - credentials.yml:14

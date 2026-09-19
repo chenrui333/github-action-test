@@ -38,24 +38,25 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-') || startsWith(matrix.os, 'macos-')
         shell: bash
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo "RUNNER_OS: $RUNNER_OS"
           echo "RUNNER_ARCH: $RUNNER_ARCH"
-          printf 'GITHUB_CONTEXT: %s\n' "$GITHUB_CONTEXT"
+          printf 'EVENT_CONTEXT: %s\n' "$EVENT_CONTEXT"
 
       - name: Show runner info (Windows)
         if: startsWith(matrix.os, 'windows-')
         shell: pwsh
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo "RUNNER_OS: $env:RUNNER_OS"
           echo "RUNNER_ARCH: $env:RUNNER_ARCH"
-          echo "GITHUB_CONTEXT: $env:GITHUB_CONTEXT"
+          echo "EVENT_CONTEXT: $env:EVENT_CONTEXT"
 
       - name: Post runner info as PR comment
-        if: ${{ github.event_name == 'pull_request' }}
+        # Fork PR tokens cannot write comments; runner diagnostics still run.
+        if: github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

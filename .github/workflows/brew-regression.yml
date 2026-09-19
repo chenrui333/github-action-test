@@ -34,6 +34,7 @@ jobs:
   macos-build:
     name: ${{ matrix.os }} test
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
@@ -52,6 +53,9 @@ jobs:
             echo "Formula input contains unsupported characters: $FORMULA"
             exit 1
           }
+      # setup-homebrew clears this variable through GITHUB_ENV outside core repos.
+      - name: Restore Git-tap installs
+        run: echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
       - run: brew update
       - run: brew install "$FORMULA" && brew test "$FORMULA"
       - run: brew linkage --cached "$FORMULA"
@@ -59,11 +63,14 @@ jobs:
   linux-build:
     name: ubuntu-24.04 test
     runs-on: ubuntu-24.04
+    timeout-minutes: 180
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
         # https://github.com/Homebrew/actions/tree/master/setup-homebrew
         uses: Homebrew/actions/setup-homebrew@fc695c54c2032716dd4cedd007489c8e32fc8a5d
+        with:
+          core: true
       - name: Validate formula input
         run: |
           [[ "$FORMULA" == -* ]] && {
@@ -74,6 +81,9 @@ jobs:
             echo "Formula input contains unsupported characters: $FORMULA"
             exit 1
           }
+      # setup-homebrew clears this variable through GITHUB_ENV outside core repos.
+      - name: Restore Git-tap installs
+        run: echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
       - run: brew update
       - run: brew install "$FORMULA" && brew test "$FORMULA"
       - run: brew linkage --cached "$FORMULA"
