@@ -88,25 +88,25 @@ jobs:
   #       with:
   #         limit-access-to-actor: true
 
-  # # debug formula on ubuntu-24.04-arm
-  # formula-debug-ubuntu-24-04-arm:
-  #   runs-on: ubuntu-24.04-arm
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-  #       with:
-  #         persist-credentials: false
-  #     - name: Setup Homebrew
-  #       working-directory: ${{ github.workspace }}
-  #       run: |
-  #         .github/workflows/scripts/install_homebrew.sh
+  # debug formula on ubuntu-24.04-arm
+  formula-debug-ubuntu-24-04-arm:
+    runs-on: ubuntu-24.04-arm
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Setup Homebrew
+        working-directory: ${{ github.workspace }}
+        run: |
+          .github/workflows/scripts/install_homebrew.sh
 
-  #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
-  #       with:
-  #         limit-access-to-actor: true
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+        with:
+          limit-access-to-actor: true
