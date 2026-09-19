@@ -2,7 +2,7 @@ FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84e
 
 # https://packages.debian.org/stable/unzip
 # renovate: release=stable depName=unzip
-ARG UNZIP_VERSION=6.0-29
+ARG UNZIP_VERSION=6.0-29+deb13u1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends unzip=${UNZIP_VERSION} && \
     rm -rf /var/lib/apt/lists/*
