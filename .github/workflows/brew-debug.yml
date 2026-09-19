@@ -37,7 +37,6 @@ jobs:
   # # debug formula run on macos-14-arm
   # formula-debug-macos-14-arm:
   #   runs-on: macos-14 # macos-14 is arm runner
-  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -54,7 +53,6 @@ jobs:
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
   #   runs-on: macos-15-intel
-  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -71,7 +69,6 @@ jobs:
   # # debug formula on ubuntu-24.04-intel
   # formula-debug-ubuntu-24-04-intel:
   #   runs-on: ubuntu-24.04
-  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
@@ -94,7 +91,6 @@ jobs:
   # # debug formula on ubuntu-24.04-arm
   # formula-debug-ubuntu-24-04-arm:
   #   runs-on: ubuntu-24.04-arm
-  #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
   #     run:
