@@ -12,15 +12,19 @@ sudo mkdir -p /home/linuxbrew/.linuxbrew
 # Ensure the current user owns this directory so that brew can write to it
 sudo chown -R "$USER": /home/linuxbrew/.linuxbrew
 
-echo "Cloning the Homebrew repository..."
-git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
+if [[ -x /home/linuxbrew/.linuxbrew/Homebrew/bin/brew ]]; then
+  echo "Reusing the existing Homebrew installation..."
+else
+  echo "Cloning the Homebrew repository..."
+  git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
+fi
 
 echo "Creating bin directory for Homebrew..."
 sudo mkdir -p /home/linuxbrew/.linuxbrew/bin
 sudo chown -R "$USER": /home/linuxbrew/.linuxbrew/bin
 
 echo "Linking the brew executable..."
-ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
+ln -sfn /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
 
 # Export environment variables so that brew uses the expected prefix
 export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
