@@ -2,7 +2,7 @@ FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84e
 
 # https://packages.debian.org/stable/unzip
 # renovate: release=stable depName=unzip
-ARG UNZIP_VERSION=6.0-29
+ARG UNZIP_VERSION=6.0-29+deb13u1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends unzip=${UNZIP_VERSION} && \
     rm -rf /var/lib/apt/lists/*
@@ -12,7 +12,7 @@ ARG TARGETARCH
 
 # Install Terraform
 # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-ARG TERRAFORM_VERSION=1.16.2
+ARG TERRAFORM_VERSION=1.16.3
 RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform_SHA256SUMS https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
