@@ -1,0 +1,19 @@
+.github/workflows/scripts/install_homebrew.sh
+  s_619d8e6c65911f::t_ab031dfa26ca28 15-20,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b7d71156d1b8c75f0ac94d770146a819c5c959eb",
+  "prompts": {},
+  "sessions": {
+    "s_619d8e6c65911f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0b812-3f40-7241-93fd-56f64aec047f",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
