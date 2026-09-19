@@ -70,9 +70,9 @@ jobs:
   #         limit-access-to-actor: true
   #         wait-timeout-minutes: 5
 
-  # # debug formula on ubuntu-22.04-intel
-  # formula-debug-ubuntu-22-04-intel:
-  #   runs-on: ubuntu-22.04
+  # # debug formula on ubuntu-24.04-intel
+  # formula-debug-ubuntu-24-04-intel:
+  #   runs-on: ubuntu-24.04
   #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
@@ -94,9 +94,9 @@ jobs:
   #         limit-access-to-actor: true
   #         wait-timeout-minutes: 5
 
-  # # debug formula on ubuntu-22.04-arm
-  # formula-debug-ubuntu-22-04-arm:
-  #   runs-on: ubuntu-22.04-arm
+  # # debug formula on ubuntu-24.04-arm
+  # formula-debug-ubuntu-24-04-arm:
+  #   runs-on: ubuntu-24.04-arm
   #   timeout-minutes: 60
   #   if: github.event_name == 'pull_request'
   #   defaults:
