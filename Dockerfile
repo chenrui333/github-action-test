@@ -1,7 +1,7 @@
 FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84ea18c43ea
 
-# https://packages.debian.org/stable/unzip
-# renovate: release=stable depName=unzip
+# https://packages.debian.org/trixie/unzip
+# renovate: suite=trixie depName=unzip
 ARG UNZIP_VERSION=6.0-29+deb13u1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends unzip=${UNZIP_VERSION} && \
@@ -23,7 +23,7 @@ RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupporte
     ln -s /usr/local/bin/tf/versions/${TERRAFORM_VERSION}/terraform /usr/local/bin/terraform && \
     rm terraform.zip terraform_SHA256SUMS terraform.sha256
 
-# Install conftest
+# Install conftest; its release bundles OPA, which updates with conftest.
 # renovate: datasource=github-releases depName=open-policy-agent/conftest
 ARG CONFTEST_VERSION=0.70.0
 RUN case "$TARGETARCH" in amd64) ARCH="x86_64" ;; arm64) ARCH="arm64" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \

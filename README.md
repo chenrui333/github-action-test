@@ -85,6 +85,30 @@ The credential-file workflow verifies decoding without printing file content.
 
 ## Maintenance
 
+### Container dependencies
+
+The [Dockerfile](Dockerfile) pins Terraform, Conftest, goimports, and Debian unzip.
+[Renovate](.github/renovate.json5) reads the comments immediately above their
+`ARG ..._VERSION` declarations and opens update PRs. Keep each annotation next to
+its version when editing the Dockerfile. Tool release versions retain prerelease
+suffixes so Renovate can distinguish stable releases from prereleases.
+
+OPA is bundled inside the upstream Conftest binary. Update `CONFTEST_VERSION` to
+update Conftest and its bundled OPA together; there is no separate OPA pin in this
+image. Check the [Conftest release notes](https://github.com/open-policy-agent/conftest/releases)
+for the bundled OPA version.
+
+The unzip annotation uses the Debian `trixie` suite to match the Go base image.
+Review this suite when the base image changes distribution. Debian package
+revisions are preserved, including suffixes such as `+deb13u1`; these updates skip
+the release-age delay because Debian package indexes do not supply release dates.
+
+Docker PR checks build for `linux/amd64` and `linux/arm64`, verify downloaded
+checksums, and execute Terraform, Conftest (which reports its OPA version), and
+goimports. The main-branch build publishes the resulting image after a merge.
+
+### Repository upkeep
+
 See the [September 2026 audit](docs/maintenance-audit-2026-09-05.md) for workflow
 classification, runner compatibility, security findings, and proposed PR dispositions.
 

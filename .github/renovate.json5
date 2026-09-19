@@ -13,6 +13,11 @@
   internalChecksFilter: 'strict',
   packageRules: [
     {
+      matchDatasources: ['deb'],
+      // Debian package indexes do not provide release timestamps.
+      minimumReleaseAge: null,
+    },
+    {
       matchUpdateTypes: [
         'digest',
         'pinDigest',
@@ -44,7 +49,20 @@
         'renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s(?:ARG|ENV) .*?_VERSION=(?<currentValue>.*)\\s',
       ],
       versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
-      extractVersionTemplate: '^v?(?<version>\\d+\\.\\d+\\.\\d+)',
+      extractVersionTemplate: '^v?(?<version>\\d+\\.\\d+\\.\\d+.*)$',
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/(^|/)Dockerfile$/',
+        '/(^|/)Dockerfile\\.[^/]*$/',
+      ],
+      matchStrings: [
+        'renovate: suite=(?<suite>\\S+) depName=(?<depName>\\S+)\\s+(?:ARG|ENV) \\w+_VERSION=(?<currentValue>\\S+)',
+      ],
+      datasourceTemplate: 'deb',
+      versioningTemplate: 'deb',
+      registryUrlTemplate: 'https://deb.debian.org/debian?suite={{{suite}}}&components=main&binaryArch=amd64',
     },
     {
       customType: 'regex',
