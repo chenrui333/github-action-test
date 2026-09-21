@@ -46,7 +46,7 @@ jobs:
   #   steps:
   #     - run: brew update
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
   #         limit-access-to-actor: true
 
@@ -62,7 +62,7 @@ jobs:
   #   steps:
   #     - run: brew update
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
   #         limit-access-to-actor: true
 
@@ -84,7 +84,7 @@ jobs:
   #       uses: Homebrew/actions/setup-homebrew@bc738ca370c95ed8d8b44c9b5fcba16e54f5218a
 
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
   #         limit-access-to-actor: true
 
@@ -107,6 +107,6 @@ jobs:
           .github/workflows/scripts/install_homebrew.sh
 
       - name: Setup upterm session
-        uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+        uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
         with:
           limit-access-to-actor: true
