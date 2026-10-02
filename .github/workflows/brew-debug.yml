@@ -48,7 +48,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
 
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
@@ -64,7 +64,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
 
   # # debug formula on ubuntu-24.04-intel
   # formula-debug-ubuntu-24-04-intel:
@@ -86,7 +86,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
 
   # # debug formula on ubuntu-24.04-arm
   # formula-debug-ubuntu-24-04-arm:
@@ -109,4 +109,4 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
