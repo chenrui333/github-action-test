@@ -48,8 +48,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
-  #         limit-access-to-actor: true
-  #         limit-access-to-users: chenrui333
+  #         limit-access-to-actor: false
   #         upterm-version: v0.34.0
 
   # # debug formula run on macos-15-intel
@@ -66,8 +65,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
-  #         limit-access-to-actor: true
-  #         limit-access-to-users: chenrui333
+  #         limit-access-to-actor: false
   #         upterm-version: v0.34.0
 
   # debug formula on ubuntu-24.04-intel
@@ -90,8 +88,7 @@ jobs:
       - name: Setup upterm session
         uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
         with:
-          limit-access-to-actor: true
-          limit-access-to-users: chenrui333
+          limit-access-to-actor: false
           upterm-version: v0.34.0
 
   # # debug formula on ubuntu-24.04-arm
@@ -115,6 +112,5 @@ jobs:
   #     - name: Setup upterm session
   #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
-  #         limit-access-to-actor: true
-  #         limit-access-to-users: chenrui333
+  #         limit-access-to-actor: false
   #         upterm-version: v0.34.0
