@@ -1,0 +1,19 @@
+.github/workflows/brew-debug.yml
+  s_20ee2ac03ef1eb::t_cf2d51d4ffb8d2 51,67,89,112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6ca15eb9c75e44d8af45690b3582caeafd99e4de",
+  "prompts": {},
+  "sessions": {
+    "s_20ee2ac03ef1eb": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0f20e-6f07-75f0-8662-3a1b08a3a7cb",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
