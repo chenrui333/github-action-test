@@ -1,0 +1,14 @@
+.github/workflows/brew-debug.yml
+  h_9df9c32c3f321d 49,52,66,69,89,92,113,116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcb6a2e83cc3c52e971cf35c35bd14139ffd335d",
+  "prompts": {},
+  "humans": {
+    "h_9df9c32c3f321d": {
+      "author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
