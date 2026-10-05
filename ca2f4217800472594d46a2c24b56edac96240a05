@@ -1,0 +1,21 @@
+.github/renovate.json5
+  s_c517a26a880b8f::t_284e40bb673fb7 15-19,52-65
+Dockerfile
+  s_c517a26a880b8f::t_284e40bb673fb7 3-4,26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ca2f4217800472594d46a2c24b56edac96240a05",
+  "prompts": {},
+  "sessions": {
+    "s_c517a26a880b8f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0b806-3fa5-79f1-a4eb-0ea0b0239229",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}

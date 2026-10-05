@@ -1,0 +1,19 @@
+Dockerfile
+  s_c517a26a880b8f::t_cc3ef9b20d211f 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "13f2676c7b4a0183461fa26d5e699835deba5925",
+  "prompts": {},
+  "sessions": {
+    "s_c517a26a880b8f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0b806-3fa5-79f1-a4eb-0ea0b0239229",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}

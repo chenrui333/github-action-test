@@ -1,0 +1,28 @@
+.github/workflows/brew-debug.yml
+  h_9df9c32c3f321d 51,67,89,112
+.github/workflows/lint.yml
+  s_c7b0f71fa0ff85::t_31ac1bf3a3db3a 40
+Dockerfile
+  s_c7b0f71fa0ff85::t_bd5a96f1f587a5 1,15,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2207dc0d12e33b72f5ba95b3109538465efcdb21",
+  "prompts": {},
+  "humans": {
+    "h_9df9c32c3f321d": {
+      "author": "Rui Chen <rui@chenrui.dev>"
+    }
+  },
+  "sessions": {
+    "s_c7b0f71fa0ff85": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a101b8-ed6e-7140-aa74-048f4ddf9734",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}

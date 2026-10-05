@@ -1,0 +1,41 @@
+.github/workflows/delete-event.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 14
+.github/workflows/labeler.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 12
+.github/workflows/hurl.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 22
+.github/workflows/release.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 16,21,27,32,39
+.github/workflows/docker.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 18,23,29,34,40,47
+.github/workflows/credentials.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 14
+.github/workflows/lang-go.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 27
+.github/workflows/link-checker.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 18
+.github/workflows/compress-images.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 20
+.github/workflows/workflow-dispatch.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 21
+.github/workflows/repository-dispatch.yml
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 23,42
+Dockerfile
+  s_b24d4a3cdf5791::t_fcc9c565c2dc44 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "5cce51ad07b0025be16ff773189851ab90f42fb2",
+  "prompts": {},
+  "sessions": {
+    "s_b24d4a3cdf5791": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019e9617-40ab-71d0-9344-5bc7b5cb33eb",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}

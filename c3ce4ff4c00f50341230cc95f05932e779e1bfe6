@@ -1,0 +1,19 @@
+.github/workflows/brew-debug.yml
+  s_61f8aff34e6669::t_97978ba34ecf02 37-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c3ce4ff4c00f50341230cc95f05932e779e1bfe6",
+  "prompts": {},
+  "sessions": {
+    "s_61f8aff34e6669": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0b82b-df94-7d50-83af-42948fa7da1e",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
