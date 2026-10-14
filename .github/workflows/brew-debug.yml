@@ -34,21 +34,22 @@ jobs:
     steps:
       - run: echo "dummy job"
 
-  # # debug formula run on macos-14-arm
-  # formula-debug-macos-14-arm:
-  #   runs-on: macos-14 # macos-14 is arm runner
-  #   if: github.event_name == 'pull_request'
-  #   defaults:
-  #     run:
-  #       # simplify the debugging flow
-  #       # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
-  #       working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
-  #   steps:
-  #     - run: brew update
-  #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
-  #       with:
-  #         limit-access-to-actor: false
+  # debug formula run on macos-26-arm
+  formula-debug-macos-26-arm:
+    runs-on: macos-26 # macos-26 is arm runner
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        # simplify the debugging flow
+        # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
+        working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
+    steps:
+      - run: brew update
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
+        with:
+          limit-access-to-actor: false
+          upterm-version: v0.34.0
 
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
@@ -62,9 +63,10 @@ jobs:
   #   steps:
   #     - run: brew update
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
   #         limit-access-to-actor: false
+  #         upterm-version: v0.34.0
 
   # # debug formula on ubuntu-24.04-intel
   # formula-debug-ubuntu-24-04-intel:
@@ -84,9 +86,10 @@ jobs:
   #       uses: Homebrew/actions/setup-homebrew@bc738ca370c95ed8d8b44c9b5fcba16e54f5218a
 
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
   #         limit-access-to-actor: false
+  #         upterm-version: v0.34.0
 
   # # debug formula on ubuntu-24.04-arm
   # formula-debug-ubuntu-24-04-arm:
@@ -107,6 +110,7 @@ jobs:
   #         .github/workflows/scripts/install_homebrew.sh
 
   #     - name: Setup upterm session
-  #       uses: owenthereal/action-upterm@47652056242288ccbebd30f836e9885d09a75365 # v1
+  #       uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
   #       with:
   #         limit-access-to-actor: false
+  #         upterm-version: v0.34.0
