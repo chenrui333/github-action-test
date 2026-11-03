@@ -1,0 +1,50 @@
+.github/workflows/archive-page.yml
+  h_9df9c32c3f321d 14
+.github/workflows/brew-regression-build.yml
+  h_9df9c32c3f321d 65
+.github/workflows/brew-regression.yml
+  h_9df9c32c3f321d 65
+.github/workflows/chenrui-dev.yml
+  h_9df9c32c3f321d 13
+.github/workflows/clean-up-closed-prs.yml
+  h_9df9c32c3f321d 18
+.github/workflows/compress-images.yml
+  h_9df9c32c3f321d 18
+.github/workflows/credentials.yml
+  h_9df9c32c3f321d 11
+.github/workflows/delete-event.yml
+  h_9df9c32c3f321d 12
+.github/workflows/docker.yml
+  h_9df9c32c3f321d 20,40,47
+.github/workflows/hurl.yml
+  h_9df9c32c3f321d 20,33
+.github/workflows/labeler.yml
+  h_9df9c32c3f321d 7
+.github/workflows/lang-java.yml
+  h_9df9c32c3f321d 28
+.github/workflows/link-checker.yml
+  h_9df9c32c3f321d 16
+.github/workflows/lint.yml
+  h_9df9c32c3f321d 34,40
+.github/workflows/release.yml
+  h_9df9c32c3f321d 13,35
+.github/workflows/repository-dispatch.yml
+  h_9df9c32c3f321d 21,41
+.github/workflows/workflow-dispatch.yml
+  h_9df9c32c3f321d 19
+Dockerfile
+  h_9df9c32c3f321d 1,15,28,41
+mise.toml
+  h_9df9c32c3f321d 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2ff5799cd9c5fcc25823c9ee8b1af0e887092b80",
+  "prompts": {},
+  "humans": {
+    "h_9df9c32c3f321d": {
+      "author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
