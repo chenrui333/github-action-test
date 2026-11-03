@@ -1,4 +1,4 @@
-FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84ea18c43ea
+FROM golang:1.27@sha256:2920bb124f1a2e12a1d39f0cab756ae0068441ee1da7655dec7f5e374944095b
 
 # https://packages.debian.org/trixie/unzip
 # renovate: suite=trixie depName=unzip
@@ -12,7 +12,7 @@ ARG TARGETARCH
 
 # Install Terraform
 # renovate: datasource=github-releases depName=hashicorp/terraform versioning=hashicorp
-ARG TERRAFORM_VERSION=1.16.3
+ARG TERRAFORM_VERSION=1.17.1
 RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fsSLo terraform_SHA256SUMS https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS && \
@@ -25,7 +25,7 @@ RUN case "$TARGETARCH" in amd64|arm64) ARCH="$TARGETARCH" ;; *) echo "Unsupporte
 
 # Install conftest; its release bundles OPA, which updates with conftest.
 # renovate: datasource=github-releases depName=open-policy-agent/conftest
-ARG CONFTEST_VERSION=0.70.0
+ARG CONFTEST_VERSION=0.71.1
 RUN case "$TARGETARCH" in amd64) ARCH="x86_64" ;; arm64) ARCH="arm64" ;; *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; esac && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fLOsS https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_${ARCH}.tar.gz && \
     curl --retry 3 --retry-all-errors --connect-timeout 20 --max-time 300 -fLOsS https://github.com/open-policy-agent/conftest/releases/download/v${CONFTEST_VERSION}/checksums.txt && \
@@ -38,7 +38,7 @@ RUN case "$TARGETARCH" in amd64) ARCH="x86_64" ;; arm64) ARCH="arm64" ;; *) echo
     rm checksums.txt conftest.sha256
 
 # renovate: datasource=github-tags depName=golang/tools
-ARG GOIMPORTS_VERSION=0.50.0
+ARG GOIMPORTS_VERSION=0.52.0
 RUN go install golang.org/x/tools/cmd/goimports@v${GOIMPORTS_VERSION}
 
 # A successful cross-platform build must also execute the bundled binaries.
