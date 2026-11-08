@@ -1,0 +1,6 @@
+---
+self-hosted-runner:
+  # GitHub-hosted, but not yet in actionlint's known runner labels (1.7.12).
+  # Drop once actionlint ships support for it.
+  labels:
+    - ubuntu-26.04
