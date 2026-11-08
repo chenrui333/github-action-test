@@ -1,0 +1,14 @@
+.github/actionlint.yaml
+  h_9df9c32c3f321d 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "37c0f814761306d55378072a9edd2d9d13e443ca",
+  "prompts": {},
+  "humans": {
+    "h_9df9c32c3f321d": {
+      "author": "Rui Chen <rui@chenrui.dev>"
+    }
+  }
+}
