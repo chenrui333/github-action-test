@@ -1,89 +1,114 @@
-# ref, https://stackoverflow.com/questions/71791532/github-actions-homebrew-install-terraform-version-lags-behind
 name: brew-regression-build
-
-# ref, https://github.blog/changelog/2022-09-26-github-actions-dynamic-names-for-workflow-runs/
-run-name: regression build "${{inputs.formula}}"
+run-name: "Julia #325420 ARM memory proof"
 
 on:
   workflow_dispatch:
     inputs:
       formula:
-        description: Formula name
+        description: Formula under qualification
         required: true
-
-env:
-  # `test` and `audit` are test dev commands
-  HOMEBREW_DEVELOPER: 1
-  HOMEBREW_NO_AUTO_UPDATE: 1
-  HOMEBREW_NO_ANALYTICS: 1
-  # https://github.com/Homebrew/homebrew-core/blob/2b267008a1315bae4bceb2efb4a9e503e2d00b62/.github/workflows/tests.yml#L16-L17
-  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
-  HOMEBREW_ARM64_TESTING: 1
-  # save some time
-  HOMEBREW_NO_INSTALL_CLEANUP: 1
-  # no need to upgrade dependants
-  HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
-  # https://github.com/Homebrew/homebrew-test-bot/pull/868
-  HOMEBREW_NO_INSTALL_FROM_API: 1
-  FORMULA: ${{ inputs.formula }}
+        default: julia
 
 permissions:
   contents: read
 
-jobs:
-  macos-build:
-    name: ${{ matrix.os }} build
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 180
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - macos-15-intel
-          - macos-14
-          - macos-15
-    steps:
-      - name: Validate formula input
-        run: |
-          [[ "$FORMULA" == -* ]] && {
-            echo "Formula input must not start with '-'"
-            exit 1
-          }
-          [[ "$FORMULA" =~ ^[A-Za-z0-9@._+/-]+$ ]] || {
-            echo "Formula input contains unsupported characters: $FORMULA"
-            exit 1
-          }
-      # setup-homebrew clears this variable through GITHUB_ENV outside core repos.
-      - name: Restore Git-tap installs
-        run: echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
-      - run: brew update
-      - run: brew install -s "$FORMULA" && brew test "$FORMULA"
-      - run: brew linkage --cached "$FORMULA"
+env:
+  HOMEBREW_DEVELOPER: 1
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_BUILD_ERROR_ISSUES: 1
+  HOMEBREW_ARM64_TESTING: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+  HOMEBREW_NO_AUTOREMOVE: 1
+  HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+  HOMEBREW_MAKE_JOBS: 2
+  HOMEBREW_LOGS: ${{ github.workspace }}/diagnostics/brew-logs
+  HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
+  FORMULA: ${{ inputs.formula }}
 
-  linux-build:
-    name: ubuntu-24.04 build
-    runs-on: ubuntu-26.04
+jobs:
+  julia-arm:
+    runs-on: ubuntu-24.04-arm
     timeout-minutes: 180
     steps:
-      - name: Set up Homebrew
-        id: set-up-homebrew
-        # https://github.com/Homebrew/actions/tree/master/setup-homebrew
-        uses: Homebrew/actions/setup-homebrew@fc695c54c2032716dd4cedd007489c8e32fc8a5d
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          core: true
-      - name: Validate formula input
+          persist-credentials: false
+      - name: Validate exact target
+        run: test "$FORMULA" = julia
+      - name: Record resources and add swap
+        shell: bash
         run: |
-          [[ "$FORMULA" == -* ]] && {
-            echo "Formula input must not start with '-'"
+          mkdir -p diagnostics
+          {
+            uname -a
+            free -h
+            df -h .
+            cat /sys/fs/cgroup/memory.events 2>/dev/null || true
+          } | tee diagnostics/resources-before.txt
+          sudo fallocate -l 16G "$RUNNER_TEMP/julia.swap"
+          sudo chmod 600 "$RUNNER_TEMP/julia.swap"
+          sudo mkswap "$RUNNER_TEMP/julia.swap"
+          sudo swapon "$RUNNER_TEMP/julia.swap"
+          swapon --show | tee diagnostics/swap.txt
+          free -h | tee diagnostics/resources-with-swap.txt
+      - name: Bootstrap native Homebrew
+        shell: bash
+        run: |
+          bash .github/workflows/scripts/install_homebrew.sh
+          echo /home/linuxbrew/.linuxbrew/bin >> "$GITHUB_PATH"
+          echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
+      - name: Pin exact unchanged Julia recipe
+        shell: bash
+        run: |
+          core="$(brew --repository homebrew/core)"
+          git -C "$core" fetch --depth=2 origin 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
+          git -C "$core" checkout --detach 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
+          test "$(git -C "$core" rev-parse HEAD)" = 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
+          brew info --json=v2 julia > diagnostics/recipe.json
+          if brew list --formula --versions julia; then
+            echo 'Unexpected pre-existing Julia formula; preserving it.'
             exit 1
-          }
-          [[ "$FORMULA" =~ ^[A-Za-z0-9@._+/-]+$ ]] || {
-            echo "Formula input contains unsupported characters: $FORMULA"
-            exit 1
-          }
-      # setup-homebrew clears this variable through GITHUB_ENV outside core repos.
-      - name: Restore Git-tap installs
-        run: echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
-      - run: brew update
-      - run: brew install -s "$FORMULA" && brew test "$FORMULA"
-      - run: brew linkage --cached "$FORMULA"
+          fi
+          touch diagnostics/no-baseline-julia
+      - name: Source build with peak-memory evidence
+        shell: bash
+        run: |
+          set -o pipefail
+          /usr/bin/time -v -o diagnostics/time.txt brew install --verbose --build-bottle julia 2>&1 | tee diagnostics/build.log
+      - name: Verify installed consumer and package
+        shell: bash
+        run: |
+          set -o pipefail
+          julia="$(brew --prefix julia)/bin/julia"
+          test "$("$julia" -e 'print(VERSION)')" = 1.13.4
+          brew test julia 2>&1 | tee diagnostics/test.log
+          brew linkage --test julia 2>&1 | tee diagnostics/linkage.log
+          brew audit --strict --git julia 2>&1 | tee diagnostics/audit.log
+          brew style julia 2>&1 | tee diagnostics/style.log
+          brew bottle --json julia 2>&1 | tee diagnostics/bottle.log
+      - name: Preserve resource diagnostics and uninstall test package
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p diagnostics
+          {
+            free -h
+            cat /sys/fs/cgroup/memory.events 2>/dev/null || true
+            sudo dmesg --ctime | grep -Ei 'out of memory|killed process|oom-kill' || true
+          } | tee diagnostics/resources-after.txt
+          if [[ -f diagnostics/no-baseline-julia ]] && command -v brew >/dev/null && brew list --formula --versions julia; then
+            brew uninstall --formula julia
+          fi
+          if swapon --show=NAME --noheadings | grep -Fx "$RUNNER_TEMP/julia.swap"; then
+            sudo swapoff "$RUNNER_TEMP/julia.swap"
+            sudo rm -f "$RUNNER_TEMP/julia.swap"
+          fi
+      - name: Upload qualification evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: julia-325420-linux-arm-memory-proof
+          path: diagnostics
+          retention-days: 7
