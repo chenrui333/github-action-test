@@ -213,6 +213,9 @@ class Julia < Formula
         system "patchelf", "--page-size", "65536", "--add-rpath", HOMEBREW_PREFIX/"lib",
                           lib/"julia"/shared_library(library)
       end
+      (libexec/"julia").children.reject(&:symlink?).each do |tool|
+        system "patchelf", "--page-size", "65536", "--add-rpath", HOMEBREW_PREFIX/"lib", tool
+      end
 
       # Replace symlinks referencing Cellar paths with ones using opt paths
       deps.reject(&:build?).map(&:to_formula).map(&:opt_lib).each do |libdir|
