@@ -30,7 +30,7 @@ permissions:
 # Keep these templates when reproducing behavior tied to a PR event or old bootstrap.
 jobs:
   dummy-job:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - run: echo "dummy job"
 
@@ -44,11 +44,20 @@ jobs:
         # https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
         working-directory: /opt/homebrew/Library/Taps/homebrew/homebrew-core
     steps:
+      # Runner images no longer ship the homebrew/core Git tap; core: true clones it.
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@fc695c54c2032716dd4cedd007489c8e32fc8a5d
+        with:
+          core: true
+      # setup-homebrew clears this variable through GITHUB_ENV outside core repos.
+      - name: Restore Git-tap installs
+        run: echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
       - run: brew update
       - name: Setup upterm session
-        uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
+        uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
         with:
-          limit-access-to-actor: true
+          limit-access-to-actor: false
+          upterm-version: v0.41.1
 
   # # debug formula run on macos-15-intel
   # formula-debug-macos-15-intel:
@@ -64,7 +73,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
 
   # # debug formula on ubuntu-24.04-intel
   # formula-debug-ubuntu-24-04-intel:
@@ -86,7 +95,7 @@ jobs:
   #     - name: Setup upterm session
   #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false
 
   # # debug formula on ubuntu-24.04-arm
   # formula-debug-ubuntu-24-04-arm:
@@ -109,4 +118,4 @@ jobs:
   #     - name: Setup upterm session
   #       uses: chenrui333/action-upterm@27184143ab4ab410a38be4f8615e5a5ed1e096b8 # Upterm v0.30 compatibility test
   #       with:
-  #         limit-access-to-actor: true
+  #         limit-access-to-actor: false

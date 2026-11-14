@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   site-check:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: test site
         run: wget --spider https://chenrui.dev
