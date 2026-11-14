@@ -89,7 +89,7 @@ jobs:
         uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v1
         with:
           limit-access-to-actor: false
-          upterm-version: v0.34.0
+          upterm-version: v0.41.1
 
   # # debug formula on ubuntu-24.04-arm
   # formula-debug-ubuntu-24-04-arm:
