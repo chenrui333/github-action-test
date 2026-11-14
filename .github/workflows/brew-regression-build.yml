@@ -1,5 +1,5 @@
 name: brew-regression-build
-run-name: "Julia #325420 ARM memory proof"
+run-name: "Julia #325420 GC-lowering backport proof"
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ env:
 jobs:
   julia-arm:
     runs-on: ubuntu-24.04-arm
-    timeout-minutes: 180
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -43,6 +43,7 @@ jobs:
           mkdir -p diagnostics
           {
             uname -a
+            lscpu
             free -h
             df -h .
             cat /sys/fs/cgroup/memory.events 2>/dev/null || true
@@ -59,13 +60,17 @@ jobs:
           bash .github/workflows/scripts/install_homebrew.sh
           echo /home/linuxbrew/.linuxbrew/bin >> "$GITHUB_PATH"
           echo 'HOMEBREW_NO_INSTALL_FROM_API=1' >> "$GITHUB_ENV"
-      - name: Pin exact unchanged Julia recipe
+      - name: Pin Julia base and stage exact backport candidate
         shell: bash
         run: |
           core="$(brew --repository homebrew/core)"
           git -C "$core" fetch --depth=2 origin 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
           git -C "$core" checkout --detach 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
           test "$(git -C "$core" rev-parse HEAD)" = 792929565ba6ee03d54e0e5bcbfe2f61e1c9955a
+          cp .github/workflows/fixtures/julia.rb "$core/Formula/j/julia.rb"
+          cmp .github/workflows/fixtures/julia.rb "$core/Formula/j/julia.rb"
+          sha256sum .github/workflows/fixtures/julia.rb "$core/Formula/j/julia.rb" > diagnostics/recipe-sources.sha256
+          printf '%s\n' "$GITHUB_SHA" > diagnostics/candidate-commit.txt
           brew info --json=v2 julia > diagnostics/recipe.json
           if brew list --formula --versions julia; then
             echo 'Unexpected pre-existing Julia formula; preserving it.'
@@ -76,7 +81,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          /usr/bin/time -v -o diagnostics/time.txt brew install --verbose --build-bottle julia 2>&1 | tee diagnostics/build.log
+          /usr/bin/time -v -o diagnostics/time.txt brew install --verbose --build-bottle --keep-tmp julia 2>&1 | tee diagnostics/build.log
       - name: Verify installed consumer and package
         shell: bash
         run: |
@@ -88,6 +93,24 @@ jobs:
           brew audit --strict --git julia 2>&1 | tee diagnostics/audit.log
           brew style julia 2>&1 | tee diagnostics/style.log
           brew bottle --json julia 2>&1 | tee diagnostics/bottle.log
+      - name: Run upstream dynamic-index GC regression
+        shell: bash
+        run: |
+          set -o pipefail
+          temp="$(brew ruby -e 'puts HOMEBREW_TEMP')"
+          shopt -s nullglob
+          builds=("$temp"/s-*/julia-*/julia-1.13.4)
+          test "${#builds[@]}" = 1
+          build="${builds[0]}"
+          fixture="$build/test/llvmpasses/late-lower-gc-dynamic-index.ll"
+          test -x "$build/usr/tools/opt"
+          test -x "$build/usr/tools/FileCheck"
+          test -f "$fixture"
+          export LD_LIBRARY_PATH="$build/usr/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+          "$build/usr/tools/opt" --load-pass-plugin="$build/usr/lib/libjulia-codegen.so" \
+            -passes='function(LateLowerGCFrame)' -verify-each -S "$fixture" \
+            | tee diagnostics/gc-lowering.ll \
+            | "$build/usr/tools/FileCheck" "$fixture"
       - name: Preserve resource diagnostics and uninstall test package
         if: always()
         shell: bash
@@ -109,6 +132,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: julia-325420-linux-arm-memory-proof
+          name: julia-325420-linux-arm-gc-backport-proof
           path: diagnostics
           retention-days: 7
