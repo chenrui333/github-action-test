@@ -208,6 +208,12 @@ class Julia < Formula
 
     system "make", *args, "install"
     if OS.linux?
+      # Julia resets rpaths during installation; restore Homebrew's non-system library path.
+      %w[libjulia-internal libjulia-codegen libLLVM].each do |library|
+        system "patchelf", "--page-size", "65536", "--add-rpath", HOMEBREW_PREFIX/"lib",
+                          lib/"julia"/shared_library(library)
+      end
+
       # Replace symlinks referencing Cellar paths with ones using opt paths
       deps.reject(&:build?).map(&:to_formula).map(&:opt_lib).each do |libdir|
         libdir.glob(shared_library("*")) do |so|

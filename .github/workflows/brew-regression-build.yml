@@ -1,5 +1,5 @@
 name: brew-regression-build
-run-name: "Julia #325420 GC-lowering backport proof"
+run-name: "Julia #325420 GC and Linux loader proof"
 
 on:
   workflow_dispatch:
@@ -78,22 +78,24 @@ jobs:
           fi
           touch diagnostics/no-baseline-julia
       - name: Source build with peak-memory evidence
+        id: source
         shell: bash
         run: |
           set -o pipefail
           /usr/bin/time -v -o diagnostics/time.txt brew install --verbose --build-bottle --keep-tmp julia 2>&1 | tee diagnostics/build.log
       - name: Verify installed consumer and package
+        if: ${{ !cancelled() && steps.source.outcome == 'success' }}
         shell: bash
         run: |
           set -o pipefail
           julia="$(brew --prefix julia)/bin/julia"
-          test "$("$julia" -e 'print(VERSION)')" = 1.13.4
+          test "$(env -u LD_LIBRARY_PATH "$julia" --startup-file=no --history-file=no -e 'print(VERSION)')" = 1.13.4
           brew test julia 2>&1 | tee diagnostics/test.log
           brew linkage --test julia 2>&1 | tee diagnostics/linkage.log
           brew audit --strict --git julia 2>&1 | tee diagnostics/audit.log
           brew style julia 2>&1 | tee diagnostics/style.log
-          brew bottle --json julia 2>&1 | tee diagnostics/bottle.log
       - name: Run upstream dynamic-index GC regression
+        if: ${{ !cancelled() && steps.source.outcome == 'success' }}
         shell: bash
         run: |
           set -o pipefail
@@ -106,11 +108,18 @@ jobs:
           test -x "$build/usr/tools/opt"
           test -x "$build/usr/tools/FileCheck"
           test -f "$fixture"
-          export LD_LIBRARY_PATH="$build/usr/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+          prefix="$(brew --prefix)"
+          export LD_LIBRARY_PATH="$build/usr/lib:$prefix/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
           "$build/usr/tools/opt" --load-pass-plugin="$build/usr/lib/libjulia-codegen.so" \
             -passes='function(LateLowerGCFrame)' -verify-each -S "$fixture" \
             | tee diagnostics/gc-lowering.ll \
             | "$build/usr/tools/FileCheck" "$fixture"
+      - name: Bottle the source build
+        if: ${{ !cancelled() && steps.source.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -o pipefail
+          brew bottle --json julia 2>&1 | tee diagnostics/bottle.log
       - name: Preserve resource diagnostics and uninstall test package
         if: always()
         shell: bash
@@ -128,10 +137,19 @@ jobs:
             sudo swapoff "$RUNNER_TEMP/julia.swap"
             sudo rm -f "$RUNNER_TEMP/julia.swap"
           fi
+      - name: Preserve diagnostic bottle on failure
+        if: ${{ failure() && steps.source.outcome == 'success' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: julia-325420-linux-arm-diagnostic-bottle
+          path: |
+            julia--*.bottle*.tar.gz
+            julia--*.bottle.json
+          retention-days: 1
       - name: Upload qualification evidence
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: julia-325420-linux-arm-gc-backport-proof
+          name: julia-325420-linux-arm-gc-loader-proof
           path: diagnostics
           retention-days: 7
